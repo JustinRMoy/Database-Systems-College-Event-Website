@@ -1,36 +1,29 @@
 <?php
-
+	require 'db_conn.config';
 	$inData = getRequestInfo();
 	
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
 
-	$conn = new mysqli("198.199.77.197", "root", "4710Databse", "DataBasey");
-	if ($conn->connect_error) 
+	$sql = "SELECT ID,firstName,lastName FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
+	$result = $conn->query($sql);
+	if ($result->num_rows > 0)
 	{
-		returnWithError( $conn->connect_error );
-	} 
+		$row = $result->fetch_assoc();
+		$firstName = $row["firstName"];
+		$lastName = $row["lastName"];
+		$id = $row["ID"];
+			
+		returnWithInfo($firstName, $lastName, $id );
+	}
 	else
 	{
-		$sql = "SELECT ID,firstName,lastName FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0)
-		{
-			$row = $result->fetch_assoc();
-			$firstName = $row["firstName"];
-			$lastName = $row["lastName"];
-			$id = $row["ID"];
-			
-			returnWithInfo($firstName, $lastName, $id );
-		}
-		else
-		{
-			returnWithError( "No Records Found" );
-		}
-		$conn->close();
+		returnWithError( "No Records Found" );
 	}
-	
+
+	$conn->close();
+
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
