@@ -1,0 +1,83 @@
+body{
+    background-color: #333;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    color: black;
+}
+
+a:hover{
+    color: blue;
+}
+
+.top-box{
+    background-color: darkgoldenrod;
+    border-bottom: 2px black solid;
+    padding: 20px 0;
+    width: 100%;
+    margin: auto;
+
+}
+
+.top-box h1{
+    font-weight: 200;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.main-box {
+    border-radius: 5px;
+    background-color: darkgoldenrod;
+    width: 30%;
+    margin: auto;
+    position: relative;
+}
+
+.a-link {
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    padding-bottom: 5px;
+}
+
+.a-link:focus{
+    outline: none;
+}
+
+.main-box h1{
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.login-form{
+   padding: 5px;
+}
+
+.login-form input[type=text]{
+    display:block;
+    border-radius: 5px;
+    background-color: lightgray;
+    border: 0px;
+    width: 50%;
+    margin: 10px auto;
+    padding: 15px;
+    text-align:center;
+}
+
+.login-form input[type=text]:focus{
+    outline: groove black;
+    outline-offset: -2px;
+    
+}
+
+    .login-form input[type=submit] {
+        background-color: black;
+        color: darkgoldenrod;
+        border-radius: 5px;
+        border: 0px;
+        width: 50%;
+        margin: 10px 25%;
+        padding: 15px;
+    }
