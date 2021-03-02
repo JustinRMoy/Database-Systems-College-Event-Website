@@ -1,57 +1,50 @@
 <?php
-
+	require 'db_conn.config';
 	$inData = getRequestInfo();
 	
 	$id = 0;
 	$firstName = "";
 	$lastName = "";
 
-	$conn = new mysqli("198.199.77.197", "root", "4710Databse", "DataBasey");
-	if ($conn->connect_error) 
+	$sql = "SELECT Username FROM Users where Login='" . $inData["Username"] . "' and Password='" . $inData["password"] . "'";
+	$result = query($sql);
+	if ($result->num_rows > 0)
 	{
-		returnWithError( $conn->connect_error );
-	} 
+		$row = $result->fetch_assoc();
+		$Username = $row["Username"];
+		$Password = $row["Password"];
+			
+		returnWithInfo($Username, $Password);
+	}
 	else
 	{
-		$sql = "SELECT ID,firstName,lastName FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
-		$result = $conn->query($sql);
-		if ($result->num_rows > 0)
-		{
-			$row = $result->fetch_assoc();
-			$firstName = $row["firstName"];
-			$lastName = $row["lastName"];
-			$id = $row["ID"];
-			
-			returnWithInfo($firstName, $lastName, $id );
-		}
-		else
-		{
-			returnWithError( "No Records Found" );
-		}
-		$conn->close();
+		returnWithError( "No Records Found" );
 	}
-	
+
+	$conn->close();
+
 	function getRequestInfo()
 	{
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson( $obj )
+	function sendResultInfoAsJson($obj)
 	{
 		header('Content-type: application/json');
 		echo $obj;
 	}
 	
-	function returnWithError( $err )
+	function returnWithError($err)
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
+		$retValue = '{"Username":"","Password":"","error":"' . $err . '"}';
+		sendResultInfoAsJson($retValue);
 	}
 	
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo($Username, $Password)
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
-		sendResultInfoAsJson( $retValue );
+
+		$retValue = '{"Username":"' . $Username . '","Password":"' . $Password . '","error":""}';
+		sendResultInfoAsJson($retValue);
 	}
 	
 ?>
