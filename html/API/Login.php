@@ -6,16 +6,15 @@
 	$firstName = "";
 	$lastName = "";
 
-	$sql = "SELECT ID,firstName,lastName FROM Users where Login='" . $inData["login"] . "' and Password='" . $inData["password"] . "'";
-	$result = $conn->query($sql);
+	$sql = "SELECT Username FROM Users where Login='" . $inData["Username"] . "' and Password='" . $inData["password"] . "'";
+	$result = query($sql);
 	if ($result->num_rows > 0)
 	{
 		$row = $result->fetch_assoc();
-		$firstName = $row["firstName"];
-		$lastName = $row["lastName"];
-		$id = $row["ID"];
+		$Username = $row["Username"];
+		$Password = $row["Password"];
 			
-		returnWithInfo($firstName, $lastName, $id );
+		returnWithInfo($Username, $Password);
 	}
 	else
 	{
@@ -29,22 +28,23 @@
 		return json_decode(file_get_contents('php://input'), true);
 	}
 
-	function sendResultInfoAsJson( $obj )
+	function sendResultInfoAsJson($obj)
 	{
 		header('Content-type: application/json');
 		echo $obj;
 	}
 	
-	function returnWithError( $err )
+	function returnWithError($err)
 	{
-		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
-		sendResultInfoAsJson( $retValue );
+		$retValue = '{"Username":"","Password":"","error":"' . $err . '"}';
+		sendResultInfoAsJson($retValue);
 	}
 	
-	function returnWithInfo( $firstName, $lastName, $id )
+	function returnWithInfo($Username, $Password)
 	{
-		$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
-		sendResultInfoAsJson( $retValue );
+
+		$retValue = '{"Username":"' . $Username . '","Password":"' . $Password . '","error":""}';
+		sendResultInfoAsJson($retValue);
 	}
 	
 ?>
