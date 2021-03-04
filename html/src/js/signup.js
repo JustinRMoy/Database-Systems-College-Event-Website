@@ -1,4 +1,4 @@
-let signUpUrl = '../src/signup.php';
+let signUpUrl = '../../API/signup.php';
 
 
 function signup()
