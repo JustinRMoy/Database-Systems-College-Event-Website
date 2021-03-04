@@ -25,7 +25,7 @@
        else
        {
          //Only Selects UCF IF for now
-         $sql_select = "SELECT [ID] FROM University WHERE Name = 'University of Central Florida';";
+         $sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
          $result = mysqli_query($conn, $sql_select);
          $Users = $result->fetch_assoc();
         $sql = "INSERT INTO Users (Password, Email, UniversityID, user_level, Name) 
