@@ -4,15 +4,16 @@
 
     $fullName = $inputFromJson['fullName'];
     $password =  $inputFromJson['password'];
-    $phoneNumber = $inputFromJson['phoneNumber'];
+    $university = $inputFromJson['university'];
     $email = $inputFromJson['email'];
+    $user_level = $inputFromJson['user_level'];
     $sql;
 
      //CONNECTING to SQL server
     $dbServerName = "localhost";
-    $dbUserName = "databaseuser";
-    $dbPassword = "toorqwer";
-    $dbName = "pricereviewdb";
+    $dbUserName = "root";
+    $dbPassword = "4710Database";
+    $dbName = "DataBasey";
 
     $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
     
@@ -23,8 +24,12 @@
         }
        else
        {
-        $sql = "INSERT INTO customer (customer_name, customer_password, customer_phone, customer_email, customer_prof_status) 
-        VALUES ('".$fullName."','".$password."','".$phoneNumber."','".$email."', 0);";
+         //Only Selects UCF IF for now
+         $sql_select = "SELECT [ID] FROM University WHERE Name = 'University of Central Florida';";
+         $result = mysqli_query($conn, $sql_select);
+         $Users = $result->fetch_assoc();
+        $sql = "INSERT INTO Users (Password, Email, UniversityID, user_level, Name) 
+        VALUES ('".$password."','".$email."','".$Users["ID"]."','".$user_level."','" .$fullName.");";
     
         if($conn->query($sql) != TRUE )
         {
