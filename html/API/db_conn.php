@@ -5,7 +5,7 @@
     if ($conf)
     {
         // The file exists and we can open a new connection.
-        $conn = new mysqli($conf['ip'], $conf['username'], $conf['password'], $>
+        $conn = new mysqli($conf['ip'], $conf['username'], $conf['password'], $conf['name']);
         if ($conn->connect_error)
         {
             // Invalid credentials in $conn.

@@ -1,50 +1,62 @@
 <?php
-	require 'db_conn.config';
-	$inData = getRequestInfo();
-	
-	$id = 0;
-	$firstName = "";
-	$lastName = "";
 
-	$sql = "SELECT Username FROM Users where Login='" . $inData["Username"] . "' and Password='" . $inData["password"] . "'";
-	$result = query($sql);
-	if ($result->num_rows > 0)
-	{
-		$row = $result->fetch_assoc();
-		$Username = $row["Username"];
-		$Password = $row["Password"];
-			
-		returnWithInfo($Username, $Password);
-	}
-	else
-	{
-		returnWithError( "No Records Found" );
-	}
+    require 'db_conn.php';
 
-	$conn->close();
+    $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-	function getRequestInfo()
-	{
-		return json_decode(file_get_contents('php://input'), true);
-	}
+    $Email = $inputFromJson['Email'];
+    $Password = $inputFromJson['Password'];
 
-	function sendResultInfoAsJson($obj)
-	{
-		header('Content-type: application/json');
-		echo $obj;
-	}
-	
-	function returnWithError($err)
-	{
-		$retValue = '{"Username":"","Password":"","error":"' . $err . '"}';
-		sendResultInfoAsJson($retValue);
-	}
-	
-	function returnWithInfo($Username, $Password)
-	{
+    //query to DB
+    $sql = "SELECT [Email], [Password] FROM Users"; 
+    $result = mysqli_query($conn, $sql);
+    $numRows = mysqli_num_rows($result);
 
-		$retValue = '{"Username":"' . $Username . '","Password":"' . $Password . '","error":""}';
-		sendResultInfoAsJson($retValue);
-	}
-	
+    //Review SQL Result
+    if($numRows > 0)
+    {
+        //User found
+        $Users = $result->fetch_assoc();
+        $Id = $Users["ID"];
+        $User_Level = $Users["User_level"];
+        $Uni = $Users["UniversityID"];
+        if (isset($Users["RSOID"]))
+            $RSO = $Users["RSOID"];
+        
+        //echo ($id);
+        returnUser($Id, $User_level, $Uni, $RSO);
+    }
+    //User not found
+    else
+    {
+        error("Email or password is incorrect");
+    }
+
+    $conn->close();
+
+    //FUNCTIONS
+    function error($err)
+    {
+        $result = '{"customer_id":0, "error":"' . $err . '"}';
+        toJSON($result);
+    }
+
+    //This takes the user to the landing page 
+    //It will also send the user info to the landing page
+    function returnUser($Id, $User_level, $Uni, $RSO)
+    {
+        $ret = '{"Users": "'. $id .'", "User_level": "'. $User_Level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
+        toJSON($ret);
+    }
+
+    //This return JSON files to JS
+    function toJSON($json)
+    {
+        // "Look JSON"
+        header('Content-type: application/json');
+
+        // "Prints text to the page" 
+        echo $json;
+    }
+        
 ?>
