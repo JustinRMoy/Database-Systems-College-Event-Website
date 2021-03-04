@@ -1,31 +1,58 @@
-﻿<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>Login</title>
 
-    <link href="css/DataBaseStyles.css" rel="stylesheet" type="text/css"/>
+    <title>Price Review login system</title>
+    <script src="js/md5.js"></script>
+    <script src="js/signup.js"></script>
+    <script src="js/login.js"></script>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="top-box">
-        <h1>our website</h1>
-    </div>
+    
+    <section class="left-section">
+        <div id="left-cover" class="cover cover-hide">
+            <img src="img/cover1.png" alt="">
+            <h1>Welcome !</h1>
+            <h3>Already have an account ?</h3>
+            <button type="button" class="switch-btn" onclick="location.reload()">Login</button>
+        </div>
+        <div id="left-form" class="form fade-in-element">
+            <h1>Login</h1>
+            <form style="text-align: center;">
+                <input type="text" id="username" class="input-box" placeholder="User Email">
+                <input type="password" id="userpassword" class="input-box" placeholder="Password">
+                <button type="button" class="btn" onclick="login();">Login</button>
+                <button type="button" class="btn" onclick="window.location.href='reset_pass.html'">Forgot Password?</button>
+            </form>
+            <p id="logstatus" style="font-size: 0.5em"></p>
+        </div>
+    </section>
 
-    <div class="main-box">
-        <h1>Login</h1>
-        <form action="../API/Login.php" class="login-form" method="post">
-            <input type="text" name="username" placeholder="username" />
-            <input type="text" name="password" placeholder="password" />
-            <div class="a-link">
-                <a href="d.html">Forgot Password</a>
-                <br /><br />
-                <a href="register.html">Sign Up</a>
-            </div>
+    <section class="right-section">
+        <div id="right-cover" class="cover fade-in-element">
+            <img src="img/cover1.png" alt="">
+            <h1>Welcome !</h1>
+            <h3>Don't have an account ?</h3>
+            <button type="button" class="switch-btn" onclick="switchSignup()">Signup</button>
+        </div>
 
-            <input type="submit" name="submit" value="Submit" />
-        </form>
+        <div id="right-form" class="form form-hide">
+            <h1>Signup</h1>
+            <form style="text-align: center;">
+                 <input type="text" id="fullname" class="input-box" placeholder="Full Name">
+                <input type="email" id="useremail" class="input-box" placeholder="Email Address">
+                <input type="radio" id="student" name="userlevel" value="student">
+                <input type="radio" id="superadmin" name="userlevel" value="superadmin">
+                <input type="password" id="userpass" class="input-box" placeholder="Password">
+                 <input type="password" id="confirmpass" class="input-box" placeholder="Confirm Password">
+                 <button type="button" name="signup-btn" class="btn"  onclick="signup();">Signup</button>
+            </form>
+            <p id="upstatus" style="font-size: 0.5em"></p>
+        </div>
+    </section>
 
-       
-    </div>
+    <script src="js/main.js"></script>
+
 </body>
 </html>
