@@ -1,64 +1,62 @@
 <?php
 
- $inputFromJson = json_decode(file_get_contents('php://input'), true);
+    require 'db_conn.php';
 
-    $email = $inputFromJson['userName'];
-    $password = $inputFromJson['password'];
-    $sql;
+    $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-     //CONNECTING to SQL server
-    $dbServerName = "localhost";
-    $dbUserName = "databaseuser";
-    $dbPassword = "toorqwer";
-    $dbName = "pricereviewdb";
+    $Email = $inputFromJson['Email'];
+    $Password = $inputFromJson['Password'];
 
-    $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
-    
-    //Start Reading Sequence
-        if ($conn->connect_error)
-        {
-            error( $conn->connect_error);
-        }
-        else{
-            //query to DB
-            $sql = "SELECT customer_id, customer_name, customer_prof_status FROM customer WHERE customer_email = '".$email."' and customer_password = '".$password."';";
-            $result = mysqli_query($conn, $sql);
-            $numRows = mysqli_num_rows($result);
-            //Review SQL Result
-            if($numRows > 0){
-                //User found
-                $user = $result->fetch_assoc();
-                $id = $user["customer_id"];
-                $fullName = $user["customer_name"];
-                $profile_status = $user["customer_prof_status"];
-                //echo ($id);
-                returnUser($id, $fullName, $profile_status);
+    //query to DB
+    $sql = "SELECT [Email], [Password] FROM Users"; 
+    $result = mysqli_query($conn, $sql);
+    $numRows = mysqli_num_rows($result);
 
-            }
-            //User not found
-            else{
-                error("Email or password is incorrect");
-                }
-            $conn->close();
-        }
+    //Review SQL Result
+    if($numRows > 0)
+    {
+        //User found
+        $Users = $result->fetch_assoc();
+        $Id = $Users["ID"];
+        $User_Level = $Users["User_level"];
+        $Uni = $Users["UniversityID"];
+        if (isset($Users["RSOID"]))
+            $RSO = $Users["RSOID"];
+        
+        //echo ($id);
+        returnUser($Id, $User_level, $Uni, $RSO);
+    }
+    //User not found
+    else
+    {
+        error("Email or password is incorrect");
+    }
+
+    $conn->close();
+
     //FUNCTIONS
-
-    function error($err){
+    function error($err)
+    {
         $result = '{"customer_id":0, "error":"' . $err . '"}';
         toJSON($result);
     }
 
     //This takes the user to the landing page 
     //It will also send the user info to the landing page
-    function returnUser($id, $fullName, $profile_status){
-        $ret = '{"customer_id":"'. $id .'", "customer_fullname": "'. $fullName .'", "customer_prof_status": "'. $profile_status .'"}';
+    function returnUser($Id, $User_level, $Uni, $RSO)
+    {
+        $ret = '{"Users": "'. $id .'", "User_level": "'. $User_Level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
         toJSON($ret);
     }
 
     //This return JSON files to JS
-    function toJSON($json){
+    function toJSON($json)
+    {
+        // "Look JSON"
         header('Content-type: application/json');
-    echo $json;
+
+        // "Prints text to the page" 
+        echo $json;
     }
         
 ?>
