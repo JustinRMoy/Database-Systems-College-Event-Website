@@ -1,5 +1,5 @@
 
-let loginUrl = '../API/login.php';
+let loginUrl = '../../API/login.php';
 
 
 var customer_id = 0;
