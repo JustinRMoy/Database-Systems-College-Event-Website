@@ -20,7 +20,7 @@
     //Start Reading Sequence
         if ($conn->connect_error)
         {
-            error( $conn->connect_error);
+            echo  "Can't connect" . error( $conn->connect_error);
         }
        else
        {
