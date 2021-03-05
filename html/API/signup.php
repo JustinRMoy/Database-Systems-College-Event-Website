@@ -4,9 +4,9 @@
 
     $fullName = $inputFromJson['fullName'];
     $password =  $inputFromJson['password'];
-    $university = $inputFromJson['university'];
+    //$university = $inputFromJson['university'];
     $email = $inputFromJson['email'];
-    $user_level = $inputFromJson['user_level'];
+    //$user_level = $inputFromJson['user_level'];
     $sql;
 
      //CONNECTING to SQL server
@@ -25,11 +25,11 @@
        else
        {
          //Only Selects UCF IF for now
-         $sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
-         $result = mysqli_query($conn, $sql_select);
-         $Users = $result->fetch_assoc();
-        $sql = "INSERT INTO Users (Password, Email, UniversityID, user_level, Name) 
-        VALUES ('".$password."','".$email."','".$Users["ID"]."','".$user_level."','" .$fullName.");";
+         //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
+         //$result = mysqli_query($conn, $sql_select);
+         //$Users = $result->fetch_assoc();
+        $sql = "INSERT INTO Users (Password, Email, Name) 
+        VALUES ('".$password."','".$email."','".$fullName.");";
     
         if($conn->query($sql) != TRUE )
         {
