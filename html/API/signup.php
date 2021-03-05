@@ -12,8 +12,8 @@
      //CONNECTING to SQL server
     $dbServerName = "localhost";
     $dbUserName = "root";
-    $dbPassword = "4710Database";
-    $dbName = "DataBasey";
+    $dbPassword = "";
+    $dbName = "DataBasey2";
 
     $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
     
