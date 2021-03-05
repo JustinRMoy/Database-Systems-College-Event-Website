@@ -1,5 +1,7 @@
 <?php
 
+  require 'db_conn.php';
+  
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
     $fullName = $inputFromJson['fullName'];
@@ -10,12 +12,12 @@
     $sql;
 
      //CONNECTING to SQL server
-    $dbServerName = "localhost";
+    /*$dbServerName = "localhost";
     $dbUserName = "root";
     $dbPassword = "";
     $dbName = "DataBasey2";
 
-    $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
+    $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);*/
     
     //Start Reading Sequence
         if ($conn->connect_error)
