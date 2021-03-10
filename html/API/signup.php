@@ -1,43 +1,46 @@
 <?php
 
+  require 'db_conn.php';
+  
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
     $fullName = $inputFromJson['fullName'];
     $password =  $inputFromJson['password'];
-    $university = $inputFromJson['university'];
+    //$university = $inputFromJson['university'];
     $email = $inputFromJson['email'];
-    $user_level = $inputFromJson['user_level'];
+    //$user_level = $inputFromJson['user_level'];
     $sql;
 
      //CONNECTING to SQL server
-    $dbServerName = "localhost";
+    /*$dbServerName = "localhost";
     $dbUserName = "root";
-    $dbPassword = "4710Database";
-    $dbName = "DataBasey";
+    $dbPassword = "";
+    $dbName = "DataBasey2";
 
-    $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
+    $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);*/
     
     //Start Reading Sequence
         if ($conn->connect_error)
         {
-            error( $conn->connect_error);
+            echo  "Can't connect" . error( $conn->connect_error);
         }
        else
        {
          //Only Selects UCF IF for now
-         $sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
-         $result = mysqli_query($conn, $sql_select);
-         $Users = $result->fetch_assoc();
-        $sql = "INSERT INTO Users (Password, Email, UniversityID, user_level, Name) 
-        VALUES ('".$password."','".$email."','".$Users["ID"]."','".$user_level."','" .$fullName.");";
+         //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
+         //$result = mysqli_query($conn, $sql_select);
+         //$Users = $result->fetch_assoc();
+         $sql = "INSERT INTO Users (Password, Email, Name) 
+          VALUES ('".$password."','".$email."','".$fullName.");";
     
         if($conn->query($sql) != TRUE )
         {
+          echo "SQL Error";
           returnError( $conn->error );
         }
         else
         {
-          sendEmail("mr.l.t@hotmail.com");
+          //sendEmail("mr.l.t@hotmail.com");
           returnInfo("done");
         }
         $conn->close();
@@ -59,7 +62,7 @@
   }
   
   
-  function sendEmail($email){
+  /*function sendEmail($email){
        $code = rand(100000, 100000000);
 
     $fromEmail = 'onotreplay@pricereview.cf';
@@ -94,4 +97,4 @@
 
     echo '<script>alert("Email sent successfully !")</script>';
 }
-
+*/
