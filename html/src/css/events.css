@@ -4,4 +4,31 @@
 
 body{
     background-color: antiquewhite;
+    font-size: 25px;
+}
+
+.navbar-brand
+{
+  padding-left: 20px;
+  padding-right: 100px;
+  height: 60px;
+  font-size: 30px;
+}
+
+.navbar-nav > li{
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 80px;
+    color: #123C69;
+}
+
+.navbar-nav > li{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover 
+{
+    color: #AC3B61 !important;
 }
