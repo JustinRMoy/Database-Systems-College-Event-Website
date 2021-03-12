@@ -32,3 +32,27 @@ body{
 {
     color: #AC3B61 !important;
 }
+
+.imgPlaceholder
+{
+    float: left;
+    width: 20%;
+    height: 200px;
+    background-image: url("../../img/ICpt2.jpg");
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-left: 40px;
+    margin-right: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.eventsContainer
+{
+    float: left;
+    width: 75%;
+    margin-top: 20px;
+    margin-left: 0px;
+    border-left: solid black;
+    border-radius: 0px;
+    box-sizing: border-box;
+}
