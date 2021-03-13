@@ -83,8 +83,5 @@ function createEventCard(name, description, time, date, eventId, imgUrl){
     eventCard.appendChild(eventImage);
     eventCard.appendChild(eventContainer);
 
-    var eventList = document.getElementById("eventList");
-    eventList.appendChild(eventCard);
-
-    return eventList;
+    return eventCard;
 }
