@@ -1,6 +1,9 @@
 var urlBase = '198.199.77.197';
 var extension = 'php';
-
+function handleSearch(){
+    getEvents("@", 0);
+    return;
+}
 function getEvents(query, security)
 {
 	var jsonPayload = '{"search" : "' + query + '", "security" : "' + security + '"}';
@@ -30,7 +33,7 @@ function getEvents(query, security)
                     var time = events.results[i].Time;
                     var date = events.results[i].Date;
                     var eventId = events.results[i].eventId;
-                    var eventCard = createEventCard(name, description, time, date, eventId);
+                    var eventCard = createEventCard(name, description, time, date, eventId, "../../img/ICpt2.jpg");
                     eventList.appendChild(eventCard);
                 }
                 localStorage.setItem("editMode", "false");
