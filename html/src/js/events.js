@@ -21,7 +21,7 @@ function getEvents(query, security)
 				var events = JSON.parse( xhr.responseText );
 
 			    if (events.error != "None" && events.error != "No events found")
-				    window.location.href = "Events.html";
+				    window.location.href = "index.html";
 				    
 				var eventList = document.getElementById("eventList");
 				
