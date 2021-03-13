@@ -59,4 +59,32 @@ function createEventCard(name, description, time, date, eventId, imgUrl){
     var eventContainer = document.createElement("div");
     eventContainer.className = "eventsContainer";
     document.setAttribute("id", "theEvent-" + eventId);
+
+    var title = document.createElement("a");
+    title.className = "eventsContainer a";
+    title.setAttribute("id", "eventTitle-" + eventId);
+    title.setAttribute("data-id", eventId);
+    title.innerHTML = name;
+
+    var dateTime = document.createElement("h5");
+    dateTime.setAttribute("id", "eventDate-" + eventId);
+    dateTime.setAttribute("data-id", eventId);
+    dateTime.innerHTML = "on " + date + " at " + time;
+
+    var eventDesc = document.createElement("p");
+    eventDesc.setAttribute("id", "eventDescription-" + eventId);
+    eventDesc.setAttribute("data-id", eventId);
+    eventDesc.innerHTML = description;
+
+    eventContainer.appendChild(title);
+    eventContainer.appendChild(dateTime);
+    eventContainer.appendChild(eventDesc);
+
+    eventCard.appendChild(eventImage);
+    eventCard.appendChild(eventContainer);
+
+    var eventList = document.getElementById("eventList");
+    eventList.appendChild(eventCard);
+
+    return eventList;
 }
