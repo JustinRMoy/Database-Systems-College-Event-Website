@@ -12,7 +12,7 @@
     $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);
     $resultCount = 0;
-    $searchResult = '';
+    $searchResult = "";
 
     //Review SQL Result
     if($numRows > 0)
@@ -20,7 +20,7 @@
         //Event found
         while($eventData = $result->fetch_assoc()){
                 if($resultCount > 0){
-                    $searchResult .= ",";
+                    $searchResult .= ", ";
                     //seperate search results
                 }
                 $resultCount++;
