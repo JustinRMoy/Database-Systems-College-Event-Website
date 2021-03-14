@@ -1,7 +1,7 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 function handleSearch(){
-    getEvents("@", 0);
+    getEvents("", 0);
     return;
 }
 function getEvents(query, security)
