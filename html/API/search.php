@@ -20,7 +20,7 @@
         //Event found
         while($eventData = $result->fetch_assoc()){
                 if($resultCount > 0){
-                    $searchResult .= ", ";
+                    $searchResults .= ", ";
                     //seperate search results
                 }
                 $resultCount++;
@@ -32,7 +32,7 @@
             $RSO = $Users["RSOID"];
         */
         //echo ($id);
-        returnWithInfo($eventData);
+        returnWithInfo($searchResults);
     }
     //Event not found
     else
