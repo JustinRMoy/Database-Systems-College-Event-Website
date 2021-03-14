@@ -8,7 +8,7 @@
     $Password = $inputFromJson['Password'];
 
     //query to DB
-    $sql = "SELECT * FROM Events WHERE (Name LIKE '%" . $inputFromJson['search']. "%');"; 
+    $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%' AND Private='" .$inputFromJson["security"]. "')"; 
     $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);
     $resultCount = 0;
@@ -24,7 +24,7 @@
                     //seperate search results
                 }
                 $resultCount++;
-                $searchResult .= '{"Name": "' .$eventData["Name"]. '", "Description": "' .$eventData["Description"]. '", "Time": "' .$eventData["Time"]. '", "Date": "' .$eventData["Date"]. '". "eventId": "' .$eventData["ID"]. '"}';
+                $searchResult .= '{"Name": "' . $eventData["Name"] . '", "Description": "' . $eventData["Description"] . '", "Time": "' . $eventData["Time"] . '", "Date": "' . $eventData["Date"] . '", "eventId": "' . $eventData["ID"] . '"}';
                 //gets data from the searched event
         }
         
