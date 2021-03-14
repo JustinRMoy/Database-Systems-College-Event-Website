@@ -8,7 +8,7 @@
     $Password = $inputFromJson['Password'];
 
     //query to DB
-    $sql = "SELECT * FROM Events WHERE (Name like '%" . $inputFromJson['search']. "%')"; 
+    $sql = "SELECT * FROM Events WHERE (Name like '%" . $inputFromJson['search']. "%' OR ID = 1)"; 
     $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);
     $resultCount = 0;
