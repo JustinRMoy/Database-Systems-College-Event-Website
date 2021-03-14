@@ -1,6 +1,7 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 function handleSearch(){
+    document.getElementById("eventList").innerHTML = "";
     getEvents("", 0);
     return;
 }
@@ -62,12 +63,15 @@ function createEventCard(name, description, time, date, eventId, imgUrl){
     var eventContainer = document.createElement("div");
     eventContainer.className = "eventsContainer";
     document.setAttribute("id", "theEvent-" + eventId);
+    document.style = "float: left; width: 75%; margin-top: 20px; margin-left: 0px; border-left: solid black; border-radius: 0px; box-sizing: border-box;";
 
     var title = document.createElement("a");
     title.className = "eventsContainer a";
     title.setAttribute("id", "eventTitle-" + eventId);
     title.setAttribute("data-id", eventId);
+    title.setAttribute("href", "#");
     title.innerHTML = name;
+    title.style = "font-weight: bold; font-size: 40px; color: black; text-decoration: none;";
 
     var dateTime = document.createElement("h5");
     dateTime.setAttribute("id", "eventDate-" + eventId);
