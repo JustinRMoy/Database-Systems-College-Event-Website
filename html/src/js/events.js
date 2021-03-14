@@ -1,4 +1,4 @@
-var urlBase = '198.199.77.197';
+var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 function handleSearch(){
     getEvents("@", 0);
@@ -7,7 +7,7 @@ function handleSearch(){
 function getEvents(query, security)
 {
 	var jsonPayload = '{"search" : "' + query + '", "security" : "' + security + '"}';
-	var url = urlBase + 'API/search.' + extension;
+	var url = urlBase + '/API/search.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
