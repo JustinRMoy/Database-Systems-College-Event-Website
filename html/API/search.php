@@ -4,11 +4,13 @@
 
     $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-    $Email = $inputFromJson['Email'];
-    $Password = $inputFromJson['Password'];
+    //$Email = $inputFromJson['Email'];
+    //$Password = $inputFromJson['Password'];
 
     //query to DB
-    $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%' AND Private='" .$inputFromJson["security"]. "')"; 
+    if($inputFromJson['security'] != 0){
+        $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%' AND UniversityID='" .$inputFromJson['UniversityID']. "')"; 
+    }else $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%')"; 
     $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);
     $resultCount = 0;
