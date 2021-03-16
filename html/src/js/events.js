@@ -8,7 +8,7 @@ function handleSearch(){
 function getEvents(query, UniversityID)
 {
 	var jsonPayload = '{"search" : "' + query + '", "UniversityID" : "' + UniversityID + '"}';
-	var url = urlBase + 'API/search.' + extension;
+	var url = urlBase + '/API/search.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -34,7 +34,7 @@ function getEvents(query, UniversityID)
                     var time = events.results[i].Time;
                     var date = events.results[i].Date;
                     var eventId = events.results[i].eventId;
-                    var eventCard = createEventCard(name, description, time, date, eventId, "../../img/ICpt2.jpg");
+                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg");
                     eventList.appendChild(eventCard);
                 }
                 localStorage.setItem("editMode", "false");
@@ -58,12 +58,12 @@ function createEventCard(name, description, time, date, eventId, imgUrl){
     var eventImage = document.createElement("div");
     eventImage.className = "imgPlaceholder";
     eventImage.setAttribute("id", "eventImg-" + eventId);
-    eventImage.style = "float: left; width: 20%; height: 200px; background-image: url(" + imgUrl + "); box-sizing: border-box; margin-top: 20px; margin-left: 40px; margin-right: 0px; background-repeat: no-repeat; background-position: center;";
+    //eventImage.style = "float: left; width: 20%; height: 200px; background-image: url(" + imgUrl + "); box-sizing: border-box; margin-top: 20px; margin-left: 40px; margin-right: 0px; background-repeat: no-repeat; background-position: center;";
 
     var eventContainer = document.createElement("div");
     eventContainer.className = "eventsContainer";
-    document.setAttribute("id", "theEvent-" + eventId);
-    document.style = "float: left; width: 75%; margin-top: 20px; margin-left: 0px; border-left: solid black; border-radius: 0px; box-sizing: border-box;";
+    eventContainer.setAttribute("id", "theEvent-" + eventId);
+    //eventContainer.style = "float: left; width: 75%; margin-top: 20px; margin-left: 0px; border-left: solid black; border-radius: 0px; box-sizing: border-box;";
 
     var title = document.createElement("a");
     title.className = "eventsContainer a";
@@ -71,7 +71,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl){
     title.setAttribute("data-id", eventId);
     title.setAttribute("href", "#");
     title.innerHTML = name;
-    title.style = "font-weight: bold; font-size: 40px; color: black; text-decoration: none;";
+    //title.style = "font-weight: bold; font-size: 40px; color: black; text-decoration: none;";
 
     var dateTime = document.createElement("h5");
     dateTime.setAttribute("id", "eventDate-" + eventId);
