@@ -5,9 +5,9 @@ function handleSearch(){
     getEvents("", 0);
     return;
 }
-function getEvents(query, security)
+function getEvents(query, UniversityID)
 {
-	var jsonPayload = '{"search" : "' + query + '", "security" : "' + security + '"}';
+	var jsonPayload = '{"search" : "' + query + '", "UniversityID" : "' + UniversityID + '"}';
 	var url = urlBase + '/var/www/html/API/search.' + extension;
 
 	var xhr = new XMLHttpRequest();
