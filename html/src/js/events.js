@@ -8,7 +8,7 @@ function handleSearch(){
 function getEvents(query, UniversityID)
 {
 	var jsonPayload = '{"search" : "' + query + '", "UniversityID" : "' + UniversityID + '"}';
-	var url = urlBase + '/var/www/html/API/search.' + extension;
+	var url = urlBase + 'API/search.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
