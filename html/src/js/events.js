@@ -1,14 +1,13 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 function handleSearch(){
-    document.getElementById("eventList").innerHTML = "";
     getEvents("", 0);
     return;
 }
 function getEvents(query, UniversityID)
 {
 	var jsonPayload = '{"search" : "' + query + '", "UniversityID" : "' + UniversityID + '"}';
-	var url = urlBase + '/API/search.' + extension;
+	var url = urlBase + '/API/searchEvents.' + extension;
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
