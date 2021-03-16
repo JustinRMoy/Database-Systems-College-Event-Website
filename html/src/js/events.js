@@ -66,7 +66,6 @@ function createEventCard(name, description, time, date, eventId, imgUrl){
     //eventContainer.style = "float: left; width: 75%; margin-top: 20px; margin-left: 0px; border-left: solid black; border-radius: 0px; box-sizing: border-box;";
 
     var title = document.createElement("a");
-    title.className = "eventsContainer a";
     title.setAttribute("id", "eventTitle-" + eventId);
     title.setAttribute("data-id", eventId);
     title.setAttribute("href", "#");
