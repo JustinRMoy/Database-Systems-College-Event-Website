@@ -55,6 +55,7 @@ body{
     border-left: solid black;
     border-radius: 0px;
     box-sizing: border-box;
+    position: relative;
 }
 
 .eventsContainer a
@@ -68,4 +69,23 @@ body{
 .eventsContainer a:hover
 {
     color: blue;
+}
+
+.contactComment p{
+    float: left;
+    font-weight: 500;
+} 
+
+.contactComment button{
+    border-radius: 5px;
+    border: none;
+    background-color: #EAE7DC;
+    color: black;
+    float: left;
+    margin-left: 200px;
+}
+
+.contactComment button:hover{
+    background-color: #AC3B61;
+    color: #EAE7DC;
 }

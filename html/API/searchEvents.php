@@ -26,7 +26,7 @@
                     //seperate search results
                 }
                 $resultCount++;
-                $searchResults .= '{"Name": "' . $eventData["Name"] . '", "Description": "' . $eventData["Description"] . '", "Time": "' . $eventData["Time"] . '", "Date": "' . $eventData["Date"] . '", "eventId": "' . $eventData["ID"] . '"}';
+                $searchResults .= '{"Name": "' . $eventData["Name"] . '", "Description": "' . $eventData["Description"] . '", "Time": "' . $eventData["Time"] . '", "Date": "' . $eventData["Date"] . '", "eventId": "' . $eventData["ID"] . '", "Phone": "' . $eventData["contact_num"] . '", "Email": "' . $eventData["Contact_Email"] . '"}';
                 //gets data from the searched event
         }
         

@@ -1,5 +1,12 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
+
+document.addEventListener(`DOMContentLoaded`, function () {
+    var UniID = localStorage.getItem("UniversityID");
+    getEvents("", UniID);
+  });
+
+  //delete this function once implementation is finished and button is no longer needed on html
 function handleSearch(){
     getEvents("", 0);
     return;
@@ -33,7 +40,9 @@ function getEvents(query, UniversityID)
                     var time = events.results[i].Time;
                     var date = events.results[i].Date;
                     var eventId = events.results[i].eventId;
-                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg");
+                    var phone = events.results[i].Phone;
+                    var email = events.results[i].Email;
+                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email);
                     eventList.appendChild(eventCard);
                 }
                 localStorage.setItem("editMode", "false");
@@ -49,7 +58,7 @@ function getEvents(query, UniversityID)
 	}
 }
 
-function createEventCard(name, description, time, date, eventId, imgUrl){
+function createEventCard(name, description, time, date, eventId, imgUrl, phone, email){
     var eventCard = document.createElement("div");
     eventCard.className = "row mb-3";
     eventCard.setAttribute("data-id", eventId);
@@ -81,12 +90,35 @@ function createEventCard(name, description, time, date, eventId, imgUrl){
     eventDesc.setAttribute("data-id", eventId);
     eventDesc.innerHTML = description;
 
+    var contactComment = document.createElement("div");
+    contactComment.className = "contactComment";
+    contactComment.setAttribute("id", "contactComment");
+    contactComment.setAttribute("data-id", eventId);
+
+    var contactInfo = document.createElement("p");
+    contactInfo.setAttribute("id", "contactInfo");
+    contactInfo.setAttributes("data-id", eventId);
+    if(phone != null && email != null){
+        contactInfo.innerHTML = "Contact Coordinator at Phone: " + phone + ", Email: " + email;
+    }else contactInfo.innerHTML = "Contact Coordinator at Phone: NONE, Email: NONE";
+
+    var commentButton = document.createElement("button");
+    commentButton.setAttribute("id", "commentButton");
+    //commentButton.onclick = showComments(); //will move this function to a separate js file to handle it maybe
+    commentButton.innerHTML = "Comments";
+
+    contactComment.appendChild(contactInfo);
+    contactComment.appendChild(commentButton);
+
     eventContainer.appendChild(title);
     eventContainer.appendChild(dateTime);
     eventContainer.appendChild(eventDesc);
+    eventContainer.appendChild(contactComment);
 
     eventCard.appendChild(eventImage);
     eventCard.appendChild(eventContainer);
 
     return eventCard;
 }
+
+f
