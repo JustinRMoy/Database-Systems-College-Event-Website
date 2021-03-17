@@ -90,35 +90,25 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     eventDesc.setAttribute("data-id", eventId);
     eventDesc.innerHTML = description;
 
-    var contactComment = document.createElement("div");
-    contactComment.className = "contactComment";
-    contactComment.setAttribute("id", "contactComment");
-    contactComment.setAttribute("data-id", eventId);
-
     var contactInfo = document.createElement("p");
     contactInfo.setAttribute("id", "contactInfo");
-    contactInfo.setAttributes("data-id", eventId);
-    if(phone != "" && email != "")
-        contactInfo.innerHTML = "Contact Coordinator at Phone: " + phone + ", Email: " + email;
-    else contactInfo.innerHTML = "Contact Coordinator at Phone: NONE, Email: NONE";
+    contactInfo.setAttribute("data-id", eventId);
+    contactInfo.style.fontWeight = 500;
+    contactInfo.innerHTML = "Contact Coordinator at Phone: " + phone + ", Email: " + email;
 
     var commentButton = document.createElement("button");
     commentButton.setAttribute("id", "commentButton");
     //commentButton.onclick = showComments(); //will move this function to a separate js file to handle it maybe
     commentButton.innerHTML = "Comments";
 
-    contactComment.appendChild(contactInfo);
-    contactComment.appendChild(commentButton);
-
     eventContainer.appendChild(title);
     eventContainer.appendChild(dateTime);
     eventContainer.appendChild(eventDesc);
-    eventContainer.appendChild(contactComment);
+    eventContainer.appendChild(contactInfo);
+    eventContainer.appendChild(commentButton);
 
     eventCard.appendChild(eventImage);
     eventCard.appendChild(eventContainer);
 
     return eventCard;
 }
-
-f
