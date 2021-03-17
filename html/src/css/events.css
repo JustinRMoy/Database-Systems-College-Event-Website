@@ -58,17 +58,12 @@ body{
     position: relative;
 }
 
-.eventsContainer a
+.eventsContainer h1
 {
     font-weight: bold;
     font-size: 40px;
     color: black;
-    text-decoration: none;
-}
-
-.eventsContainer a:hover
-{
-    color: blue;
+    text-decoration: underline;
 }
 
 .eventsContainer button{

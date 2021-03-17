@@ -40,8 +40,10 @@ function getEvents(query, UniversityID)
                     var time = events.results[i].Time;
                     var date = events.results[i].Date;
                     var eventId = events.results[i].eventId;
+                    localStorage.setItem("eventId", eventId);
                     var phone = events.results[i].Phone;
                     var email = events.results[i].Email;
+                    var avgRating = events.results[i].Avg_Rating;
                     var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email);
                     eventList.appendChild(eventCard);
                 }
@@ -66,19 +68,16 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var eventImage = document.createElement("div");
     eventImage.className = "imgPlaceholder";
     eventImage.setAttribute("id", "eventImg-" + eventId);
-    //eventImage.style = "float: left; width: 20%; height: 200px; background-image: url(" + imgUrl + "); box-sizing: border-box; margin-top: 20px; margin-left: 40px; margin-right: 0px; background-repeat: no-repeat; background-position: center;";
 
     var eventContainer = document.createElement("div");
     eventContainer.className = "eventsContainer";
     eventContainer.setAttribute("id", "theEvent-" + eventId);
-    //eventContainer.style = "float: left; width: 75%; margin-top: 20px; margin-left: 0px; border-left: solid black; border-radius: 0px; box-sizing: border-box;";
 
-    var title = document.createElement("a");
+    var title = document.createElement("h1");
     title.setAttribute("id", "eventTitle-" + eventId);
     title.setAttribute("data-id", eventId);
     title.setAttribute("href", "#");
     title.innerHTML = name;
-    //title.style = "font-weight: bold; font-size: 40px; color: black; text-decoration: none;";
 
     var dateTime = document.createElement("h5");
     dateTime.setAttribute("id", "eventDate-" + eventId);
@@ -93,12 +92,12 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var contactInfo = document.createElement("p");
     contactInfo.setAttribute("id", "contactInfo");
     contactInfo.setAttribute("data-id", eventId);
-    contactInfo.style.fontWeight = 500;
+    contactInfo.style = "font-weight: 500 !important;";
     contactInfo.innerHTML = "Contact Coordinator at Phone: " + phone + ", Email: " + email;
 
     var commentButton = document.createElement("button");
     commentButton.setAttribute("id", "commentButton");
-    //commentButton.onclick = showComments(); //will move this function to a separate js file to handle it maybe
+    commentButton.onclick = showComments(); //showComments
     commentButton.innerHTML = "Comments";
 
     eventContainer.appendChild(title);
@@ -111,4 +110,8 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     eventCard.appendChild(eventContainer);
 
     return eventCard;
+}
+
+function showComments(){
+
 }
