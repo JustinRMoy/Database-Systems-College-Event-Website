@@ -1,16 +1,16 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 
-document.addEventListener(`DOMContentLoaded`, function () {
+document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
     var UniID = localStorage.getItem("UniversityID");
-    getEvents("", UniID);
+    getEvents("", 0);
   });
 
   //delete this function once implementation is finished and button is no longer needed on html
-function handleSearch(){
+/*function handleSearch(){
     getEvents("", 0);
     return;
-}
+}*/
 function getEvents(query, UniversityID)
 {
 	var jsonPayload = '{"search" : "' + query + '", "UniversityID" : "' + UniversityID + '"}';
@@ -98,9 +98,9 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var contactInfo = document.createElement("p");
     contactInfo.setAttribute("id", "contactInfo");
     contactInfo.setAttributes("data-id", eventId);
-    if(phone != null && email != null){
+    if(phone != "" && email != "")
         contactInfo.innerHTML = "Contact Coordinator at Phone: " + phone + ", Email: " + email;
-    }else contactInfo.innerHTML = "Contact Coordinator at Phone: NONE, Email: NONE";
+    else contactInfo.innerHTML = "Contact Coordinator at Phone: NONE, Email: NONE";
 
     var commentButton = document.createElement("button");
     commentButton.setAttribute("id", "commentButton");
