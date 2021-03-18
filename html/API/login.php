@@ -8,7 +8,7 @@
     $Password = $inputFromJson['Password'];
 
     //query to DB
-    $sql = "SELECT * FROM Users WHERE (Email LIKE '%" . $inputFromJson['Email'] . "%', AND Password LIKE '%" . $inputFromJson['Password'] . "%')"; 
+    $sql = "SELECT * FROM Users WHERE (Email='" . $inputFromJson['Email'] . "' AND Password='" . $inputFromJson['Password'] . "')"; 
     $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);
 
