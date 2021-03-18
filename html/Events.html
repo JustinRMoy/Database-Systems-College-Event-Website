@@ -67,12 +67,48 @@
                 <p style="font-weight: 500;" id="contactInfo">
                   Contact Coordinator at Phone: (321) 321-321, Email: fake@mail.com
                 </p>
-                <button type="button" onclick="#" id="commentButton">
+                <button type="button" id="commentButton">
                    Comments
                 </button>
                 </div>
           </div>
         </div>
+      </div>
+
+      <div id="commentBoxContainer">
+
+        <div id="commentBox" class="commentBox">
+          <!--this dive will be the background of the comment box and contain the box that will show all the comments, do not touch its css-->
+          <div class="commentBox-content" id="commentBox-content">
+            <!-- this div will contain the event name, the avg rating, an input to create a comment, and a list of all comments -->
+            <span class="close" id="span">&times;</span>
+            <h1>Event Title</h1>
+            <h2>Rating: 5</h2>
+            
+            <form action=""><!--form for user to create a comment-->
+              <input type="text" name="" id="userCommentInput">
+            </form>
+            
+            <div class="row mb-3" id="commentList">
+              <!--this div will containe a list of all the comments-->
+              
+              <div class="userComment" id="userComment">
+                <!--this div will contain the user's comment(s) and all others will appear below it by placing them outside this div and inside the commentList div-->
+                <!--probably have 2 buttons for deletion and editing-->
+                <p>this is my comment for the event boooooooo<br>ooooooooooooo</p>
+                <button id="commentDelete">Delete</button>
+                <button id="commentEdit">Edit</button>
+              </div>
+
+              <div class="otherUsers" id="otherUsers">
+                <p>I am another comment for this event yayaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaay</p>
+                <p>I am another comment for this event yayaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaay</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
       
       
