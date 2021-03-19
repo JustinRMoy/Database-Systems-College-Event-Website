@@ -1,0 +1,137 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #edc7b7;
+    font-size: 25px;
+}
+
+.navbar-brand
+{
+  padding-left: 20px;
+  padding-right: 100px;
+  height: 60px;
+  font-size: 30px;
+}
+
+.navbar-nav > li{
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 80px;
+    color: #123C69;
+}
+
+.navbar-nav > li{
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.navbar-light .navbar-nav .nav-link:hover 
+{
+    color: #AC3B61 !important;
+}
+
+.imgPlaceholder
+{
+    float: left;
+    width: 20%;
+    height: 200px;
+    background-image: url("../../img/ICpt2.jpg");
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-left: 40px;
+    margin-right: 0px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.eventsContainer
+{
+    float: left;
+    width: 75%;
+    margin-top: 20px;
+    margin-left: 0px;
+    border-left: solid black;
+    border-radius: 0px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.eventsContainer h1
+{
+    font-weight: bold;
+    font-size: 40px;
+    color: black;
+    text-decoration: underline;
+}
+
+.eventsContainer button{
+    border-radius: 5px;
+    border: none;
+    background-color: #EAE7DC;
+    color: black;
+}
+
+.eventsContainer button:hover{
+    background-color: #AC3B61;
+    color: #EAE7DC;
+}
+
+/*/////////////////everything below this is for comments//////////////////////*/
+
+.commentBox {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .commentBox-content {
+    background-color: #edc7b7;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    overflow: hidden;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .userComment p{
+      float: left;
+  }
+
+  .userComment button{
+      float: right;
+      display: block;
+  }
+
+  .otherUsers p{
+      border-top: black solid;
+  }
+
+  .userComment{
+      border-top: solid black;
+  }

@@ -1,38 +1,46 @@
 <?php
 
+  require 'db_conn.php';
+  
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
     $fullName = $inputFromJson['fullName'];
     $password =  $inputFromJson['password'];
-    $phoneNumber = $inputFromJson['phoneNumber'];
+    //$university = $inputFromJson['university'];
     $email = $inputFromJson['email'];
+    //$user_level = $inputFromJson['user_level'];
     $sql;
 
      //CONNECTING to SQL server
-    $dbServerName = "localhost";
-    $dbUserName = "databaseuser";
-    $dbPassword = "toorqwer";
-    $dbName = "pricereviewdb";
+    /*$dbServerName = "localhost";
+    $dbUserName = "root";
+    $dbPassword = "";
+    $dbName = "DataBasey2";
 
-    $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
+    $conn = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);*/
     
     //Start Reading Sequence
         if ($conn->connect_error)
         {
-            error( $conn->connect_error);
+            echo  "Can't connect" . error( $conn->connect_error);
         }
        else
        {
-        $sql = "INSERT INTO customer (customer_name, customer_password, customer_phone, customer_email, customer_prof_status) 
-        VALUES ('".$fullName."','".$password."','".$phoneNumber."','".$email."', 0);";
+         //Only Selects UCF IF for now
+         //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
+         //$result = mysqli_query($conn, $sql_select);
+         //$Users = $result->fetch_assoc();
+         $sql = "INSERT INTO Users (Password, Email, Name) 
+          VALUES ('".$password."','".$email."','".$fullName.");";
     
         if($conn->query($sql) != TRUE )
         {
+          echo "SQL Error";
           returnError( $conn->error );
         }
         else
         {
-          sendEmail("mr.l.t@hotmail.com");
+          //sendEmail("mr.l.t@hotmail.com");
           returnInfo("done");
         }
         $conn->close();
@@ -54,7 +62,7 @@
   }
   
   
-  function sendEmail($email){
+  /*function sendEmail($email){
        $code = rand(100000, 100000000);
 
     $fromEmail = 'onotreplay@pricereview.cf';
@@ -89,4 +97,4 @@
 
     echo '<script>alert("Email sent successfully !")</script>';
 }
-
+*/
