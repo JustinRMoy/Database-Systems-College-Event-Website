@@ -45,7 +45,7 @@
     //It will also send the user info to the landing page
     function returnUser($Id, $User_level, $Uni, $RSO)
     {
-        $ret = '{"Users": "'. $id .'", "User_level": "'. $User_Level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
+        $ret = '{"Users": "'. $id .'", "User_level": "'. $User_level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
         toJSON($ret);
     }
 
