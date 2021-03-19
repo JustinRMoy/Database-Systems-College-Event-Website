@@ -18,7 +18,7 @@
         //User found
         $Users = $result->fetch_assoc();
         $Id = $Users["ID"];
-        $User_Level = $Users["User_level"];
+        $User_level = $Users["User_level"];
         $Uni = $Users["UniversityID"];
         if (isset($Users["RSOID"]))
             $RSO = $Users["RSOID"];
