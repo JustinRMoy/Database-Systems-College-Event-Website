@@ -27,6 +27,7 @@
   {
     //sendEmail("mr.l.t@hotmail.com");
     returnInfo("done");
+    echo 
   }
   $conn->close();
     
