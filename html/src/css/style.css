@@ -20,7 +20,6 @@ body {
     border: none;
     outline: none;
     font-size: 22px;
-    box-shadow: 15px 15px 25px #a8a8a8;
     transition: box-shadow 0.5s;
 }
 
@@ -31,12 +30,11 @@ body {
 .form .btn {
     margin: auto;
     padding: 10px 35px;
-    background-color: #f1a566;
+    background-color: #000000;
     color: #fff;
     border: none;
     font-size: 22px;
     border-radius: 10px;
-    box-shadow: 15px 15px 25px #a8a8a8;
     transition: box-shadow 0.5s;
     outline: none;
 }
@@ -74,11 +72,10 @@ body {
     font-size: 25px;
     margin: 40vh auto;
     padding: 10px 55px;
-    background-color: #f1a566;
+    background-color: #000000;
     color: #fff;
     border: none;
     border-radius: 10px;
-    box-shadow: 15px 15px 25px #a8a8a8;
     transition: box-shadow 0.5s;
     outline: none;
 }
@@ -96,7 +93,7 @@ body {
 }
 
 .left-section .cover img {
-    height: 100vh;
+    height: 90vh;
     width: 50vw;
 }
 
@@ -132,7 +129,7 @@ body {
 }
 
 .right-section .cover img {
-    height: 100vh;
+    height: 90vh;
     width: 50vw;
 }
 
@@ -170,13 +167,27 @@ body {
   text-align: center;
 }
 
-
 .btn-home {
      margin-top: 1px;
      margin-right: 2px;
      position:absolute;
 }
 
+.cover-gradient {
+    background: linear-gradient(141deg, #d20000, #5400e1);
+    background-size: 400% 400%;
+
+    animation: fade-gradient 8s ease infinite;
+
+    height: 90vh;
+    width: 50vw;
+}
+
+@keyframes fade-gradient {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 51%}
+    100%{background-position:0% 50%}
+}
 
 @keyframes fade-in-element {
     from {
