@@ -1,188 +1,201 @@
-<!DOCTYPE html> 
-<html lang="en"> 
-    <head> 
-        <title>Login/Signup</title>         
-        <script type="text/javascript" src="src/js/jquery.min.js"></script>
-        <script src="src/js/md5.js"></script>         
-        <script src="src/js/signup.js"></script>         
-        <script src="src/js/login.js"></script>  
-        <link rel="stylesheet" href="src/css/bootstrap.min.css"> 
-        <link rel="stylesheet" href="src/css/style.css"> 
-        
-        <script type="text/javascript" src="src/js/bootstrap.min.js"></script>
-        
-        <link rel="shortcut icon" href="img/UCFlogo.png"> 
-    </head>     
-    <body> 
-        <nav class="navbar navbar-expand navbar-light bg-light border">
-          <a class="navbar-brand" href="index.html"><img src="img/UCFLogo.png" class="" width="50" height="50" alt="">&nbsp;Event Management Site
-        </a>
-          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+<!DOCTYPE html>
+<html>
 
-          <div class="d-flex justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Events.html">Events</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Plan
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="planning.html">Add Event</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="planning.html">Edit Event</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-              </li>
-            </ul>
+<head>
+  <title>Login/Signup</title>
+  <script type="text/javascript" src="src/js/jquery.min.js"></script>
+  <script src="src/js/md5.js"></script>
+  <script src="src/js/signup.js"></script>
+  <script src="src/js/login.js"></script>
+  <link rel="stylesheet" href="src/css/bootstrap.min.css">
+  <link rel="stylesheet" href="src/css/style.css">
+  <script type="text/javascript" src="src/js/bootstrap.min.js"></script>
+  <link rel="shortcut icon" href="img/UCFlogo.png">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand navbar-light bg-light border">
+    <a class="navbar-brand" href="index.html"><img src="img/UCFLogo.png" class="" width="50" height="50" alt="">&nbsp;Event Management Site </a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="d-flex justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="Events.html">Events</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Plan</a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="planning.html">Add Event</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="planning.html">Edit Event</a>
           </div>
-        </nav>         
-        <section class="left-section"> 
-        <div id="left-cover" class="cover cover-hide"> 
-            <article class="cover-gradient"></article>
-            <h1>Welcome !</h1> 
-            <h3>Already have an account ?</h3> 
-            <button type="button" class="switch-btn" onclick="location.reload()">Login</button>             
-        </div>         
-        <div id="left-form" class="form fade-in-element"> 
-            <h1>Login</h1> 
-            <form style="text-align: center;"> 
-                <input type="text" id="username" class="input-box" placeholder="User Email"> 
-                <input type="password" id="userpassword" class="input-box" placeholder="Password"> 
-                <button type="button" class="btn" onclick="login();">Login</button>                 
-                <button type="button" class="btn bg-dark" data-toggle="modal" data-target="#myModalres" onclick="emptyText();">Forgot Password?</button>                 
-            </form>             
-            <p id="logstatus" style="font-size: 0.5em"></p> 
-        </div>         
-    </section>     
-    <div class="container"> 
-        <!-- Modal -->         
-        <div class="modal fade" id="myModal" role="dialog"> 
-            <div class="modal-dialog"> 
-                <!-- Email confirmation Modal -->                 
-                <div class="modal-content"> 
-                    <div class="modal-header"> 
-                        <h4 class="modal-title">Email confirmation</h4> 
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>                         
-                    </div>                     
-                    <div class="modal-body"> 
-                        <form class="form-group"> 
-                            <label for="emailab">Enter your Email</label>                             
-                            <input type="text" class="form-control" id="emailconf" placeholder="Email"> 
-                            <label for="codelab">Enter provided code</label>                             
-                            <input type="text" class="form-control" id="confCode" placeholder="Confirmation code"> 
-                            <p id="confStatus" style="font-size: 0.6em"></p> 
-                        </form>                         
-                    </div>                     
-                    <div class="modal-footer"> 
-                        <button type="button" class="btn btn-default" onclick="confirmCode();">Confirm email</button>                         
-                        <button type="button" class="btn btn-default" onclick="resendCode();">Send new code</button>                         
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                         
-                    </div>                     
-                </div>                 
-            </div>             
-        </div>         
-    </div>     
-    <div class="container"> 
-        <!-- Modal -->         
-        <div class="modal fade" id="myModalres" role="dialog"> 
-            <div class="modal-dialog"> 
-                <!-- Send reset password code Modal -->                 
-                <div class="modal-content"> 
-                    <div class="modal-header"> 
-                        <h4 class="modal-title">Request password reset code</h4> 
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>                         
-                    </div>                     
-                    <div class="modal-body"> 
-                        <form class="form-group"> 
-                            <label for="emailab">Enter your Email</label>                             
-                            <input type="text" class="form-control" id="emailcodeRes" placeholder="Email"> 
-                            <p id="resCodeStatus" style="font-size: 0.6em"></p> 
-                        </form>                         
-                    </div>                     
-                    <div class="modal-footer">                          
-                        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModalresPass" onclick="emptyText();">Reset password</button>   
-                        <button type="button" class="btn btn-default" onclick="sendResetCode();">Send reset code</button>                      
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>                         
-                    </div>                     
-                </div>                 
-            </div>             
-        </div>         
-    </div>     
-    <div class="container"> 
-        <!-- Modal -->         
-        <div class="modal fade" id="myModalresPass" role="dialog"> 
-            <div class="modal-dialog"> 
-                <!-- Reset password Modal -->                 
-                <div class="modal-content"> 
-                    <div class="modal-header"> 
-                        <h4 class="modal-title">Password reset system</h4> 
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>                         
-                    </div>                     
-                    <div class="modal-body"> 
-                        <form class="form-group"> 
-                            <label for="emailab">Enter your Email</label>                             
-                            <input type="text" class="form-control" id="emailcodeResPass" placeholder="Email"> 
-                            <label for="codelab">Enter provided code</label>                             
-                            <input type="text" class="form-control" id="resPassCode" placeholder="Reset password code"> 
-                            <label for="emailab">Enter new password</label>                             
-                            <input type="password" class="form-control" id="resNewPass" placeholder="New password"> 
-                            <label for="emailab">Confirm new password</label>                             
-                            <input type="password" class="form-control" id="ConfirmResNewPass" placeholder="Confirm new password"> 
-                            <p id="resPassStatus" style="font-size: 0.6em"></p> 
-                        </form>                         
-                    </div>                     
-                    <div class="modal-footer"> 
-                        <button type="button" class="btn btn-default" onclick="resetPassword();">Reset password</button>                         
-                        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModalres" onclick="emptyText();">Send new code</button>                         
-                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="emptyText();">Close</button>                         
-                    </div>                     
-                </div>                 
-            </div>             
-        </div>         
-    </div>     
-    <section class="right-section"> 
-        <div id="right-cover" class="cover fade-in-element"> 
-            <article class="cover-gradient"></article>
-            <h1>Welcome !</h1> 
-            <h3>Don't have an account ?</h3> 
-            <button type="button" class="switch-btn" onclick="switchSignup()">Signup</button>             
-        </div>         
-        <div id="right-form" class="form form-hide"> 
-            <h1>Signup</h1> 
-            <form style="text-align: center;"> 
-                <input type="text" id="fullname" class="input-box" placeholder="Full Name"> 
-                <input type="email" id="useremail" class="input-box" placeholder="Email Address">
-                <div class="d-flex justify-content-center">
-                    <p>Account Type:</p>
-                    <input type="radio" id="user" name="drone" value="user" checked>
-                    <label for="user">User</label>
-                    <input type="radio" id="admin" name="drone" value="admin">
-                    <label for="admin">Admin</label>          
-                </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="login.html">Login</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <section class="left-section">
+    <div id="left-cover" class="cover cover-hide">
+      <article class="cover-gradient"></article>
+      <h1>Welcome !</h1>
+      <h3>Already have an account ?</h3>
+      <button type="button" class="switch-btn" onclick="location.reload()">Login</button>
+    </div>
+    <div id="left-form" class="form fade-in-element">
+      <h1>Login</h1>
+      <form style="text-align: center;">
+        <input type="text" id="username" class="input-box" placeholder="User Email">
+        <input type="password" id="userpassword" class="input-box" placeholder="Password">
+        <button type="button" class="btn" onclick="login();">Login</button>
+        <button type="button" class="btn bg-dark" data-toggle="modal" data-target="#myModalres" onclick="emptyText();">Forgot Password?</button>
+      </form>
+      <p id="logstatus" style="font-size: 0.5em"></p>
+    </div>
+  </section>
+  <div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Email confirmation Modal -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Email confirmation</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <form class="form-group">
+              <label for="emailab">Enter your Email</label>
+              <input type="text" class="form-control" id="emailconf" placeholder="Email">
+              <label for="codelab">Enter provided code</label>
+              <input type="text" class="form-control" id="confCode" placeholder="Confirmation code">
+              <p id="confStatus" style="font-size: 0.6em"></p>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="confirmCode();">Confirm email</button>
+            <button type="button" class="btn btn-default" onclick="resendCode();">Send new code</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModalres" role="dialog">
+      <div class="modal-dialog">
+        <!-- Send reset password code Modal -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Request password reset code</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <form class="form-group">
+              <label for="emailab">Enter your Email</label>
+              <input type="text" class="form-control" id="emailcodeRes" placeholder="Email">
+              <p id="resCodeStatus" style="font-size: 0.6em"></p>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModalresPass" onclick="emptyText();">Reset password</button>
+            <button type="button" class="btn btn-default" onclick="sendResetCode();">Send reset code</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <!-- Modal -->
+    <div class="modal fade" id="myModalresPass" role="dialog">
+      <div class="modal-dialog">
+        <!-- Reset password Modal -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Password reset system</h4>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div class="modal-body">
+            <form class="form-group">
+              <label for="emailab">Enter your Email</label>
+              <input type="text" class="form-control" id="emailcodeResPass" placeholder="Email">
+              <label for="codelab">Enter provided code</label>
+              <input type="text" class="form-control" id="resPassCode" placeholder="Reset password code">
+              <label for="emailab">Enter new password</label>
+              <input type="password" class="form-control" id="resNewPass" placeholder="New password">
+              <label for="emailab">Confirm new password</label>
+              <input type="password" class="form-control" id="ConfirmResNewPass" placeholder="Confirm new password">
+              <p id="resPassStatus" style="font-size: 0.6em"></p>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" onclick="resetPassword();">Reset password</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModalres" onclick="emptyText();">Send new code</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="emptyText();">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="right-section">
+    <div id="right-cover" class="cover fade-in-element">
+      <article class="cover-gradient"></article>
+      <h1>Welcome !</h1>
+      <h3>Don't have an account ?</h3>
+      <button type="button" class="switch-btn" onclick="switchSignup()">Signup</button>
+    </div>
+    <div id="right-form" class="form form-hide">
+      <h1>Signup</h1>
+      <form style="text-align: center;">
+        <input type="text" id="fullname" class="input-box" placeholder="Full Name">
+        <input type="email" id="useremail" class="input-box" placeholder="Email Address">
+        <div class="d-flex justify-content-center" style="font-size: 20px; margin: 0px; padding: 0px">
+          <p style="font-size: 22px;">Account Type:</p>
+          <input class="mt-2" style="min-width: 10px; padding: 0px" type="radio" id="user" name="drone" value="user" checked="">
+          <label for="user" style="min-width: 30px; margin: 2px; padding: 0px">User</label>
+          <input class="mt-2" style="min-width: 10px; padding: 0px" type="radio" id="admin" name="drone" value="admin">
+          <label for="admin" style="min-width: 30px; margin: 2px; padding: 0px">Admin</label>
+        </div>
 
-                <input type="password" id="userpass" class="input-box" placeholder="Password"> 
-                <input type="password" id="confirmpass" class="input-box" placeholder="Confirm Password"> 
-                <button type="button" name="signup-btn" class="btn" onclick="signup();">Signup</button>                 
-                <button type="button" class=" btn" data-toggle="modal" data-target="#myModal">Confirm email</button>                 
-            </form>             
-            <p id="upstatus" style="font-size: 0.5em"></p> 
-        </div>         
-    </section>         
-        <footer class="bg-dark pt-0 fixed-bottom text-white"> 
-            <div class="col-md ml-2 pb-2 pt-4"> 
-                <p>&nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">&copy;School Event Management</a> by <a target="_blank" rel="noopener noreferrer" href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">Team 5</a></p> 
-            </div>             
-        </footer>
-                <script src="src/js/main.js"></script>             
-      
+            <!-- University Dropdown Selection-->
+        <?php 
+            $mysqli = NEW MySQLi('localhost', 'root', 'test');
+            $universitySet = $mysqli->query("SELECT university_name FROM universities");
+        ?>
+
+        <select name="universities">
+        <?php
+            while($rows = $universitySet->fetch_assoc())
+            {
+                $university_name = $rows['university_name'];           
+                echo "<option value='$university_name'>$university_name</option>";
+            }
+        ?>
+        </select>
+
+        <input type="password" id="userpass" class="input-box" placeholder="Password">
+        <input type="password" id="confirmpass" class="input-box" placeholder="Confirm Password">
+        <button type="button" name="signup-btn" class="btn" onclick="signup();">Signup</button>
+        <button type="button" class=" btn" data-toggle="modal" data-target="#myModal">Confirm email</button>
+      </form>
+      <p id="upstatus" style="font-size: 0.5em"></p>
+    </div>
+  </section>
+  <footer class="bg-dark pt-0 fixed-bottom text-white">
+    <div class="col-md ml-2 pb-2 pt-4">
+      <p>&nbsp;&nbsp;<a target="_blank" rel="noopener noreferrer" href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">©School Event Management</a> by <a target="_blank" rel="noopener noreferrer" href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">Team 5</a></p>
+    </div>
+  </footer>
+  <script src="src/js/main.js"></script>
+  <pingendo onclick="window.open('https://pingendo.com/', '_blank')" style="cursor:pointer;position: fixed;bottom: 20px;right:20px;padding:4px;background-color: #00b0eb;border-radius: 8px; width:220px;display:flex;flex-direction:row;align-items:center;justify-content:center;font-size:14px;color:white">Made with Pingendo Free&nbsp;&nbsp;<img src="https://pingendo.com/site-assets/Pingendo_logo_big.png" class="d-block" alt="Pingendo logo" height="16"></pingendo>
 </body>
+
 </html>
