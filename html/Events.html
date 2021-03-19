@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" 
+    crossorigin="anonymous">
+    <link href="src/css/events.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="src/js/events.js"></script>
+</head>
+<body>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" 
+    crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #EEE2DC;">
+        <a class="navbar-brand" style="color: #123C69" href="#">Event Management Site</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" style="color: #123C69" href="#">Events </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" style="color: #123C69" href="#">Plan</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" style="color: #123C69" href="#">Login</a>
+            </li>
+          </ul>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <img class="pull-right" src="img/UCFlogo.png" width="38%" id="UCFLogo">
+          </li>
+      </ul>
+      </nav>
+
+      <!--<button type="button" onclick="handleSearch()">Press Me!</button> KILL ME!!!!!!!!-->
+      
+      <div style="position: relative;" id="eventList">
+        <div class="row mb-3">
+          <div class="imgPlaceholder" id="eventImg"></div>
+          <div class="eventsContainer" id="theEvent">
+              <h1>This is the Event</h1>
+              <h5 id="eventDate">on 03/21/2021 at 3:00pm</h5>
+                <p id="eventDescription">
+                    Aliqua est aliquip enim exercitation sint nostrud culpa dolore elit esse eiusmod. 
+                    Enim non laboris eu dolore aute reprehenderit adipisicing eiusmod exercitation aliquip amet aliquip incididunt nisi.
+                    Proident culpa in voluptate eiusmod est adipisicing consectetur commodo cillum ex ut aliquip irure voluptate. Laborum officia velit do fugiat.
+                </p>
+                <p style="font-weight: 500;" id="contactInfo">
+                  Contact Coordinator at Phone: (321) 321-321, Email: fake@mail.com
+                </p>
+                <button type="button" id="commentButton">
+                   Comments
+                </button>
+                </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="commentBoxContainer">
+
+        <div id="commentBox" class="commentBox">
+          <!--this dive will be the background of the comment box and contain the box that will show all the comments, do not touch its css-->
+          <div class="commentBox-content" id="commentBox-content">
+            <!-- this div will contain the event name, the avg rating, an input to create a comment, and a list of all comments -->
+            <span class="close" id="span">&times;</span>
+            <h1>Event Title</h1>
+            <h2>Rating: 5</h2>
+            
+            <form action=""><!--form for user to create a comment-->
+              <input type="text" name="" id="userCommentInput">
+            </form>
+            
+            <div class="row mb-3" id="commentList">
+              <!--this div will containe a list of all the comments-->
+              
+              <div class="userComment" id="userComment">
+                <!--this div will contain the user's comment(s) and all others will appear below it by placing them outside this div and inside the commentList div-->
+                <!--probably have 2 buttons for deletion and editing-->
+                <p>this is my comment for the event boooooooo<br>ooooooooooooo</p>
+                <button id="commentDelete">Delete</button>
+                <button id="commentEdit">Edit</button>
+              </div>
+
+              <div class="otherUsers" id="otherUsers">
+                <p>I am another comment for this event yayaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaay</p>
+                <p>I am another comment for this event yayaaaaaaaaaaaaaaaa<br>aaaaaaaaaaaaaaaaaaaaay</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+      
+      
+</body>
+</html>
