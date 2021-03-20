@@ -16,10 +16,12 @@
   }elseif($inputFromJson['mode'] == 2){//delete a comment
     $sql = "DELETE FROM Comments 
     WHERE ((StudentID='". $inputFromJson['userId'] ."' AND EventID='". $inputFromJson['eventId'] ."') OR CommentID='". $inputFromJson['commentId'] ."')";
-  }else{//update a comment
+  }elseif($inputFromJson['mode'] == 3){//update a comment
     $sql = "UPDATE Comments 
-    SET Comment = $inputFromJson['comment']
+    SET Comment=" . $inputFromJson['comment'] . "
     WHERE ((StudentID='". $inputFromJson['userId'] ."' AND EventID='". $inputFromJson['eventId'] ."') OR CommentID='". $inputFromJson['commentId'] ."')";
+  }else{
+      echo "No mode selected";
   }
 
   $conn->close();
