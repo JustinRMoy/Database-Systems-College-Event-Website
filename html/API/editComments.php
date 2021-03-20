@@ -11,15 +11,15 @@
   if($inputFromJson['mode'] == 1){//1 = create comment
 
     $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
-    VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
+    VALUES (". $inputFromJson['userId'] .",". $inputFromJson['eventId'] .",". $inputFromJson['comment'] .")";
 
   }elseif($inputFromJson['mode'] == 2){//delete a comment
     $sql = "DELETE FROM Comments 
-    WHERE ((StudentID='". $inputFromJson['userId'] ."' AND EventID='". $inputFromJson['eventId'] ."') OR CommentID='". $inputFromJson['commentId'] ."')";
+    WHERE (StudentID=" . $inputFromJson['userId'] ." AND EventID=". $inputFromJson['eventId'] .") OR CommentID=". $inputFromJson['commentId'] ;
   }elseif($inputFromJson['mode'] == 3){//update a comment
     $sql = "UPDATE Comments 
-    SET Comment='" . $inputFromJson['comment'] . "'
-    WHERE ((StudentID='". $inputFromJson['userId'] ."' AND EventID='". $inputFromJson['eventId'] ."') OR CommentID='". $inputFromJson['commentId'] ."')";
+    SET Comment=" . $inputFromJson['comment'] . "
+    WHERE ((StudentID=". $inputFromJson['userId'] ." AND EventID=". $inputFromJson['eventId'] .") OR CommentID=". $inputFromJson['commentId'] .")";
   }else{
       echo "No mode selected";
   }
