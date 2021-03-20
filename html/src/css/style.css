@@ -262,4 +262,6 @@ footer
     width: 100%;
     background-color: #EEE2DC;
     padding: 50px 0px;
+    bottom: 0;
+    position: absolute;
 }
