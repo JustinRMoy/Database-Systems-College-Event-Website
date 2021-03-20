@@ -18,7 +18,7 @@
     WHERE ((StudentID='". $inputFromJson['userId'] ."' AND EventID='". $inputFromJson['eventId'] ."') OR CommentID='". $inputFromJson['commentId'] ."')";
   }elseif($inputFromJson['mode'] == 3){//update a comment
     $sql = "UPDATE Comments 
-    SET Comment=" . $inputFromJson['comment'] . "
+    SET Comment='" . $inputFromJson['comment'] . "'
     WHERE ((StudentID='". $inputFromJson['userId'] ."' AND EventID='". $inputFromJson['eventId'] ."') OR CommentID='". $inputFromJson['commentId'] ."')";
   }else{
       echo "No mode selected";
