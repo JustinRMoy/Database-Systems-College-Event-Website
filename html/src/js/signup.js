@@ -9,6 +9,7 @@ function signup()
     var fullname = document.getElementById("fullname").value;
     var password = document.getElementById("userpass").value;
     var confirmPassword = document.getElementById("confirmpass").value;
+    var university = document.getElementById("universities").value;
 
     document.getElementById("fullname").innerHTML = "";
     document.getElementById("userpass").innerHTML = "";
@@ -19,7 +20,7 @@ function signup()
  if (validateInput(fullname, email, phoneNumber, password, confirmPassword))
     {
         var hashedPassword = md5(password);
-        var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "email" : "' + email + '"}';
+        var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "email" : "' + email + '", "university" : "' + university + '"}';
        
         var request = new XMLHttpRequest();
         request.open("POST", "http://198.199.77.197/API/signup.php", true);
