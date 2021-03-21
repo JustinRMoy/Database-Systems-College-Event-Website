@@ -166,19 +166,17 @@
         </div> -->
 
             <!-- University Dropdown Selection-->
-       <!-- <?php 
-            $mysqli = NEW MySQLi('localhost', 'root', 'test');
-            $universitySet = $mysqli->query("SELECT university_name FROM universities");
-        ?>-->
-
+        <label for="universities">Choose a University:</label>
         <select name="universities">
-        <!--<?php
-            while($rows = $universitySet->fetch_assoc())
-            {
-                $university_name = $rows['university_name'];           
-                echo "<option value='$university_name'>$university_name</option>";
-            }
-        ?>-->
+            <script>
+                var request = new XMLHttpRequest();
+                request.onload = function()
+                {
+                    console.log(this.responseText);
+                };
+                request.open("GET", "http://198.199.77.197/API/universityList.php", true);
+                request.send();
+            </script>
         </select>
 
         <input type="password" id="userpass" class="input-box" placeholder="Password">
