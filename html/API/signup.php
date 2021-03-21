@@ -11,12 +11,10 @@
   //$user_level = $inputFromJson['user_level'];
   $sql;
     
-  //Only Selects UCF IF for now
-  //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
-  //$result = mysqli_query($conn, $sql_select);
-  //$Users = $result->fetch_assoc();
-  $sql = "INSERT INTO Users (Password, Email, Name) 
-  VALUES ('".$password."','".$email."','".$fullName."')";
+  $sql_select = "SELECT ID FROM University WHERE Name = $university";
+  $result = mysqli_query($conn, $sql_select);
+  $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
+  VALUES ('".$password."','".$email."','".$fullName."', $result)";
 
   if($conn->query($sql) != TRUE )
   {
