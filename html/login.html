@@ -166,13 +166,13 @@
         </div> -->
 
             <!-- University Dropdown Selection-->
-        <label for="universities">Choose a University:</label>
-        <select name="universities">
+        <label for="universities" style="font-size: 20px;">Choose a University:</label>
+        <select id="universities" style="font-size: 20px;">
             <script>
                 var request = new XMLHttpRequest();
                 request.onload = function()
                 {
-                    console.log(this.responseText);
+                    document.getElementById("universities").innerHTML = this.responseText;
                 };
                 request.open("GET", "http://198.199.77.197/API/universityList.php", true);
                 request.send();
