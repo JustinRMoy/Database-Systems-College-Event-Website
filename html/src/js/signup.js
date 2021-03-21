@@ -9,20 +9,17 @@ function signup()
     var fullname = document.getElementById("fullname").value;
     var password = document.getElementById("userpass").value;
     var confirmPassword = document.getElementById("confirmpass").value;
-    //var phoneNumber = document.getElementById("userphone").value;
-    var phoneNumber = "5555555555"; //REMOVE ME: just for test
 
     document.getElementById("fullname").innerHTML = "";
     document.getElementById("userpass").innerHTML = "";
     document.getElementById("confirmpass").innerHTML = "";
-    //document.getElementById("userphone").innerHTML = "";
     document.getElementById("useremail").innerHTML = "";
-    //document.getElementById("upstatus").innerHTML = "";
+    document.getElementById("upstatus").innerHTML = "";
 
  if (validateInput(fullname, email, phoneNumber, password, confirmPassword))
     {
         var hashedPassword = md5(password);
-        var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "phoneNumber" : "' + phoneNumber + '", "email" : "' + email + '"}';
+        var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "email" : "' + email + '"}';
        
         var request = new XMLHttpRequest();
         request.open("POST", "http://198.199.77.197/API/signup.php", true);
@@ -45,7 +42,6 @@ function signup()
                         document.getElementById("fullname").value = "";
                         document.getElementById("userpass").value = "";
                         document.getElementById("confirmpass").value = "";
-                        //document.getElementById("userphone").value = "";
                         document.getElementById("useremail").value = "";
 
                 }
@@ -123,35 +119,6 @@ function checkFullName(name)
     return true;
 }
 
-function checkPhoneNumber(phoneNumber)
-{
-    "use strict";
-    if (phoneNumber.length === 0)
-    {
-        document.getElementById("upstatus").innerHTML = "Phone number is reuired!";
-        document.getElementById("upstatus").style.color = "red";
-        return false;
-    }
-
-    if (phoneNumber.length !== 10)
-    {
-        document.getElementById("upstatus").innerHTML = "Please enter a valid phone number!";
-        document.getElementById("upstatus").style.color = "red";
-        return false;
-    }
-    var i = 0;
-    for (i = 0; i < 10; i += 1)
-    {
-        if (phoneNumber.charAt(i) < '0' || phoneNumber.charAt(i) > '9')
-        {
-            document.getElementById("upstatus").innerHTML = "Please enter a valid phone number!";
-            document.getElementById("upstatus").style.color = "red";
-            return false;
-        }
-    }
-    return true;
-}
-
 function checkEmail(email)
 {
     "use strict";
@@ -183,7 +150,6 @@ function validateInput(fullName, email, phoneNumber, password, confirmPassword )
     "use strict";
     if (!checkFullName(fullName)) return false;
     if(!checkEmail(email)) return false;
-    if (!checkPhoneNumber(phoneNumber)) return false;
     if (!checkPassword(password)) return false;
     if (!checkConfirmPassword(confirmPassword, password)) return false;
        
