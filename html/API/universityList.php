@@ -12,3 +12,5 @@
         echo "<option value='$university_name'>$university_name</option>";
     }
     echo "</select>";
+
+    $conn->close();
