@@ -14,59 +14,31 @@ function login()
 
 	 loginName = document.getElementById("username").value;
 	 password = document.getElementById("userpassword").value;
-     loginPassword = md5(password);
+   loginPassword = md5(password);
 
 	document.getElementById("logstatus").innerHTML = "";
 
-	if(checkEmaillog(loginName) && checkPasswordlog(password)){
+	if (checkEmaillog(loginName) && checkPasswordlog(password)){
 		 loginPassword = md5(password);
-		var jsonPayload = '{"userName" : "' + loginName + '", "password" : "' + loginPassword + '"}';
+		
+		 var jsonPayload = '{"Email" : "' + loginName + '", "Password" : "' + loginPassword + '"}';
 
     	var request = new XMLHttpRequest();
-	    request.open("POST", loginUrl, true);
+	    request.open("POST", "http://198.199.77.197/API/login.php", false);
 	    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	    try {
-            request.onreadystatechange = function()
-		{
-			if (this.readyState == 4 && this.status == 200)
+
+	    try 
 			{
-				console.log(request);
-
-				var jsonObject = JSON.parse(request.responseText);
-                customer_id = jsonObject.customer_id;
-                prof_status = jsonObject.customer_prof_status;
-                var endpointmsg = jsonObject.error;
-                if( customer_id < 1 )
-		          {
-			          document.getElementById("logstatus").innerHTML = endpointmsg;
-                      document.getElementById("logstatus").style.color = "red";
-			         return;
-		          }
-		          console.log(prof_status);
-		         if( prof_status === "0"){
-			          document.getElementById("logstatus").innerHTML = "Email not verified!!";
-                      document.getElementById("logstatus").style.color = "red";
-			         return;
-		          }
-
-                u_fullName = jsonObject.customer_fullname;
-                console.log(customer_id);
-                saveCookie();
-                window.location.href = "../index.html";
-
-			}
-		};
-			//console.log(jsonPayload);
-            request.responseType="text";
-            request.send(jsonPayload);
-        }
+				request.send(jsonPayload);
+				var jsonObj = JSON.parse(request.responseText);
+				window.location.href = "index.html";
+      }
 
 	   catch(err)
 	   {
-		document.getElementById("logstatus").innerHTML = err.message;
+			document.getElementById("logstatus").innerHTML = err.message;
 	   }
-
-}
+	}
 }
 
 
@@ -139,13 +111,13 @@ function checkPasswordlog(password)
     if (password.length === 0) {
         document.getElementById("logstatus").innerHTML = "Password is required!";
         document.getElementById("logstatus").style.color = "red";
-        return false;
+        return true;
     }
     if (password.length < 5)
     {
         document.getElementById("logstatus").innerHTML = "Your password must be at least 5 characters long, should not exceed 45 characters!";
         document.getElementById("logstatus").style.color = "red";
-        return false;
+        return true;
     }
 
     return true;

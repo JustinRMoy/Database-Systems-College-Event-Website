@@ -9,14 +9,15 @@ function signup()
     var fullname = document.getElementById("fullname").value;
     var password = document.getElementById("userpass").value;
     var confirmPassword = document.getElementById("confirmpass").value;
-    var phoneNumber = document.getElementById("userphone").value;
-    
+    //var phoneNumber = document.getElementById("userphone").value;
+    var phoneNumber = "5555555555"; //REMOVE ME: just for test
+
     document.getElementById("fullname").innerHTML = "";
     document.getElementById("userpass").innerHTML = "";
     document.getElementById("confirmpass").innerHTML = "";
-    document.getElementById("userphone").innerHTML = "";
+    //document.getElementById("userphone").innerHTML = "";
     document.getElementById("useremail").innerHTML = "";
-    document.getElementById("upstatus").innerHTML = "";
+    //document.getElementById("upstatus").innerHTML = "";
 
  if (validateInput(fullname, email, phoneNumber, password, confirmPassword))
     {
@@ -24,7 +25,7 @@ function signup()
         var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "phoneNumber" : "' + phoneNumber + '", "email" : "' + email + '"}';
        
         var request = new XMLHttpRequest();
-        request.open("POST", signUpUrl, true);
+        request.open("POST", "http://198.199.77.197/API/signup.php", true);
         request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
         try {
             request.onreadystatechange = function()
@@ -33,6 +34,7 @@ function signup()
             {    
                 var jsonObject = JSON.parse(request.responseText);
                 var endpointmsg = jsonObject['msg'];
+                console.log(endpointmsg);
                 var errormsg = endpointmsg.split('customer.').pop();
                 console.log(errormsg);
                 if (errormsg === "done")
@@ -43,7 +45,7 @@ function signup()
                         document.getElementById("fullname").value = "";
                         document.getElementById("userpass").value = "";
                         document.getElementById("confirmpass").value = "";
-                        document.getElementById("userphone").value = "";
+                        //document.getElementById("userphone").value = "";
                         document.getElementById("useremail").value = "";
 
                 }
@@ -56,6 +58,7 @@ function signup()
             }
         };
             request.responseType="text";
+            console.log(json);
             request.send(json);
         }
         catch(error)
