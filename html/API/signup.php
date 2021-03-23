@@ -12,6 +12,8 @@
   echo $University;
   $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
 
+  // echo mysqli_query($conn, $sql_select);
+
   if($result = mysqli_query($conn, $sql_select))
   {
     echo "University Records selected successfully";
@@ -25,13 +27,17 @@
     // echo 
   }
 
+  $ID = $result->fetch_assoc();
+  echo $ID;
+
   echo "about to insert into Users";
   //$result = mysqli_query($conn, $sql_select);
 
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
-  VALUES ('".$Password."','".$Email."','".$FullName."', $result)";
+  VALUES ('".$Password."','".$Email."','".$FullName."', $ID)";
 
   echo "storing Users query in variable";
+  flush();
 
   if(mysqli_query($conn, $sql))
   {
