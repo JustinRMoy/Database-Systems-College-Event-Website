@@ -146,7 +146,7 @@ function checkEmail(email)
     return true;
 }
 
-function validateInput(fullName, email, phoneNumber, password, confirmPassword )
+function validateInput(fullName, email, password, confirmPassword )
 {
     "use strict";
     if (!checkFullName(fullName)) return false;
