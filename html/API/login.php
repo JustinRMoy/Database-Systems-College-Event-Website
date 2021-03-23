@@ -20,6 +20,7 @@
         $Id = $Users["ID"];
         $User_level = $Users["User_level"];
         $Uni = $Users["UniversityID"];
+        $Name = $Users["Name"];
         if (isset($Users["RSOID"]))
             $RSO = $Users["RSOID"];
         
