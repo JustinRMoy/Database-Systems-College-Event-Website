@@ -11,7 +11,8 @@
 
   echo $University;
   $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
-  if(mysqli_query($conn, $sql_select))
+
+  if($result = mysqli_query($conn, $sql_select))
   {
     echo "University Records selected successfully";
     returnInfo("done");
@@ -24,8 +25,8 @@
     // echo 
   }
 
-  //$result = mysqli_query($conn, $sql_select);
   echo $result;
+  //$result = mysqli_query($conn, $sql_select);
 
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
   VALUES ('".$Password."','".$Email."','".$FullName."', $University)";
