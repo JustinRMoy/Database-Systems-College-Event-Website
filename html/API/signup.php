@@ -4,31 +4,42 @@
   
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  $fullName = $inputFromJson['fullName'];
-  $password =  $inputFromJson['password'];
-  $university = $inputFromJson['university'];
-  $email = $inputFromJson['email'];
-  //$user_level = $inputFromJson['user_level'];
-  $sql;
-    
-  //Only Selects UCF IF for now
-  //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
-  //$result = mysqli_query($conn, $sql_select);
-  //$Users = $result->fetch_assoc();
-  $sql = "INSERT INTO Users (Password, Email, Name) 
-  VALUES ('".$password."','".$email."','".$fullName."')";
+  $FullName = $inputFromJson['fullName'];
+  $Password =  $inputFromJson['password'];
+  $University = $inputFromJson['university'];
+  $Email = $inputFromJson['email'];
+  
+  $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
 
-  if($conn->query($sql) != TRUE )
+  if($result = mysqli_query($conn, $sql_select))
   {
-    echo "SQL Error";
-    returnError( $conn->error );
+    echo "University Records selected successfully";
+    returnInfo("done");
   }
   else
   {
-    //sendEmail("mr.l.t@hotmail.com");
+    echo "failed to find Uni ID records";
+    returnError( $conn->error );
+  }
+
+  $UniNum = $result->fetch_assoc();
+  $ID = $UniNum['ID'];
+
+  $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
+  VALUES ('".$Password."','".$Email."','".$FullName."', $ID)";
+
+  if(mysqli_query($conn, $sql))
+  {
+    echo "Records inserted successfully";
     returnInfo("done");
   }
-  $conn->close();
+  else
+  {
+    echo "failed to insert records";
+    returnError( $conn->error );
+  }
+
+  mysqli_close($conn);
     
   function returnError($error){
         $retval = '{"msg":"' . $error .'"}';
@@ -82,3 +93,4 @@
     echo '<script>alert("Email sent successfully !")</script>';
 }
 */
+?>

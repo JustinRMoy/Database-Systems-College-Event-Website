@@ -1,3 +1,5 @@
 .vs
 db_conn.config
 db_conn.config.save
+localphpTest.php
+localdb_conn.config
