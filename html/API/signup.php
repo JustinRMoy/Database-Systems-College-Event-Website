@@ -29,10 +29,11 @@
   //$result = mysqli_query($conn, $sql_select);
 
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
-  VALUES ('".$Password."','".$Email."','".$FullName."', $University)";
+  VALUES ('".$Password."','".$Email."','".$FullName."', '".$University."')";
 
   if(mysqli_query($conn, $sql))
   {
+    echo $sql;
     echo "Records inserted successfully";
     returnInfo("done");
   }
