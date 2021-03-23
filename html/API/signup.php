@@ -4,31 +4,32 @@
   
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  $fullName = $inputFromJson['fullName'];
-  $password =  $inputFromJson['password'];
-  $university = $inputFromJson['university'];
-  $email = $inputFromJson['email'];
+  $FullName = $inputFromJson['fullName'];
+  $Password =  $inputFromJson['password'];
+  $University = $inputFromJson['university'];
+  $Email = $inputFromJson['email'];
   //$user_level = $inputFromJson['user_level'];
-  $sql;
-  echo $university;
-  //$sql_select = "SELECT ID FROM University WHERE Name = $university";
-  //$result = mysqli_query($conn, $sql_select);
+  // echo $University;
+  //$sql_select = "SELECT ID FROM University WHERE Name = $University";
+  $result = mysqli_query($conn, $sql_select);
   //echo $result;
   $sql = "INSERT INTO Users (Password, Email, Name) 
-  VALUES ('".$password."','".$email."','".$fullName."')";
+  VALUES ('".$Password."','".$Email."','".$FullName."')";
 
-  if($conn->query($sql) != TRUE )
+  if(mysqli_query($conn, $sql))
   {
-    echo "SQL Error";
-    returnError( $conn->error );
+    echo "Records inserted successfully";
+    returnInfo("done");
   }
   else
   {
+    echo "failed to insert records";
+    returnError( $conn->error );
     //sendEmail("mr.l.t@hotmail.com");
-    returnInfo("done");
-    echo 
+    // echo 
   }
-  $conn->close();
+
+  mysqli_close($conn);
     
   function returnError($error){
         $retval = '{"msg":"' . $error .'"}';
@@ -82,3 +83,4 @@
     echo '<script>alert("Email sent successfully !")</script>';
 }
 */
+?>
