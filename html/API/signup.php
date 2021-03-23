@@ -28,7 +28,7 @@
   }
 
   $ID = $result->fetch_assoc();
-  echo $ID;
+  echo $ID['ID'];
 
   echo "about to insert into Users";
   //$result = mysqli_query($conn, $sql_select);
