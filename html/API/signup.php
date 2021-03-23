@@ -9,7 +9,7 @@
   $University = $inputFromJson['university'];
   $Email = $inputFromJson['email'];
   echo $University;
-  $sql_select = "SELECT ID FROM University WHERE Name = $University";
+  $sql_select = "SELECT ID FROM University WHERE Name = '".$University."'";
   $result = mysqli_query($conn, $sql_select);
   echo $result;
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
