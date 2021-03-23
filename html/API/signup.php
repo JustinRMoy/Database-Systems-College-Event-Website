@@ -8,11 +8,8 @@
   $Password =  $inputFromJson['password'];
   $University = $inputFromJson['university'];
   $Email = $inputFromJson['email'];
-
-  echo $University;
+  
   $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
-
-  // echo mysqli_query($conn, $sql_select);
 
   if($result = mysqli_query($conn, $sql_select))
   {
@@ -23,22 +20,13 @@
   {
     echo "failed to find Uni ID records";
     returnError( $conn->error );
-    //sendEmail("mr.l.t@hotmail.com");
-    // echo 
   }
 
   $UniNum = $result->fetch_assoc();
   $ID = $UniNum['ID'];
-  echo $UniNum['ID'];
-
-  echo "about to insert into Users";
-  //$result = mysqli_query($conn, $sql_select);
 
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
   VALUES ('".$Password."','".$Email."','".$FullName."', $ID)";
-
-  echo "storing Users query in variable";
-  flush();
 
   if(mysqli_query($conn, $sql))
   {
@@ -49,8 +37,6 @@
   {
     echo "failed to insert records";
     returnError( $conn->error );
-    //sendEmail("mr.l.t@hotmail.com");
-    // echo 
   }
 
   mysqli_close($conn);
