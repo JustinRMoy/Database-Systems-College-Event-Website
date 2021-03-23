@@ -8,13 +8,12 @@
   $Password =  $inputFromJson['password'];
   $University = $inputFromJson['university'];
   $Email = $inputFromJson['email'];
-  //$user_level = $inputFromJson['user_level'];
-  // echo $University;
-  //$sql_select = "SELECT ID FROM University WHERE Name = $University";
+  echo $University;
+  $sql_select = "SELECT ID FROM University WHERE Name = $University";
   $result = mysqli_query($conn, $sql_select);
-  //echo $result;
-  $sql = "INSERT INTO Users (Password, Email, Name) 
-  VALUES ('".$Password."','".$Email."','".$FullName."')";
+  echo $result;
+  $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
+  VALUES ('".$Password."','".$Email."','".$FullName."', $University)";
 
   if(mysqli_query($conn, $sql))
   {
