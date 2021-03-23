@@ -24,7 +24,7 @@
             $RSO = $Users["RSOID"];
         
         //echo ($id);
-        returnUser($Id, $User_level, $Uni, $RSO);
+        returnUser($Id, $User_level, $Uni, $RSO, $Name);
     }
     //User not found
     else
@@ -43,9 +43,9 @@
 
     //This takes the user to the landing page 
     //It will also send the user info to the landing page
-    function returnUser($Id, $User_level, $Uni, $RSO)
+    function returnUser($Id, $User_level, $Uni, $RSO, $Name)
     {
-        $ret = '{"Users": "'. $id .'", "User_level": "'. $User_level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
+        $ret = '{"Users": "'. $id .'", "Name": "'. $Name .'", "User_level": "'. $User_level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
         toJSON($ret);
     }
 

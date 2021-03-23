@@ -2,11 +2,11 @@
 let loginUrl = '../../API/login.php';
 
 
-var customer_id = 0;
-var prof_status = 0;
-var loginName = "";
-var password="";
-var loginPassword = "";
+var userLevel = '';
+var name = '';
+var uniID = -1;
+var rsoID = -1;
+
 function login()
 {   
     "use strict";
@@ -31,6 +31,12 @@ function login()
 			{
 				request.send(jsonPayload);
 				var jsonObj = JSON.parse(request.responseText);
+
+				userLevel = jsonObj.User_level;
+				name = jsonObj.Name;
+				uniID = jsonObj.Uni;
+				rsoID = jsonObj.RSO;
+				
 				window.location.href = "index.html";
       }
 
