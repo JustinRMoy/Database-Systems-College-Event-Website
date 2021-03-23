@@ -11,11 +11,11 @@
   //$user_level = $inputFromJson['user_level'];
   $sql;
   echo $university;
-  $sql_select = "SELECT ID FROM University WHERE Name = $university";
-  $result = mysqli_query($conn, $sql_select);
-  echo $result;
+  //$sql_select = "SELECT ID FROM University WHERE Name = $university";
+  //$result = mysqli_query($conn, $sql_select);
+  //echo $result;
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
-  VALUES ('".$password."','".$email."','".$fullName."', $result)";
+  VALUES ('".$password."','".$email."','".$fullName."')";
 
   if($conn->query($sql) != TRUE )
   {
