@@ -25,7 +25,7 @@
     // echo 
   }
 
-  echo $result;
+  echo $result['ID'];
   //$result = mysqli_query($conn, $sql_select);
 
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
@@ -33,7 +33,6 @@
 
   if(mysqli_query($conn, $sql))
   {
-    echo $sql;
     echo "Records inserted successfully";
     returnInfo("done");
   }
