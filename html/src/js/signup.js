@@ -1,4 +1,4 @@
-let signUpUrl = '../../API/signup.php';
+//let signUpUrl = '../../API/signup.php';
 
 
 function signup()
@@ -17,7 +17,7 @@ function signup()
     document.getElementById("useremail").innerHTML = "";
     document.getElementById("upstatus").innerHTML = "";
 
- if (validateInput(fullname, email, phoneNumber, password, confirmPassword))
+ if (validateInput(fullname, email, password, confirmPassword))
     {
         var hashedPassword = md5(password);
         var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "email" : "' + email + '", "university" : "' + university + '"}';
