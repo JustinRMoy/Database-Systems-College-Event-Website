@@ -8,10 +8,25 @@
   $Password =  $inputFromJson['password'];
   $University = $inputFromJson['university'];
   $Email = $inputFromJson['email'];
+
   echo $University;
-  $sql_select = "SELECT ID FROM University WHERE Name = '".$University."'";
-  $result = mysqli_query($conn, $sql_select);
+  $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
+  if(mysqli_query($conn, $sql_select))
+  {
+    echo "University Records selected successfully";
+    returnInfo("done");
+  }
+  else
+  {
+    echo "failed to find Uni ID records";
+    returnError( $conn->error );
+    //sendEmail("mr.l.t@hotmail.com");
+    // echo 
+  }
+
+  //$result = mysqli_query($conn, $sql_select);
   echo $result;
+
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
   VALUES ('".$Password."','".$Email."','".$FullName."', $University)";
 
