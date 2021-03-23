@@ -25,11 +25,13 @@
     // echo 
   }
 
-  echo $result;
+  echo "about to insert into Users";
   //$result = mysqli_query($conn, $sql_select);
 
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
   VALUES ('".$Password."','".$Email."','".$FullName."', $result)";
+
+  echo "storing Users query in variable";
 
   if(mysqli_query($conn, $sql))
   {
