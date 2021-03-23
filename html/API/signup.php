@@ -25,11 +25,11 @@
     // echo 
   }
 
-  echo $result['ID'];
+  echo $result;
   //$result = mysqli_query($conn, $sql_select);
 
   $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
-  VALUES ('".$Password."','".$Email."','".$FullName."', '".$University."')";
+  VALUES ('".$Password."','".$Email."','".$FullName."', $result)";
 
   if(mysqli_query($conn, $sql))
   {
