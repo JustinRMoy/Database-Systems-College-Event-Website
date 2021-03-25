@@ -3,3 +3,5 @@ db_conn.config
 db_conn.config.save
 localphpTest.php
 localdb_conn.config
+.DS_Store
+html/.DS_Store
