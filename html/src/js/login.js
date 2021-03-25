@@ -1,9 +1,9 @@
 
-let loginUrl = '../../API/login.php';
+// let loginUrl = '../../API/login.php';
 
-
+var userID = -1;
 var userLevel = '';
-var name = '';
+var userName = '';
 var uniID = -1;
 var rsoID = -1;
 
@@ -60,12 +60,18 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "customer_id=" + customer_id + ";expires=" + date.toGMTString();
+	document.cookie = "rsoID=" + rsoID + "uniID=" + uniID + "userName=" + userName + "userLevel=" + userLevel + "userID=" + 
+	userID + "uniID=" + uniID + ";expires=" + date.toGMTString();
 }
+
+// var userID = -1;
+// var userLevel = '';
+// var name = '';
+// var uniID = -1;
+// var rsoID = -1;
 
 function readCookie()
 {
-	customer_id = -1;
 	var data = document.cookie;
 	var splits = data.split(";");
 	for(var i = 0; i < splits.length; i++)
