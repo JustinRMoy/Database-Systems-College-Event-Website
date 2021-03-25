@@ -11,8 +11,13 @@ function readEventInput()
 
 		if( tokens[1] == "uniID")
 		{
-            var uniID = parseInt( tokens[1].trim() );
-		}
+            var uniID = parseInt(tokens[1].trim());
+        }
+        
+        if( tokens[0] == "rsoID")
+        {
+            var rsoID = parseInt(tokens[0].trim());
+        }
 	}
 
 	if( customer_id < 0 )
@@ -24,11 +29,13 @@ function readEventInput()
 	var contactEmail = document.getElementById("inputEventEmail").value;
     var contactNumber = document.getElementById("inputEventPhoneNumber").value;
     var description = document.getElementById("inputEventDescription").value;
-    //var time = document.getElementById("");
-    //var date = document.getElementById("");
-    //var category = document.getElementById("");
+    var startTime = document.getElementById("inputStartTime").value;
+    var endTime = document.getElementById("inputEndTime").value;
+    var startDate = document.getElementById("inputStartDate").value;
+    var endDate = document.getElementById("inputEndDate").value;
+    var category = document.getElementById("inputCategory").value;
 		
-		var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '"Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : "' + uniID + '"}';
+        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '"Description" : "' + description + '","PhoneNumber" : "' + contactNumber + '", "uniID" : "' + uniID + '", "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '"}';
 
     	var request = new XMLHttpRequest();
 	    request.open("POST", eventURL, true);
