@@ -2,9 +2,11 @@
     box-sizing: border-box;
 }
 
-body {
+body 
+{
     margin: 0;
     padding: 0;
+    background-color: #EEE2DC;
     font-family: 'Open Sans', sans-serif;
     font-size: 25px;
 }
@@ -37,19 +39,14 @@ body {
 
 .carousel-item
 {
-    height: 30rem;
+    border-radius: 25px;
+    font-size: 50;
+    height: 35rem;
+    padding-top: 25px;
+    padding-bottom: 0;
     position: relative; 
     background: #EDC7B7;
     color: #123C69;
-}
-
-.container
-{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-bottom: 50px;
 }
 
 .form input {
@@ -257,11 +254,32 @@ body {
     color: #fff
 }
 
-footer
+.container-fluid 
 {
-    width: 100%;
-    background-color: #EEE2DC;
-    padding: 50px 0px;
-    bottom: 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+.jumbotron
+{
+    border-radius: 25px;
+    color: #123C69;
+}
+
+#landingVideo
+{
+    border-radius: 15px;
+}
+
+img 
+{
+    border-radius: 15px;
+}
+  
+#footer 
+{
     position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 2.0rem;            /* Footer height */
 }
