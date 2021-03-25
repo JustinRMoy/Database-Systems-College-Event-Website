@@ -14,14 +14,14 @@
   $startTime = $inputFromJson['startTime'];
   $endTime = $inputFromJson['endTime'];
   $longitude = $inputFromJson['longitude'];
-  $lattitude = $inputFromJson['lattitude'];
+  $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
   // $UniNum = $result->fetch_assoc();
   // $ID = $UniNum['ID'];
 
-  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Lattitude, Category)
-  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."', '".$endDate."', '".$startTime."', '".$endTime."', '".$longitude."', '".$lattitude."', '".$category."')";
+  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category)
+  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."')";
 
   if(mysqli_query($conn, $sql))
   {
