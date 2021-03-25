@@ -4,35 +4,24 @@
   
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  $eventName = $inputFromJson['eventName'];
-  $email =  $inputFromJson['email'];
-  $contactNumber = $inputFromJson['contactNumber'];
-  $description = $inputFromJson['description'];
-  $startDate = $inputFromJson['StartDate'];
-  $endDate = $inputFromJson['endDate'];
-  $startTime = $inputFromJson['startTime'];
-  $endTime = $inputFromJson['endTime'];
-  $longitude = $inputFromJson['longitude'];
-  $lattitude = $inputFromJson['lattitude'];
-  
-  $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
+  //var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '"Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '"}';
+  $uniID = $inputFromJson['uniID'];
+  $eventName = $inputFromJson['EventName'];
+  $email =  $inputFromJson['Email'];
+  $contactNumber = $inputFromJson['PhoneNumber'];
+  $description = $inputFromJson['Description'];
+  //$startDate = $inputFromJson['StartDate'];
+  //$endDate = $inputFromJson['endDate'];
+  //$startTime = $inputFromJson['startTime'];
+  //$endTime = $inputFromJson['endTime'];
+  //$longitude = $inputFromJson['longitude'];
+  //$lattitude = $inputFromJson['lattitude'];
 
-  if($result = mysqli_query($conn, $sql_select))
-  {
-    echo "University Records selected successfully";
-    returnInfo("done");
-  }
-  else
-  {
-    echo "failed to find Uni ID records";
-    returnError( $conn->error );
-  }
+  // $UniNum = $result->fetch_assoc();
+  // $ID = $UniNum['ID'];
 
-  $UniNum = $result->fetch_assoc();
-  $ID = $UniNum['ID'];
-
-  $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
-  VALUES ('".$Password."','".$Email."','".$FullName."', $ID)";
+  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID) 
+  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID)";
 
   if(mysqli_query($conn, $sql))
   {
