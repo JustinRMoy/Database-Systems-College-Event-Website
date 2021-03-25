@@ -9,9 +9,9 @@ function readEventInput()
 		var thisOne = splits[i].trim();
 		var tokens = thisOne.split("=");
 
-		if( tokens[0] == "uniID")
+		if( tokens[1] == "uniID")
 		{
-			customer_id = parseInt( tokens[1].trim() );
+            var uniID = parseInt( tokens[1].trim() );
 		}
 	}
 
@@ -21,7 +21,6 @@ function readEventInput()
     }
     
     var eventName = document.getElementById("inputEventName").value;
-    //var universityID = document.getElementById("username").value;
 	var contactEmail = document.getElementById("inputEventEmail").value;
     var contactNumber = document.getElementById("inputEventPhoneNumber").value;
     var description = document.getElementById("inputEventDescription").value;
@@ -29,7 +28,7 @@ function readEventInput()
     //var date = document.getElementById("");
     //var category = document.getElementById("");
 		
-		var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '"Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '"}';
+		var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '"Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : "' + uniID + '"}';
 
     	var request = new XMLHttpRequest();
 	    request.open("POST", eventURL, true);
