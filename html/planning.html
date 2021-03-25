@@ -67,10 +67,10 @@
                         <div class="flex-row d-flex justify-content-center">
                             <div class="col-lg-6 col-11 px-1 r">
                                 <div class="input-group input-daterange"> 
-                                    <label class="ml-3 form-control-placeholder mr-3" id="start-p" for="start">Start Date:&nbsp;</label>                                     
+                                    <label class="ml-3 form-control-placeholder mr-3" id="inputStartDate" for="start">Start Date:&nbsp;</label>                                     
                                     <input type="text" id="start" class="form-control text-left mr-2"> 
                                     <span class="fa fa-calendar" id="fa-1"></span> 
-                                    <label class="ml-3 form-control-placeholder" id="end-p" for="end">&nbsp;End Date:&nbsp;</label>                                     
+                                    <label class="ml-3 form-control-placeholder" id="inputEndDate" for="end">&nbsp;End Date:&nbsp;</label>                                     
                                     <input type="text" id="end" class="form-control text-left ml-3"> 
                                     <span class="fa fa-calendar" id="fa-2"></span> 
                                 </div>
@@ -81,10 +81,10 @@
                 <div class="container px-1 px-sm-5 mx-auto mt-2">
                     <div class="d-flex justify-content-center">
                     <label for="appt">Start Time:&nbsp;</label>
-                    <input type="time" id="appt" name="appt"
+                    <input type="time" id="inputStartTime" name="appt"
                            min="06:00" max="18:00" required>
                     <label for="appt">End Time:&nbsp;</label>
-                    <input type="time" id="appt" name="appt"
+                    <input type="time" id="inputEndTime" name="appt"
                            min="06:00" max="18:00" required>
                     </div>
                     <small class="d-flex justify-content-center">Event hours range from 6am to 10pm</small>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="form-group mb-2">
                     <label for="inputEventDate">Event Type</label>
-                    <select class="form-control" id="exampleFormControlSelect1" name="platform" required="required">
+                    <select class="form-control" id="inputCategory" name="platform" required="required">
                         <option>Everyone</option>
                         <option>Student</option>
                         <option>Staff</option>

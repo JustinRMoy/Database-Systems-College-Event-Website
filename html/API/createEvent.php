@@ -4,24 +4,24 @@
   
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  //var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '"Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '"}';
   $uniID = $inputFromJson['uniID'];
   $eventName = $inputFromJson['EventName'];
   $email =  $inputFromJson['Email'];
   $contactNumber = $inputFromJson['PhoneNumber'];
   $description = $inputFromJson['Description'];
-  //$startDate = $inputFromJson['StartDate'];
-  //$endDate = $inputFromJson['endDate'];
-  //$startTime = $inputFromJson['startTime'];
-  //$endTime = $inputFromJson['endTime'];
-  //$longitude = $inputFromJson['longitude'];
-  //$lattitude = $inputFromJson['lattitude'];
+  $startDate = $inputFromJson['StartDate'];
+  $endDate = $inputFromJson['endDate'];
+  $startTime = $inputFromJson['startTime'];
+  $endTime = $inputFromJson['endTime'];
+  $longitude = $inputFromJson['longitude'];
+  $lattitude = $inputFromJson['lattitude'];
+  $category = $inputFromJson['category'];
 
   // $UniNum = $result->fetch_assoc();
   // $ID = $UniNum['ID'];
 
-  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID) 
-  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID)";
+  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Lattitude, Category)
+  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."', '".$endDate."', '".$startTime."', '".$endTime."', '".$longitude."', '".$lattitude."', '".$category."')";
 
   if(mysqli_query($conn, $sql))
   {
