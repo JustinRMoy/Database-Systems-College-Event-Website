@@ -9,7 +9,7 @@
   $email =  $inputFromJson['Email'];
   $contactNumber = $inputFromJson['PhoneNumber'];
   $description = $inputFromJson['Description'];
-  $startDate = $inputFromJson['StartDate'];
+  $startDate = $inputFromJson['startDate'];
   $endDate = $inputFromJson['endDate'];
   $startTime = $inputFromJson['startTime'];
   $endTime = $inputFromJson['endTime'];
