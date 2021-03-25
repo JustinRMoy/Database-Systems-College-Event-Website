@@ -7,8 +7,13 @@ function readEventInput()
 	for(var i = 0; i < splits.length; i++)
 	{
 		var thisOne = splits[i].trim();
-		var tokens = thisOne.split("=");
-
+        var tokens = thisOne.split("=");
+        
+        if (tokens[4] == "userID")
+        {
+            var userID = parseInt(tokens[4].trim());
+        }
+        
 		if( tokens[1] == "uniID")
 		{
             var uniID = parseInt(tokens[1].trim());
@@ -20,7 +25,7 @@ function readEventInput()
         }
 	}
 
-	if( customer_id < 0 )
+	if( userID < 0 )
 	{
 		window.location.href = "../index.html";
     }
