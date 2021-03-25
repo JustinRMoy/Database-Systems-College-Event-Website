@@ -5,7 +5,7 @@
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
   //var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '"Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '"}';
-
+  $uniID = $inputFromJson['uniID'];
   $eventName = $inputFromJson['EventName'];
   $email =  $inputFromJson['Email'];
   $contactNumber = $inputFromJson['PhoneNumber'];
@@ -20,8 +20,8 @@
   // $UniNum = $result->fetch_assoc();
   // $ID = $UniNum['ID'];
 
-  $sql = "INSERT INTO Events (Name, Description, contact_num, contact_email) 
-  VALUES ('".$eventName."','".$description."','".$FullName."','".$contactNumber."','".$email."')";
+  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID) 
+  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID)";
 
   if(mysqli_query($conn, $sql))
   {
