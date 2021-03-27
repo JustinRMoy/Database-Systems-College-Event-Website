@@ -42,18 +42,19 @@
   mysqli_close($conn);
     
   function returnError($error){
-        $retval = ["msg" => '"' . $error . '"'];
+        $retval->msg = $error;
     outputJson($retval);
   }
   
   function returnInfo($info){
-        $retval = ["msg" => '"' . $info . '"'];
+        $retval->mg = $info;
     outputJson($retval);
   }
   
   function outputJson ($file){
     header("Content-type:application/json");
-    echo json_encode($file);
+    $jsonObj = json_encode($file);
+    echo $jsonObj;
   }
   
   
