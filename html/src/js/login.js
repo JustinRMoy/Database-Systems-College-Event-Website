@@ -31,6 +31,8 @@ function login()
 			{
 				request.send(jsonPayload);
 				var jsonObj = JSON.parse(request.responseText);
+				var endpointmsg = jsonObj['msg'];
+				console.log(endpointmsg);
 
 				userLevel = jsonObj.User_level;
 				userName = jsonObj.Name;
