@@ -14,7 +14,7 @@
   if($result = mysqli_query($conn, $sql_select))
   {
     //echo "University Records selected successfully";
-    returnInfo("done");
+    //returnInfo("done");
   }
   else
   {
@@ -47,7 +47,7 @@
   }
   
   function returnInfo($info){
-        $retval->mg = $info;
+        $retval->msg = $info;
     outputJson($retval);
   }
   
