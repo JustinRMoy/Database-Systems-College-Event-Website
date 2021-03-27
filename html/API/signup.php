@@ -13,12 +13,12 @@
 
   if($result = mysqli_query($conn, $sql_select))
   {
-    echo "University Records selected successfully";
+    //echo "University Records selected successfully";
     returnInfo("done");
   }
   else
   {
-    echo "failed to find Uni ID records";
+    //echo "failed to find Uni ID records";
     returnError( $conn->error );
   }
 
@@ -30,30 +30,30 @@
 
   if(mysqli_query($conn, $sql))
   {
-    echo "Records inserted successfully";
+    //echo "Records inserted successfully";
     returnInfo("done");
   }
   else
   {
-    echo "failed to insert records";
+    //echo "failed to insert records";
     returnError( $conn->error );
   }
 
   mysqli_close($conn);
     
   function returnError($error){
-        $retval = '{"msg":"' . $error .'"}';
+        $retval = ["msg" => '"' . $error . '"'];
     outputJson($retval);
   }
   
   function returnInfo($info){
-        $retval = '{"msg":"' . $info .'"}';
+        $retval = ["msg" => '"' . $info . '"'];
     outputJson($retval);
   }
   
   function outputJson ($file){
     header("Content-type:application/json");
-    echo $file;
+    echo json_encode($file);
   }
   
   

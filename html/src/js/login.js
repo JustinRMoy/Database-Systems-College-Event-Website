@@ -10,11 +10,11 @@ var rsoID = -1;
 function login()
 {   
     "use strict";
-	 var u_fullName = "";
+	var u_fullName = "";
 
-	 loginName = document.getElementById("username").value;
-	 password = document.getElementById("userpassword").value;
-   loginPassword = md5(password);
+	var loginName = document.getElementById("username").value;
+	var password = document.getElementById("userpassword").value;
+   	var loginPassword = md5(password);
 
 	document.getElementById("logstatus").innerHTML = "";
 
@@ -24,18 +24,21 @@ function login()
 		 var jsonPayload = '{"Email" : "' + loginName + '", "Password" : "' + loginPassword + '"}';
 
     	var request = new XMLHttpRequest();
-	    request.open("POST", "http://198.199.77.197/API/login.php", false);
+	    request.open("POST", "http://198.199.77.197/API/login.php", true);
 	    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 	    try 
 			{
 				request.send(jsonPayload);
 				var jsonObj = JSON.parse(request.responseText);
+				var endpointmsg = jsonObj['msg'];
+				console.log(endpointmsg);
 
 				userLevel = jsonObj.User_level;
-				name = jsonObj.Name;
+				userName = jsonObj.Name;
 				uniID = jsonObj.Uni;
 				rsoID = jsonObj.RSO;
+				saveCookie();
 				
 				window.location.href = "index.html";
       }

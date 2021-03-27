@@ -57,6 +57,7 @@ function signup()
             request.responseType="text";
             console.log(json);
             request.send(json);
+            //window.location.href = "login.html";
         }
         catch(error)
         {
