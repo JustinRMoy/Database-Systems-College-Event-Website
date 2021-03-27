@@ -13,29 +13,35 @@
 
   if($result = mysqli_query($conn, $sql_select))
   {
-    //echo "University Records selected successfully";
-    //returnInfo("done");
+    if (checkEmailUsed($Email))
+    {
+      $UniNum = $result->fetch_assoc();
+      $ID = $UniNum['ID'];
+
+      $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
+      VALUES ('".$Password."','".$Email."','".$FullName."', $ID)";
+
+      if(mysqli_query($conn, $sql))
+      {
+        //echo "Records inserted successfully";
+        returnInfo("done");
+      }
+      else
+      {
+        //echo "failed to insert records";
+        returnError( $conn->error );
+      }
+    }
+
+    else 
+    {
+      returnInfo("email used");
+    }
   }
+
   else
   {
     //echo "failed to find Uni ID records";
-    returnError( $conn->error );
-  }
-
-  $UniNum = $result->fetch_assoc();
-  $ID = $UniNum['ID'];
-
-  $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
-  VALUES ('".$Password."','".$Email."','".$FullName."', $ID)";
-
-  if(mysqli_query($conn, $sql))
-  {
-    //echo "Records inserted successfully";
-    returnInfo("done");
-  }
-  else
-  {
-    //echo "failed to insert records";
     returnError( $conn->error );
   }
 
@@ -55,6 +61,20 @@
     header("Content-type:application/json");
     $jsonObj = json_encode($file);
     echo $jsonObj;
+  }
+
+  function checkEmailUsed($email){
+    $sql = "SELECT * FROM Users WHERE Email = '$email'";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_num_rows($result);
+
+    if ($rows > 0)
+    {
+      return False;
+    }
+
+    else
+      return True;
   }
   
   
