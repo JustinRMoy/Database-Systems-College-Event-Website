@@ -33,9 +33,7 @@ function signup()
                 var jsonObject = JSON.parse(request.responseText);
                 var endpointmsg = jsonObject['msg'];
                 console.log(endpointmsg);
-                var errormsg = endpointmsg.split('customer.').pop();
-                console.log(errormsg);
-                if (errormsg === "done")
+                if (endpointmsg === "done")
                     {
                         document.getElementById("upstatus").innerHTML = "Signed UP!";
                         document.getElementById("upstatus").style.color = "green";
@@ -47,7 +45,7 @@ function signup()
 
                 }
 
-                if (errormsg !== "done")
+                if (endpointmsg !== "done")
                     {
                        document.getElementById("upstatus").innerHTML = "Email already used";
                        document.getElementById("upstatus").style.color = "red"; 
