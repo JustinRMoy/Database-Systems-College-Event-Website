@@ -13,7 +13,7 @@
 
   if($result = mysqli_query($conn, $sql_select))
   {
-    if (checkEmailUsed($Email))
+    if (checkEmailUsed($Email, $conn))
     {
       $UniNum = $result->fetch_assoc();
       $ID = $UniNum['ID'];
@@ -63,7 +63,7 @@
     echo $jsonObj;
   }
 
-  function checkEmailUsed($email){
+  function checkEmailUsed($email, $conn){
     $sql = "SELECT * FROM Users WHERE Email = '$email'";
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_num_rows($result);
