@@ -42,10 +42,11 @@ function login()
 
 						else
 						{
-							userLevel = jsonObj.User_level;
+							//userLevel = jsonObj.User_level;
 							userName = jsonObj.Name;
 							uniID = jsonObj.Uni;
-							rsoID = jsonObj.RSO;
+							//rsoID = jsonObj.RSO;
+							userID = jsonObj.Users;
 
 							saveCookie();
 							window.location.href = "index.html";
@@ -76,8 +77,11 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "rsoID=" + rsoID + "uniID=" + uniID + "userName=" + userName + "userLevel=" + userLevel + "userID=" + 
-	userID + "uniID=" + uniID + ";expires=" + date.toGMTString();
+	document.cookie = "rsoID=" + rsoID + ";expires=" + date.toGMTString();
+	document.cookie = "uniId=" + uniID + ";expires=" + date.toGMTString();
+	document.cookie = "userName=" + userName + ";expires=" + date.toGMTString();
+	document.cookie = "userID=" + userID + ";expires=" + date.toGMTString();
+	document.cookie = "userLevel=" + userLevel + ";expires=" + date.toGMTString();
 }
 
 // var userID = -1;
