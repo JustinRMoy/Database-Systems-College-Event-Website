@@ -8,7 +8,7 @@
     $Password = $inputFromJson['Password'];
 
     //query to DB
-    $sql = "SELECT * FROM Users WHERE (Email='" . $inputFromJson['Email'] . "' AND Password='" . $inputFromJson['Password'] . "')"; 
+    $sql = "SELECT * FROM Users WHERE (Email='$Email' AND Password='$Password')"; 
     $result = mysqli_query($conn, $sql);
     $numRows = mysqli_num_rows($result);
 
@@ -38,7 +38,7 @@
     //FUNCTIONS
     function error($err)
     {
-        $result = '{"customer_id":0, "error":"' . $err . '"}';
+        $result = '{"Users":0, "error":"' . $err . '"}';
         toJSON($result);
     }
 
@@ -46,7 +46,7 @@
     //It will also send the user info to the landing page
     function returnUser($Id, $User_level, $Uni, $RSO, $Name)
     {
-        $ret = '{"Users": "'. $id .'", "Name": "'. $Name .'", "User_level": "'. $User_level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
+        $ret = '{"Users": "'. $Id .'", "Name": "'. $Name .'", "User_level": "'. $User_level .'", "Uni": "'. $Uni .'", "RSO": "'. $RSO .'"}';
         toJSON($ret);
     }
 

@@ -29,18 +29,31 @@ function login()
 
 	    try 
 			{
-				request.send(jsonPayload);
-				var jsonObj = JSON.parse(request.responseText);
-				var endpointmsg = jsonObj['msg'];
-				console.log(endpointmsg);
+				request.onreadystatechange = function()
+				{
+					if (this.readyState == 4 && this.status == 200)
+					{
+						var jsonObj = JSON.parse(request.responseText);
+						if (jsonObj.User === 0)
+						{
+							var error = jsonObj.error;
+							document.getElementById("logstatus").innerHTML = error;
+						}
 
-				userLevel = jsonObj.User_level;
-				userName = jsonObj.Name;
-				uniID = jsonObj.Uni;
-				rsoID = jsonObj.RSO;
-				saveCookie();
-				
-				window.location.href = "index.html";
+						else
+						{
+							userLevel = jsonObj.User_level;
+							userName = jsonObj.Name;
+							uniID = jsonObj.Uni;
+							rsoID = jsonObj.RSO;
+
+							saveCookie();
+							window.location.href = "index.html";
+						}
+					}
+				};
+
+				request.send(jsonPayload);
       }
 
 	   catch(err)
