@@ -23,25 +23,56 @@ function readEventInput()
 	    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 	    try 
-			{
-				request.send(jsonPayload);
-				
-                document.getElementById("inputEventName").innerHTML = "";
-                document.getElementById("inputEventEmail").innerHTML = "";
-                document.getElementById("inputEventPhoneNumber").innerHTML = "";
-                document.getElementById("inputEventDescription").innerHTML = "";
-                document.getElementById("inputStartTime").innerHTML = "";
-                document.getElementById("inputEndTime").innerHTML = "";
-                document.getElementById("inputStartDate").innerHTML = "";
-                document.getElementById("inputEndDate").innerHTML = "";
-                document.getElementById("inputCategory").innerHTML = "";
+        {
 
+            request.onreadystatechange = function() 
+            {
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    var jsonObj = JSON.parse(request.responseText);
+
+                    if (jsonObj.msg === "done")
+                    {
+                        document.getElementById("logstatus").innerHTML = jsonObj.msg;
+                        document.getElementById("logstatus").style.color = "green";
+                    }
+
+                    else
+                    {
+                        document.getElementById("logstatus").innerHTML = jsonObj.msg;
+                        document.getElementById("logstatus").style.color = "red";
+                    }
+                }
             }
+
+            request.send(jsonPayload);
+            
+            document.getElementById("inputEventName").innerHTML = "";
+            document.getElementById("inputEventEmail").innerHTML = "";
+            document.getElementById("inputEventPhoneNumber").innerHTML = "";
+            document.getElementById("inputEventDescription").innerHTML = "";
+            document.getElementById("inputStartTime").innerHTML = "";
+            document.getElementById("inputEndTime").innerHTML = "";
+            document.getElementById("inputStartDate").innerHTML = "";
+            document.getElementById("inputEndDate").innerHTML = "";
+            document.getElementById("inputCategory").innerHTML = "";
+
+        }
 
 	   catch(err)
 	   {
             document.getElementById("logstatus").innerHTML = "Error info not sent";
             document.getElementById("logstatus").style.color = "red";
+
+            document.getElementById("inputEventName").innerHTML = "";
+            document.getElementById("inputEventEmail").innerHTML = "";
+            document.getElementById("inputEventPhoneNumber").innerHTML = "";
+            document.getElementById("inputEventDescription").innerHTML = "";
+            document.getElementById("inputStartTime").innerHTML = "";
+            document.getElementById("inputEndTime").innerHTML = "";
+            document.getElementById("inputStartDate").innerHTML = "";
+            document.getElementById("inputEndDate").innerHTML = "";
+            document.getElementById("inputCategory").innerHTML = "";
 	   }
 	
 }
@@ -55,19 +86,19 @@ function readEventCookie()
 		var thisOne = splits[i].trim();
         var tokens = thisOne.split("=");
         
-        if (tokens[4] == "userID")
+        if (tokens[0] == "userID")
         {
-            userID = parseInt(tokens[4].trim());
+            userID = parseInt(tokens[1].trim());
         }
         
-		if( tokens[1] == "uniID")
+		else if( tokens[0] == "uniID")
 		{
             uniID = parseInt(tokens[1].trim());
         }
         
-        if( tokens[0] == "rsoID")
+        else if( tokens[0] == "rsoID")
         {
-            rsoID = parseInt(tokens[0].trim());
+            rsoID = parseInt(tokens[1].trim());
         }
 	}
 
