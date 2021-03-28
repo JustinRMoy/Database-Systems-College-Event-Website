@@ -34,7 +34,7 @@ function login()
 					if (this.readyState == 4 && this.status == 200)
 					{
 						var jsonObj = JSON.parse(request.responseText);
-						if (jsonObj.User === 0)
+						if (jsonObj.Users === 0)
 						{
 							var error = jsonObj.error;
 							document.getElementById("logstatus").innerHTML = error;
