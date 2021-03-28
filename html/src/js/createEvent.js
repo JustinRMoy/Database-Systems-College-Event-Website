@@ -57,17 +57,17 @@ function readEventCookie()
         
         if (tokens[0] == "userID")
         {
-            userID = parseInt(tokens[5].trim());
+            userID = parseInt(tokens[1].trim());
         }
         
 		else if( tokens[0] == "uniID")
 		{
-            uniID = parseInt(tokens[2].trim());
+            uniID = parseInt(tokens[1].trim());
         }
         
         else if( tokens[0] == "rsoID")
         {
-            rsoID = parseInt(tokens[0].trim());
+            rsoID = parseInt(tokens[1].trim());
         }
 	}
 

@@ -78,7 +78,7 @@ function saveCookie()
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "rsoID=" + rsoID + ";expires=" + date.toGMTString();
-	document.cookie = "uniId=" + uniID + ";expires=" + date.toGMTString();
+	document.cookie = "uniID=" + uniID + ";expires=" + date.toGMTString();
 	document.cookie = "userName=" + userName + ";expires=" + date.toGMTString();
 	document.cookie = "userID=" + userID + ";expires=" + date.toGMTString();
 	document.cookie = "userLevel=" + userLevel + ";expires=" + date.toGMTString();
