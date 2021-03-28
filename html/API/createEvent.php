@@ -17,20 +17,18 @@
   $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
-  // $UniNum = $result->fetch_assoc();
-  // $ID = $UniNum['ID'];
 
   $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category)
   VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."')";
 
   if(mysqli_query($conn, $sql))
   {
-    echo "Records inserted successfully";
+    //echo "Records inserted successfully";
     returnInfo("done");
   }
   else
   {
-    echo "failed to insert records";
+    //echo "failed to insert records";
     returnError( $conn->error );
   }
 
