@@ -35,12 +35,12 @@
   mysqli_close($conn);
     
   function returnError($error){
-        $retval = '{"msg":"' . $error .'"}';
+    $retval = '{"msg":"' . $error .'"}';
     outputJson($retval);
   }
   
   function returnInfo($info){
-        $retval = '{"msg":"' . $info .'"}';
+    $retval = '{"msg":"' . $info .'"}';
     outputJson($retval);
   }
   
