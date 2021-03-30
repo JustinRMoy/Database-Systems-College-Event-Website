@@ -2,7 +2,7 @@ let eventURL = "http://198.199.77.197/API/createEvent.php";
 
 var userID = -1;
 var rsoID;
-var uniID;
+var uniID = 1; // This needs a value to work
 
 function readEventInput()
 {   
@@ -18,7 +18,7 @@ function readEventInput()
     var endDate = formatDate(document.getElementById("end").value);
     var category = document.getElementById("inputCategory").value;
 		
-        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ', "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '"}';
+        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '"}';
 
     	var request = new XMLHttpRequest();
 	    request.open("POST", eventURL, true);
