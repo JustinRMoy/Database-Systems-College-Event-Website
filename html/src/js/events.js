@@ -60,7 +60,7 @@ function createCommentBox(comment, studentId, rating){
 
 function getEvents(query, UniversityID)
 {
-	var jsonPayload = '{"search" : "' + query + '", "UniversityID" : "' + UniversityID + '"}';
+	var jsonPayload = '{"search" : "' + query + '", "UniversityID" : "' + UniversityID + '"}';//change this to include security level
 	var url = urlBase + '/API/searchEvents.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -145,7 +145,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var commentButton = document.createElement("button");
     commentButton.setAttribute("id", "commentButton-" + eventId);
     commentButton.setAttribute("data-id", eventId);
-    commentButton.onclick = showComments(eventId); //getComments
+    //commentButton.onclick = showComments(eventId); //getComments
     commentButton.innerHTML = "Comments";
 
     eventContainer.appendChild(title);
