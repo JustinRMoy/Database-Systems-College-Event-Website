@@ -39,12 +39,14 @@
     outputJson($retval);
   }
   
-  function returnInfo($info){
+  function returnInfo($info)
+  {
     $retval = '{"msg":"' . $info .'"}';
     outputJson($retval);
   }
   
-  function outputJson ($file){
+  function outputJson($file)
+  {
     header("Content-type:application/json");
     echo $file;
   }
