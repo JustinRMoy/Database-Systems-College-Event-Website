@@ -19,7 +19,7 @@
   $category = $inputFromJson['category'];
 
   $sql = "UPDATE Events
-          SET Name = $eventName, Description = $description, contact_num = $contactNumber, Contact_Email = $email, startDate = $startDate, endDate = $endDate, startTime = $startTime, endTime = $endTime, Longitude = $longitude, Latitude = $latitude, Category = $category 
+          SET Name = '$eventName', Description = '$description', contact_num = '$contactNumber', Contact_Email = '$email', startDate = '$startDate', endDate = '$endDate', startTime = '$startTime', endTime = '$endTime', Longitude = '$longitude', Latitude = '$latitude', Category = '$category' 
           WHERE ID = $eventID";
 
   if(mysqli_query($conn, $sql))
