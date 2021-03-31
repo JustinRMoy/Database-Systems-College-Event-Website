@@ -5,7 +5,7 @@
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
   $eventID = $inputFromJson['eventID'];
-  $uniID = $inputFromJson['uniID'];
+  //$uniID = $inputFromJson['uniID'];
   $eventName = $inputFromJson['EventName'];
   $email =  $inputFromJson['Email'];
   $contactNumber = $inputFromJson['PhoneNumber'];
@@ -19,7 +19,7 @@
   $category = $inputFromJson['category'];
 
   $sql = "UPDATE Events
-          SET (Name = $eventName, Description = $description, contact_num = $contactNumber, Contact_Email = $email, UniversityID = $uniID, startDate = $startDate, endDate = $endDate, startTime = $startTime, endTime = $endTime, Longitude = $longitude, Latitude = $latitude, Category = $category) 
+          SET Name = $eventName, Description = $description, contact_num = $contactNumber, Contact_Email = $email, startDate = $startDate, endDate = $endDate, startTime = $startTime, endTime = $endTime, Longitude = $longitude, Latitude = $latitude, Category = $category 
           WHERE ID = $eventID";
 
   if(mysqli_query($conn, $sql))
