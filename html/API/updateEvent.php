@@ -18,9 +18,9 @@
   $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
-  $sql = "UPDATE Events 
-          SET Name = '$eventName', Description = '$description', contact_num = '$contactNumber', Contact_Email = '$email', UniversityID = '$uniID', startDate = '$startDate', endDate = '$endDate', startTime = '$startTime', endTime = '$endTime', Longitude = '$longitude', Latitude = '$latitude', Category = '$category' 
-          WHERE id=$eventID";
+  $sql = "UPDATE Events
+          SET (Name = $eventName, Description = $description, contact_num = $contactNumber, Contact_Email = $email, UniversityID = $uniID, startDate = $startDate, endDate = $endDate, startTime = $startTime, endTime = $endTime, Longitude = $longitude, Latitude = $latitude, Category = $category) 
+          WHERE id = $eventID";
 
   if(mysqli_query($conn, $sql))
   {
