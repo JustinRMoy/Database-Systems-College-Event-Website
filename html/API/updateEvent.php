@@ -4,7 +4,8 @@
   
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  $uniID = $inputFromJson['uniID'];
+  $eventID = $inputFromJson['eventID'];
+  //$uniID = $inputFromJson['uniID'];
   $eventName = $inputFromJson['EventName'];
   $email =  $inputFromJson['Email'];
   $contactNumber = $inputFromJson['PhoneNumber'];
@@ -17,18 +18,18 @@
   $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
-
-  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category)
-  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."')";
+  $sql = "UPDATE Events
+          SET Name = '$eventName', Description = '$description', contact_num = '$contactNumber', Contact_Email = '$email', startDate = '$startDate', endDate = '$endDate', startTime = '$startTime', endTime = '$endTime', Longitude = '$longitude', Latitude = '$latitude', Category = '$category' 
+          WHERE ID = $eventID";
 
   if(mysqli_query($conn, $sql))
   {
-    //echo "Records inserted successfully";
+    //echo "Records UPDATED successfully";
     returnInfo("done");
   }
   else
   {
-    //echo "failed to insert records";
+    //echo "failed to UPDATE records";
     returnError( $conn->error );
   }
 
