@@ -5,12 +5,19 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css"> 
         <link rel="stylesheet" href="src/css/bootstrap.min.css"> 
         <link rel="shortcut icon" href="img/UCFlogo.png"/> 
+        <script src="src/js/createEvent.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
         <style type="text/css">h1 { font-size: 20px; margin-top: 24px; margin-bottom: 24px; } img { height: 40px; }</style>         
     </head>     
     <body> 
+          <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() 
+            {
+                readEventCookie();
+            }, false);
+        </script>
         <nav class="navbar navbar-expand navbar-light bg-light border">
           <a class="navbar-brand" href="index.html"><img src="img/UCFLogo.png" class="" width="50" height="50" alt="">&nbsp;Event Management Site
         </a>
@@ -47,29 +54,30 @@
             <form accept-charset="UTF-8" action="https://getform.io/f/{your-form-endpoint-goes-here}" method="POST" target="_blank">
                 <div class="form-group mb-2">
                     <label for="inputEventName">Event Name</label>
-                    <input type="text" name="eventName" class="form-control" id="inputEventName" placeholder="Enter Event Name" required="required">
+                    <input type="text" name="eventName" class="form-control" id="inputEventName" placeholder="Enter Event Name..." required="required" maxlength="200">
                 </div>
                 <div class="form-group mb-2">
                     <label for="inputEventEmail" required="required">Email Address</label>
-                    <input type="email" name="email" class="form-control" id="inputEventEmail" aria-describedby="emailHelp" placeholder="Enter Contact Email">
+                    <input type="email" name="email" class="form-control" id="inputEventEmail" aria-describedby="emailHelp" placeholder="Enter Contact Email..." maxlength="100">
                 </div>
                 <div class="form-group mb-2">
                     <label for="inputEventPhoneNumber" required="required">Phone Number</label>
-                    <input type="email" name="email" class="form-control" id="inputEventPhoneNumber" aria-describedby="emailHelp" placeholder="Enter Contact Number">
+                    <input type="text" name="email" class="form-control" id="inputEventPhoneNumber" aria-describedby="emailHelp" placeholder="Enter Contact Number..." maxlength="15">
                 </div>
                 <div class="form-group mb-2">
                     <label for="inputEventDescription" required="required">Description</label>
-                    <input style="height:180px; padding-bottom:150px" type="email" name="email" class="form-control" id="inputEventDescription" aria-describedby="emailHelp" placeholder="Enter Description">
+                    <input style="height:180px; padding-bottom:150px" type="text" name="description" class="form-control" id="inputEventDescription" aria-describedby="emailHelp" placeholder="Enter Description..." maxlength="500">
                 </div>
+
                 <div class="container px-1 px-sm-5 mx-auto mt-2">
                     <form autocomplete="off">
                         <div class="flex-row d-flex justify-content-center">
                             <div class="col-lg-6 col-11 px-1 r">
                                 <div class="input-group input-daterange"> 
-                                    <label class="ml-3 form-control-placeholder mr-3" id="start-p" for="start">Start Date:&nbsp;</label>                                     
+                                    <label class="ml-3 form-control-placeholder mr-3" id="inputStartDate" for="start">Start Date:&nbsp;</label>                                     
                                     <input type="text" id="start" class="form-control text-left mr-2"> 
                                     <span class="fa fa-calendar" id="fa-1"></span> 
-                                    <label class="ml-3 form-control-placeholder" id="end-p" for="end">&nbsp;End Date:&nbsp;</label>                                     
+                                    <label class="ml-3 form-control-placeholder" id="inputEndDate" for="end">&nbsp;End Date:&nbsp;</label>                                     
                                     <input type="text" id="end" class="form-control text-left ml-3"> 
                                     <span class="fa fa-calendar" id="fa-2"></span> 
                                 </div>
@@ -77,21 +85,30 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="container px-1 px-sm-5 mx-auto mt-2">
                     <div class="d-flex justify-content-center">
                     <label for="appt">Start Time:&nbsp;</label>
-                    <input type="time" id="appt" name="appt"
+                    <input type="time" id="inputStartTime" name="appt"
                            min="06:00" max="18:00" required>
-                    <label for="appt">End Time:&nbsp;</label>
-                    <input type="time" id="appt" name="appt"
+                    <label for="appt">&nbsp;End Time:&nbsp;</label>
+                    <input type="time" id="inputEndTime" name="appt"
                            min="06:00" max="18:00" required>
                     </div>
-                    <small class="d-flex justify-content-center">Event hours range from 6am to 10pm</small>
+                    <small class="d-flex justify-content-center">Event hours range from 6am to 10pm.</small>
 
                 </div>
+
+                <div class="mt-2 d-flex justify-content-center">
+                    <label>Longitude:&nbsp;</label>
+                    <input class="col-2" type="text" name="longitude" id="inputEventLongitude" maxlength="50">
+                    <label>&nbsp;Latitude:&nbsp;</label>
+                    <input class="col-2" type="text" name="latitude" id="inputEventLatitude" maxlength="50">
+                </div>
+
                 <div class="form-group mb-2">
-                    <label for="inputEventDate">Event Type</label>
-                    <select class="form-control" id="exampleFormControlSelect1" name="platform" required="required">
+                    <label for="inputCategory">Event Type</label>
+                    <select class="form-control" id="inputCategory" name="platform" required="required">
                         <option>Everyone</option>
                         <option>Student</option>
                         <option>Staff</option>
@@ -100,10 +117,11 @@
                 <hr>
                 <div class="form-group mt-3">
                     <label class="mr-2">Upload your images:</label>
-                    <input type="file" name="file">
+                    <input type="file" name="file" id="file">
                 </div>
                 <hr>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" onclick="readEventInput();">Submit</button>
+                <p id="logstatus" style="font-size: 1.0em;"></p>
             </form>
         </div>         
         <footer class="bg-dark mt-5"> 

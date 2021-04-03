@@ -157,28 +157,26 @@
       <form style="text-align: center;">
         <input type="text" id="fullname" class="input-box" placeholder="Full Name">
         <input type="email" id="useremail" class="input-box" placeholder="Email Address">
-        <div class="d-flex justify-content-center" style="font-size: 20px; margin: 0px; padding: 0px">
+        <!-- <div class="d-flex justify-content-center" style="font-size: 20px; margin: 0px; padding: 0px">
           <p style="font-size: 22px;">Account Type:</p>
           <input class="mt-2" style="min-width: 10px; padding: 0px" type="radio" id="user" name="drone" value="user" checked="">
           <label for="user" style="min-width: 30px; margin: 2px; padding: 0px">User</label>
           <input class="mt-2" style="min-width: 10px; padding: 0px" type="radio" id="admin" name="drone" value="admin">
           <label for="admin" style="min-width: 30px; margin: 2px; padding: 0px">Admin</label>
-        </div>
+        </div> -->
 
             <!-- University Dropdown Selection-->
-        <?php 
-            $mysqli = NEW MySQLi('localhost', 'root', 'test');
-            $universitySet = $mysqli->query("SELECT university_name FROM universities");
-        ?>
-
-        <select name="universities">
-        <?php
-            while($rows = $universitySet->fetch_assoc())
-            {
-                $university_name = $rows['university_name'];           
-                echo "<option value='$university_name'>$university_name</option>";
-            }
-        ?>
+        <label for="universities" style="font-size: 20px;">Choose a University:</label>
+        <select id="universities" style="font-size: 20px;">
+            <script>
+                var request = new XMLHttpRequest();
+                request.onload = function()
+                {
+                    document.getElementById("universities").innerHTML = this.responseText;
+                };
+                request.open("GET", "http://198.199.77.197/API/universityList.php", true);
+                request.send();
+            </script>
         </select>
 
         <input type="password" id="userpass" class="input-box" placeholder="Password">

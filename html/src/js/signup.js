@@ -1,4 +1,4 @@
-let signUpUrl = '../../API/signup.php';
+//let signUpUrl = '../../API/signup.php';
 
 
 function signup()
@@ -9,22 +9,21 @@ function signup()
     var fullname = document.getElementById("fullname").value;
     var password = document.getElementById("userpass").value;
     var confirmPassword = document.getElementById("confirmpass").value;
-    var phoneNumber = document.getElementById("userphone").value;
-    
+    var university = document.getElementById("universities").value;
+
     document.getElementById("fullname").innerHTML = "";
     document.getElementById("userpass").innerHTML = "";
     document.getElementById("confirmpass").innerHTML = "";
-    document.getElementById("userphone").innerHTML = "";
     document.getElementById("useremail").innerHTML = "";
     document.getElementById("upstatus").innerHTML = "";
 
- if (validateInput(fullname, email, phoneNumber, password, confirmPassword))
+ if (validateInput(fullname, email, password, confirmPassword))
     {
         var hashedPassword = md5(password);
-        var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "phoneNumber" : "' + phoneNumber + '", "email" : "' + email + '"}';
+        var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "email" : "' + email + '", "university" : "' + university + '"}';
        
         var request = new XMLHttpRequest();
-        request.open("POST", signUpUrl, true);
+        request.open("POST", "http://198.199.77.197/API/signup.php", true);
         request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
         try {
             request.onreadystatechange = function()
@@ -33,9 +32,8 @@ function signup()
             {    
                 var jsonObject = JSON.parse(request.responseText);
                 var endpointmsg = jsonObject['msg'];
-                var errormsg = endpointmsg.split('customer.').pop();
-                console.log(errormsg);
-                if (errormsg === "done")
+                console.log(endpointmsg);
+                if (endpointmsg === "done")
                     {
                         document.getElementById("upstatus").innerHTML = "Signed UP!";
                         document.getElementById("upstatus").style.color = "green";
@@ -43,12 +41,11 @@ function signup()
                         document.getElementById("fullname").value = "";
                         document.getElementById("userpass").value = "";
                         document.getElementById("confirmpass").value = "";
-                        document.getElementById("userphone").value = "";
                         document.getElementById("useremail").value = "";
 
                 }
 
-                if (errormsg !== "done")
+                if (endpointmsg !== "done")
                     {
                        document.getElementById("upstatus").innerHTML = "Email already used";
                        document.getElementById("upstatus").style.color = "red"; 
@@ -56,7 +53,9 @@ function signup()
             }
         };
             request.responseType="text";
+            console.log(json);
             request.send(json);
+            //window.location.href = "login.html";
         }
         catch(error)
         {
@@ -120,35 +119,6 @@ function checkFullName(name)
     return true;
 }
 
-function checkPhoneNumber(phoneNumber)
-{
-    "use strict";
-    if (phoneNumber.length === 0)
-    {
-        document.getElementById("upstatus").innerHTML = "Phone number is reuired!";
-        document.getElementById("upstatus").style.color = "red";
-        return false;
-    }
-
-    if (phoneNumber.length !== 10)
-    {
-        document.getElementById("upstatus").innerHTML = "Please enter a valid phone number!";
-        document.getElementById("upstatus").style.color = "red";
-        return false;
-    }
-    var i = 0;
-    for (i = 0; i < 10; i += 1)
-    {
-        if (phoneNumber.charAt(i) < '0' || phoneNumber.charAt(i) > '9')
-        {
-            document.getElementById("upstatus").innerHTML = "Please enter a valid phone number!";
-            document.getElementById("upstatus").style.color = "red";
-            return false;
-        }
-    }
-    return true;
-}
-
 function checkEmail(email)
 {
     "use strict";
@@ -175,12 +145,11 @@ function checkEmail(email)
     return true;
 }
 
-function validateInput(fullName, email, phoneNumber, password, confirmPassword )
+function validateInput(fullName, email, password, confirmPassword)
 {
     "use strict";
     if (!checkFullName(fullName)) return false;
     if(!checkEmail(email)) return false;
-    if (!checkPhoneNumber(phoneNumber)) return false;
     if (!checkPassword(password)) return false;
     if (!checkConfirmPassword(confirmPassword, password)) return false;
        

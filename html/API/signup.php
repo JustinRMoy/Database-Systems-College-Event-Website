@@ -4,45 +4,77 @@
   
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  $fullName = $inputFromJson['fullName'];
-  $password =  $inputFromJson['password'];
-  $university = $inputFromJson['university'];
-  $email = $inputFromJson['email'];
-  //$user_level = $inputFromJson['user_level'];
-  $sql;
-    
-  //Only Selects UCF IF for now
-  //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
-  //$result = mysqli_query($conn, $sql_select);
-  //$Users = $result->fetch_assoc();
-  $sql = "INSERT INTO Users (Password, Email, Name) 
-  VALUES ('".$password."','".$email."','".$fullName."')";
+  $FullName = $inputFromJson['fullName'];
+  $Password =  $inputFromJson['password'];
+  $University = $inputFromJson['university'];
+  $Email = $inputFromJson['email'];
+  
+  $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
 
-  if($conn->query($sql) != TRUE )
+  if($result = mysqli_query($conn, $sql_select))
   {
-    echo "SQL Error";
-    returnError( $conn->error );
+    if (checkEmailUsed($Email, $conn))
+    {
+      $UniNum = $result->fetch_assoc();
+      $ID = $UniNum['ID'];
+
+      $sql = "INSERT INTO Users (Password, Email, Name, UniversityID) 
+      VALUES ('".$Password."','".$Email."','".$FullName."', $ID)";
+
+      if(mysqli_query($conn, $sql))
+      {
+        //echo "Records inserted successfully";
+        returnInfo("done");
+      }
+      else
+      {
+        //echo "failed to insert records";
+        returnError( $conn->error );
+      }
+    }
+
+    else 
+    {
+      returnInfo("email used");
+    }
   }
+
   else
   {
-    //sendEmail("mr.l.t@hotmail.com");
-    returnInfo("done");
+    //echo "failed to find Uni ID records";
+    returnError( $conn->error );
   }
-  $conn->close();
+
+  mysqli_close($conn);
     
   function returnError($error){
-        $retval = '{"msg":"' . $error .'"}';
+        $retval->msg = $error;
     outputJson($retval);
   }
   
   function returnInfo($info){
-        $retval = '{"msg":"' . $info .'"}';
+        $retval->msg = $info;
     outputJson($retval);
   }
   
   function outputJson ($file){
     header("Content-type:application/json");
-    echo $file;
+    $jsonObj = json_encode($file);
+    echo $jsonObj;
+  }
+
+  function checkEmailUsed($email, $conn){
+    $sql = "SELECT * FROM Users WHERE Email = '$email'";
+    $result = mysqli_query($conn, $sql);
+    $rows = mysqli_num_rows($result);
+
+    if ($rows > 0)
+    {
+      return False;
+    }
+
+    else
+      return True;
   }
   
   
@@ -82,3 +114,4 @@
     echo '<script>alert("Email sent successfully !")</script>';
 }
 */
+?>
