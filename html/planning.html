@@ -12,6 +12,12 @@
         <style type="text/css">h1 { font-size: 20px; margin-top: 24px; margin-bottom: 24px; } img { height: 40px; }</style>         
     </head>     
     <body> 
+          <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() 
+            {
+                readEventCookie();
+            }, false);
+        </script>
         <nav class="navbar navbar-expand navbar-light bg-light border">
           <a class="navbar-brand" href="index.html"><img src="img/UCFLogo.png" class="" width="50" height="50" alt="">&nbsp;Event Management Site
         </a>
@@ -91,7 +97,7 @@
 
                 </div>
                 <div class="form-group mb-2">
-                    <label for="inputEventDate">Event Type</label>
+                    <label for="inputCategory">Event Type</label>
                     <select class="form-control" id="inputCategory" name="platform" required="required">
                         <option>Everyone</option>
                         <option>Student</option>
@@ -105,6 +111,7 @@
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-primary" onclick="readEventInput();">Submit</button>
+                <p id="logstatus" style="font-size: 1.0em;"></p>
             </form>
         </div>         
         <footer class="bg-dark mt-5"> 

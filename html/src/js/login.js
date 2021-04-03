@@ -10,11 +10,11 @@ var rsoID = -1;
 function login()
 {   
     "use strict";
-	 var u_fullName = "";
+	var u_fullName = "";
 
-	 loginName = document.getElementById("username").value;
-	 password = document.getElementById("userpassword").value;
-   loginPassword = md5(password);
+	var loginName = document.getElementById("username").value;
+	var password = document.getElementById("userpassword").value;
+   	var loginPassword = md5(password);
 
 	document.getElementById("logstatus").innerHTML = "";
 
@@ -24,20 +24,37 @@ function login()
 		 var jsonPayload = '{"Email" : "' + loginName + '", "Password" : "' + loginPassword + '"}';
 
     	var request = new XMLHttpRequest();
-	    request.open("POST", "http://198.199.77.197/API/login.php", false);
+	    request.open("POST", "http://198.199.77.197/API/login.php", true);
 	    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
 	    try 
 			{
-				request.send(jsonPayload);
-				var jsonObj = JSON.parse(request.responseText);
+				request.onreadystatechange = function()
+				{
+					if (this.readyState == 4 && this.status == 200)
+					{
+						var jsonObj = JSON.parse(request.responseText);
+						if (jsonObj.Users === 0)
+						{
+							var error = jsonObj.error;
+							document.getElementById("logstatus").innerHTML = error;
+						}
 
-				userLevel = jsonObj.User_level;
-				name = jsonObj.Name;
-				uniID = jsonObj.Uni;
-				rsoID = jsonObj.RSO;
-				
-				window.location.href = "index.html";
+						else
+						{
+							//userLevel = jsonObj.User_level;
+							userName = jsonObj.Name;
+							uniID = jsonObj.Uni;
+							//rsoID = jsonObj.RSO;
+							userID = jsonObj.Users;
+
+							saveCookie();
+							window.location.href = "index.html";
+						}
+					}
+				};
+
+				request.send(jsonPayload);
       }
 
 	   catch(err)
@@ -60,8 +77,11 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "rsoID=" + rsoID + "uniID=" + uniID + "userName=" + userName + "userLevel=" + userLevel + "userID=" + 
-	userID + "uniID=" + uniID + ";expires=" + date.toGMTString();
+	document.cookie = "rsoID=" + rsoID + ";expires=" + date.toGMTString();
+	document.cookie = "uniID=" + uniID + ";expires=" + date.toGMTString();
+	document.cookie = "userName=" + userName + ";expires=" + date.toGMTString();
+	document.cookie = "userID=" + userID + ";expires=" + date.toGMTString();
+	document.cookie = "userLevel=" + userLevel + ";expires=" + date.toGMTString();
 }
 
 // var userID = -1;
