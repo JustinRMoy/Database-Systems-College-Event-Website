@@ -29,7 +29,7 @@
       {
         //echo "Records inserted successfully";
         // sendEmail($Email, $conn);
-        showToken($info);
+        returnInfo($info);
       }
       else
       {
