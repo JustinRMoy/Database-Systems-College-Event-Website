@@ -191,7 +191,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var commentButton = document.createElement("button");
     commentButton.setAttribute("id", "commentButton-" + eventId);
     commentButton.setAttribute("data-id", eventId);
-    //commentButton.onclick = showComments(eventId); //getComments
+    commentButton.onclick = showComments(); //getComments
     commentButton.innerHTML = "Comments";
 
     eventContainer.appendChild(title);
@@ -206,15 +206,15 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     return eventCard;
 }
 
-function showComments(eventId){
+function showComments(){
 
-    var commentBox = document.getElementById("commentBox-" + eventId); //this used to be called modal
+    var commentBox = document.getElementById("commentBox"); //this used to be called modal
 
     // Get the button that opens the modal
-    var btn = document.getElementById("commentButton-" + eventId);
+    var btn = document.getElementById("commentButton");
 
     // Get the <span> element that closes the modal
-    var span = document.getElementById("span-" + eventId);
+    var span = document.getElementById("span");
 
     // When the user clicks the button, open the modal 
     btn.onclick = function() {
