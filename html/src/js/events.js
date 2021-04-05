@@ -4,6 +4,7 @@ var extension = 'php';
 document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
     var UniID = localStorage.getItem("UniversityID");
     getEvents("", 0);
+    //getComments("10", 0);
   });
 
   //delete this function once implementation is finished and button is no longer needed on html
@@ -55,7 +56,52 @@ function getComments(eventId, avgRating){
 }
 
 function createCommentBox(comment, studentId, rating){
-    
+    var commentCard = document.createElement("div");
+    commentCard.className = "commentBox";
+    commentCard.setAttribute("data-id", studentId);
+
+    var commentContainer = document.createElement("div");
+    commentContainer.className = "commentBoxContainer";
+    commentContainer.setAttribute("id", "theEvent-" + studentId);
+
+    var title = document.createElement("h1");
+    title.setAttribute("id", "eventTitle-" + eventId);
+    title.setAttribute("data-id", eventId);
+    title.setAttribute("href", "#");
+    title.innerHTML = name;
+
+    var dateTime = document.createElement("h5");
+    dateTime.setAttribute("id", "eventDate-" + eventId);
+    dateTime.setAttribute("data-id", eventId);
+    dateTime.innerHTML = "on " + date + " at " + time;
+
+    var eventDesc = document.createElement("p");
+    eventDesc.setAttribute("id", "eventDescription-" + eventId);
+    eventDesc.setAttribute("data-id", eventId);
+    eventDesc.innerHTML = description;
+
+    var contactInfo = document.createElement("p");
+    contactInfo.setAttribute("id", "contactInfo-" + eventId);
+    contactInfo.setAttribute("data-id", eventId);
+    contactInfo.style = "font-weight: 500 !important;";
+    contactInfo.innerHTML = "Contact Coordinator at Phone: " + phone + ", Email: " + email;
+
+    var commentButton = document.createElement("button");
+    commentButton.setAttribute("id", "commentButton-" + eventId);
+    commentButton.setAttribute("data-id", eventId);
+    commentButton.onclick = showComments(eventId); //getComments
+    commentButton.innerHTML = "Comments";
+
+    eventContainer.appendChild(title);
+    eventContainer.appendChild(dateTime);
+    eventContainer.appendChild(eventDesc);
+    eventContainer.appendChild(contactInfo);
+    eventContainer.appendChild(commentButton);
+
+    eventCard.appendChild(eventImage);
+    eventCard.appendChild(eventContainer);
+
+    return eventCard;
 }
 
 function getEvents(query, UniversityID)
@@ -90,7 +136,7 @@ function getEvents(query, UniversityID)
                     var phone = events.results[i].Phone;
                     var email = events.results[i].Email;
                     var avgRating = events.results[i].Avg_Rating;
-                    //getComments(eventId, avgRating);//get the comments for that event
+                    // getComments(eventId, avgRating);//get the comments for that event
                     var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email);
                     eventList.appendChild(eventCard);
                 }
