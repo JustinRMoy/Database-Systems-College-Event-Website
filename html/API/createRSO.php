@@ -30,9 +30,9 @@ foreach ($students as $student)
     $result = mysqli_query($conn, $sql_id);
 
     if ($result == false)
-{
-    returnError($conn->error);
-}
+    {
+        returnError($conn->error);
+    }
 
     if ($result == NULL)
     {
@@ -57,6 +57,19 @@ if ($updated == false)
 {
     returnError($conn->error);
 }
+
+$sql_ros_id = "SELECT ID FROM RSO WHERE Name = '$rsoName'";
+$id = mysqli_query($conn, $sql_ros_id);
+
+$sql_user_rso = "UPDATE Users SET RSOID = $id WHERE ID = $admin";
+mysqli_query($con, $sql_user_rso);
+
+foreach($students as $student)
+{
+    $sql_user_rso = "UPDATE Users SET RSOID = $id WHERE Email = '$student'"
+}
+
+returnInfo("RSO created successfully!");
 
 
 returnError($error, $conn)
