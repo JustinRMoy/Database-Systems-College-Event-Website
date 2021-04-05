@@ -135,3 +135,36 @@ body{
   .userComment{
       border-top: solid black;
   }
+
+  .user_name{
+    font-size:24px;
+    font-weight: bold;
+  }
+
+  .card-body{
+    background-color: #EEE2DC;
+  }
+
+  .material-icons{
+    font-size: 36px;
+  }
+
+  #likeButton{
+    color: #C1C1C1;
+    outline: none;
+  }
+
+  #likeButton:hover{
+    color: #AC3B61;
+    outline: none;
+  }
+
+  #shareButton{
+    color: #C1C1C1;
+    outline: none;
+  }
+
+  #shareButton:hover{
+    color: #123C69;
+    outline: none;
+  }
