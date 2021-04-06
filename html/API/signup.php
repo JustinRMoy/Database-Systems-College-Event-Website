@@ -22,8 +22,8 @@
       // $token = openssl_random_pseudo_bytes(16);
       // $token = bin2hex($token);
 
-      $sql = "INSERT INTO Users (Password, Email, Name, UniversityID, emailToken) 
-      VALUES ('".$Password."','".$Email."','".$FullName."', '".$ID."')";
+      $sql = "INSERT INTO Users (Password, Email, Name, UniversityID, User_level) 
+      VALUES ('".$Password."','".$Email."','".$FullName."', '".$ID."', '"Student"')";
 
       if (mysqli_query($conn, $sql))
       {
