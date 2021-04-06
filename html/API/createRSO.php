@@ -9,7 +9,7 @@ $admin = $inputFromJson['admin'];
 $students = $inputfromJson['students'];
 $uniID = $inputFromJson['uniID'];
 
-$sql_name = "SELECT * FROM RSO WHERE Name = '$rsoName'";
+$sql_name = "SELECT * FROM RSO WHERE Name = '$rsoName' AND UniversityID = $uniID";
 $check = mysqli_query($conn, $sql_name);
 
 if ($check == false)
@@ -36,7 +36,7 @@ foreach ($students as $student)
 
     if ($result == NULL)
     {
-        $error = "Student email: " . $student . " is not an active student account"
+        $error = "Student email: " . $student . " is not an active student account";
         returnError($error);
     }
 }
@@ -66,13 +66,13 @@ mysqli_query($con, $sql_user_rso);
 
 foreach($students as $student)
 {
-    $sql_user_rso = "UPDATE Users SET RSOID = $id WHERE Email = '$student'"
+    $sql_user_rso = "UPDATE Users SET RSOID = $id WHERE Email = '$student'";
 }
 
 returnInfo("RSO created successfully!");
 
 
-returnError($error, $conn)
+function returnError($error, $conn)
 {
     $ret->msg = $error;
     toJson($ret);
@@ -80,13 +80,13 @@ returnError($error, $conn)
     exit;
 }
 
-returnInfo($info)
+function returnInfo($info)
 {
     $ret->msg = $info;
     toJSON($ret);
 }
 
-toJSON($ret)
+function toJSON($ret)
 {
     header('Content-type: application/json');
     $json = json_encode($ret);
