@@ -13,9 +13,17 @@ document.addEventListener(`DOMContentLoaded`, function () { //change getEvents t
     return;
 }*/
 
-function getComments(eventId, avgRating){
+function getComments(eventId, avgRating, name){
     var jsonPayload = '{"eventId": "' + eventId + '"}';
 	var url = urlBase + '/API/searchComments.' + extension;
+
+    var commentBox = createCommentBox(eventId);
+    var commentBoxContent = createCommentBoxContent(avgRating, eventId, name);
+    var commentList = createCommentList(eventId);
+    var userCommentDiv = createUserCommentDiv(eventId);
+    var otherUserCommentDiv = createOtherUserCommentDiv(eventId);
+    var body = document.getElementsByTagName("body");
+    
 
 	var xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
@@ -30,18 +38,32 @@ function getComments(eventId, avgRating){
 
 			    if (comments.error != "None" && comments.error != "No comments found")
 				    window.location.href = "index.html";
-				    
-				var body = document.getElementsByTagName("body");
-				
-				
+				    			
 				for (var i = 0; i < comments.results.length; i++)
                 {
                     var comment = comments.results[i].Comment;
                     var studentId = comments.results[i].StudentId;
                     var rating = comments.results[i].Rating;
-                    var commentBox = createCommentBox(comment, studentId, rating, avgRating);
-                    body.appendChild(commentBox);
+                    var commentId = comments.results[i].CommentId;
+
+                    if(studentId == localStorage.getItem("StudentId")){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!!
+                        var userCommentCard = createUserCommentCard(comment, studentId, rating, eventId, commentId);
+                        userCommentDiv.appendChild(userCommentCard);
+                        userCommentDiv.appendChild(<br></br>); //should add a break!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    }else{
+                        var otherCommentCard = createOtherCommentCard(comment, studentId, rating, eventId, commentId);
+                        otherUserCommentDiv.appendChild(otherCommentCard);
+                        otherUserCommentDiv.appendChild(<br></br>);
+                    }
+
                 }
+
+                commentList.appendChild(userCommentDiv);
+                commentList.appendChild(otherUserCommentDiv);
+                commentBoxContent.appendChild(commentList);
+                commentBox.appendChild(commentBoxContent);
+                body.appendChild(commentBox);
+
                 localStorage.setItem("editMode", "false");
                 return;
 			}
@@ -50,58 +72,177 @@ function getComments(eventId, avgRating){
 	}
 	catch(err)
 	{
-		window.location.href = "index.html";
+        commentList.appendChild(userCommentDiv);
+        commentList.appendChild(otherUserCommentDiv);
+        commentBoxContent.appendChild(commentList);
+        commentBox.appendChild(commentBoxContent);
+        body.appendChild(commentBox);
+
+		window.location.href = "#";
 		return;
 	}
 }
 
-function createCommentBox(comment, studentId, rating){
+function createCommentBox(eventId){
     var commentCard = document.createElement("div");
     commentCard.className = "commentBox";
-    commentCard.setAttribute("data-id", studentId);
+    commentCard.setAttribute("id", "commentBox-" + eventId);
 
-    var commentContainer = document.createElement("div");
-    commentContainer.className = "commentBoxContainer";
-    commentContainer.setAttribute("id", "theEvent-" + studentId);
+    return commentCard;
+}
+function createCommentBoxContent(avgRating, eventId, name){
+
+    var commentBoxContent = document.createElement("div");
+    commentBoxContent.className = "commentBox-content";
+    commentBoxContent.setAttribute("id", "commentBox-content-" + eventId);
+
+    var ex = document.createElement("span");
+    ex.className = "close";
+    ex.setAttribute("id", "span-" + eventId);
 
     var title = document.createElement("h1");
     title.setAttribute("id", "eventTitle-" + eventId);
     title.setAttribute("data-id", eventId);
-    title.setAttribute("href", "#");
+    //title.setAttribute("href", "#");
     title.innerHTML = name;
 
-    var dateTime = document.createElement("h5");
-    dateTime.setAttribute("id", "eventDate-" + eventId);
-    dateTime.setAttribute("data-id", eventId);
-    dateTime.innerHTML = "on " + date + " at " + time;
+    var eventRating = document.createElement("h2");
+    eventRating.setAttribute("id", "eventRating-" + eventId);
+    eventRating.setAttribute("data-id", eventId);
+    eventRating.innerHTML = "Rating: " + avgRating;
 
-    var eventDesc = document.createElement("p");
-    eventDesc.setAttribute("id", "eventDescription-" + eventId);
-    eventDesc.setAttribute("data-id", eventId);
-    eventDesc.innerHTML = description;
+    if(localStorage.getItem("loggedIn") == true){
+        //add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
+    }
+    
 
-    var contactInfo = document.createElement("p");
-    contactInfo.setAttribute("id", "contactInfo-" + eventId);
-    contactInfo.setAttribute("data-id", eventId);
-    contactInfo.style = "font-weight: 500 !important;";
-    contactInfo.innerHTML = "Contact Coordinator at Phone: " + phone + ", Email: " + email;
+    commentBoxContent.appendChild(ex);
+    commentBoxContent.appendChild(title);
+    commentBoxContent.appendChild(eventRating);
+    //commentBoxContent.appendChild(userInput);
 
-    var commentButton = document.createElement("button");
-    commentButton.setAttribute("id", "commentButton-" + eventId);
-    commentButton.setAttribute("data-id", eventId);
-    commentButton.onclick = showComments(eventId); //getComments
-    commentButton.innerHTML = "Comments";
+    return commentBoxContent;
+}
 
-    eventContainer.appendChild(title);
-    eventContainer.appendChild(dateTime);
-    eventContainer.appendChild(eventDesc);
-    eventContainer.appendChild(contactInfo);
-    eventContainer.appendChild(commentButton);
+function createCommentList(eventId){
+    var commentList = document.createElement("div");
+    commentList.className = "row mb-3";
+    commentList.setAttribute("id", "commentList-" + eventId);
 
-    eventCard.appendChild(eventImage);
-    eventCard.appendChild(eventContainer);
+    return commentList;
+}
 
-    return eventCard;
+function createUserCommentDiv(eventId){
+    var userComment = document.createElement("div");
+    userComment.className = "userComment";
+    userComment.setAttribute("id", "userComment-" + eventId);
+
+    return userComment;
+}
+
+function createOtherUserCommentDiv(eventId){
+    var otherUserComments = document.createElement("div");
+    otherUserComments.className = "otherUsers";
+    otherUserComments.setAttribute("id", "otherUsers-" + eventId);
+
+    return otherUserComments;
+}
+
+function createUserCommentCard(comment, studentId, rating, eventId, commentId){
+    
+    //SIGNIFICANT CHANGES MUST BE MADE TO ALLOW USER TO EDIT THE COMMENT
+
+    var card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("id", "card-" + commentId);
+
+    var cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+    cardBody.setAttribute("id", "card-body-" + commentId);
+
+    var timeStamp = document.createElement("div");
+    timeStamp.className = "pull-right";
+    timeStamp.setAttribute("id", "timeStamp-" + commentId);
+
+    var small = document.createElement("small");
+    small.setAttribute("id", "small-" + commentId);
+    small.innerHTML = "PLACEHOLDER";//comment table in db doesn't have this !!!!!!!!!!!!!
+
+    timeStamp.appendChild(small);
+
+    var studentName = document.createElement("h4");
+    studentName.className = "media-heading user_name";
+    studentName.innerHTML = "PLACEHOLDER"; //comment table in DB doesn't have this!!!!!!!!!!!!!!!!
+
+    var commentText = document.createElement("p");
+    commentText.setAttribute("id", "comment-" + commentId);
+    commentText.innerHTML = comment;
+
+    var brk = document.createElement("br");
+
+    //button
+    //span
+    //button
+    //span append span to buttons
+
+    cardBody.appendChild(timeStamp);
+    cardBody.appendChild(studentName);
+    cardBody.appendChild(commentText);
+    cardBody.appendChild(brk);
+    /*cardBody.appendChild(social);
+    cardBody.appendChild(like); append the buttons here!!!!!!!!!!!!!!!!
+    */
+    
+    card.appendChild(cardBody);
+
+    return card;
+}
+
+function createOtherCommentCard(comment, studentId, rating, eventId, commentId){
+    var card = document.createElement("div");
+    card.className = "card";
+    card.setAttribute("id", "card-" + commentId);
+
+    var cardBody = document.createElement("div");
+    cardBody.className = "card-body";
+    cardBody.setAttribute("id", "card-body-" + commentId);
+
+    var timeStamp = document.createElement("div");
+    timeStamp.className = "pull-right";
+    timeStamp.setAttribute("id", "timeStamp-" + commentId);
+
+    var small = document.createElement("small");
+    small.setAttribute("id", "small-" + commentId);
+    small.innerHTML = "PLACEHOLDER";//comment table in db doesn't have this !!!!!!!!!!!!!
+
+    timeStamp.appendChild(small);
+
+    var studentName = document.createElement("h4");
+    studentName.className = "media-heading user_name";
+    studentName.innerHTML = "PLACEHOLDER"; //comment table in DB doesn't have this!!!!!!!!!!!!!!!!
+
+    var commentText = document.createElement("p");
+    commentText.setAttribute("id", "comment-" + commentId);
+    commentText.innerHTML = comment;
+
+    var brk = document.createElement("br");
+
+    //button
+    //span
+    //button
+    //span append span to buttons
+
+    cardBody.appendChild(timeStamp);
+    cardBody.appendChild(studentName);
+    cardBody.appendChild(commentText);
+    cardBody.appendChild(brk);
+    /*cardBody.appendChild(social);
+    cardBody.appendChild(like); append the buttons here!!!!!!!!!!!!!!!!
+    */
+    
+    card.appendChild(cardBody);
+
+    return card;
 }
 
 function getEvents(query, UniversityID)
@@ -136,7 +277,7 @@ function getEvents(query, UniversityID)
                     var phone = events.results[i].Phone;
                     var email = events.results[i].Email;
                     var avgRating = events.results[i].Avg_Rating;
-                    // getComments(eventId, avgRating);//get the comments for that event
+                    //getComments(eventId, avgRating, name);//get the comments for that event
                     var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email);
                     eventList.appendChild(eventCard);
                 }
@@ -148,7 +289,7 @@ function getEvents(query, UniversityID)
 	}
 	catch(err)
 	{
-		window.location.href = "index.html";
+		window.location.href = "#";
 		return;
 	}
 }
@@ -191,7 +332,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var commentButton = document.createElement("button");
     commentButton.setAttribute("id", "commentButton-" + eventId);
     commentButton.setAttribute("data-id", eventId);
-    commentButton.onclick = showComments(); //getComments
+    //commentButton.onclick = showComments(eventId); //getComments
     commentButton.innerHTML = "Comments";
 
     eventContainer.appendChild(title);
@@ -206,15 +347,15 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     return eventCard;
 }
 
-function showComments(){
+function showComments(eventId){
 
-    var commentBox = document.getElementById("commentBox"); //this used to be called modal
+    var commentBox = document.getElementById("commentBox-" + eventId); //this used to be called modal
 
     // Get the button that opens the modal
-    var btn = document.getElementById("commentButton");
+    var btn = document.getElementById("commentButton-" + eventId);
 
     // Get the <span> element that closes the modal
-    var span = document.getElementById("span");
+    var span = document.getElementById("span-" + eventId);
 
     // When the user clicks the button, open the modal 
     btn.onclick = function() {
