@@ -23,7 +23,7 @@
       // $token = bin2hex($token);
 
       $sql = "INSERT INTO Users (Password, Email, Name, UniversityID, User_level) 
-      VALUES ('".$Password."','".$Email."','".$FullName."', '".$ID."', '"Student"')";
+      VALUES ('".$Password."','".$Email."','".$FullName."', '".$ID."', 'Student')";
 
       if (mysqli_query($conn, $sql))
       {
@@ -72,7 +72,7 @@
     echo $jsonObj;
   }
 
-  function checkEmailUsed($Email, $conn){
+  function checkEmailUsed($email, $conn){
     $sql = "SELECT * FROM Users WHERE Email = '$email'";
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_num_rows($result);

@@ -14,6 +14,7 @@ foreach($inputFromJson['students'] as $email)
 }
 
 $uniID = $inputFromJson['uniID'];
+$description = $inputFromJson['description'];
 
 $sql_name = "SELECT * FROM RSO WHERE Name = '$rsoName' AND UniversityID = $uniID";
 $check = mysqli_query($conn, $sql_name);
@@ -49,8 +50,8 @@ foreach ($students as $student)
     }
 }
 
-$sql_insert = "INSERT INTO RSO (UniversityID, AdminID, Name)
-Values ($uniID, $admin, '".$rsoName."')";
+$sql_insert = "INSERT INTO RSO (UniversityID, AdminID, Name, Description)
+Values ($uniID, $admin, '".$rsoName."', '".$description."')";
 $added = mysqli_query($conn, $sql_insert);
 
 if ($added == false)
