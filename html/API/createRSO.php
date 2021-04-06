@@ -40,7 +40,9 @@ foreach ($students as $student)
         returnError($conn->error);
     }
 
-    if ($result == NULL)
+    $Result = $result->fetch_assoc();
+    $id = $Result['ID'];
+    if ($id == NULL)
     {
         $error = "Student email: " . $student . " is not an active student account";
         returnError($error);
@@ -64,7 +66,7 @@ if ($updated == false)
     returnError($conn->error);
 }
 
-$sql_ros_id = "SELECT ID FROM RSO WHERE Name = '$rsoName'";
+$sql_ros_id = "SELECT ID FROM RSO WHERE Name = '$rsoName' AND UniversityID = $uniID";
 $result = mysqli_query($conn, $sql_ros_id);
 $RSONum = $result->fetch_assoc();
 $id = $RSONum['ID'];
