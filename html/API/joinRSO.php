@@ -4,7 +4,7 @@
     $inputFromJson = json_decode(file_get_contents("php://input"), true);
 
     $rsoID = $inputFromJson['rsoID'];
-    $userID = $userID['userID'];
+    $userID = $inputFromJson['userID'];
 
     $sql = "UPDATE Users SET RSOID = $rsoID WHERE ID = $userID";
     
