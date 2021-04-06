@@ -6,7 +6,13 @@ $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
 $rsoName = $inputFromJson['rsoName'];
 $admin = $inputFromJson['admin'];
-$students = $inputfromJson['students'];
+$students = array();
+
+foreach($inputFromJson['students'] as $email)
+{
+    array_push($students, $email);
+}
+
 $uniID = $inputFromJson['uniID'];
 
 $sql_name = "SELECT * FROM RSO WHERE Name = '$rsoName' AND UniversityID = $uniID";
@@ -59,14 +65,17 @@ if ($updated == false)
 }
 
 $sql_ros_id = "SELECT ID FROM RSO WHERE Name = '$rsoName'";
-$id = mysqli_query($conn, $sql_ros_id);
+$result = mysqli_query($conn, $sql_ros_id);
+$RSONum = $result->fetch_assoc();
+$id = $RSONum['ID'];
 
 $sql_user_rso = "UPDATE Users SET RSOID = $id WHERE ID = $admin";
-mysqli_query($con, $sql_user_rso);
+mysqli_query($conn, $sql_user_rso);
 
 foreach($students as $student)
 {
     $sql_user_rso = "UPDATE Users SET RSOID = $id WHERE Email = '$student'";
+    mysqli_query($conn, $sql_user_rso);
 }
 
 returnInfo("RSO created successfully!");
