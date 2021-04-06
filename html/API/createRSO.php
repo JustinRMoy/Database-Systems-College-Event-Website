@@ -40,12 +40,12 @@ foreach ($students as $student)
         returnError($conn->error);
     }
 
-    $Result = $result->fetch_assoc();
-    $id = $Result['ID'];
-    if ($id == NULL)
+    $search = $result->fetch_assoc();
+    $num = $search['ID'];
+    if (is_null($num))
     {
         $error = "Student email: " . $student . " is not an active student account";
-        returnError($error);
+        returnError($error, $conn);
     }
 }
 
