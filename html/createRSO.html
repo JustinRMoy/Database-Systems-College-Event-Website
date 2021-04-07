@@ -65,15 +65,15 @@
 
                 <div class="form-group mb-2">
                     <label for="inputCategory">RSO Members</label>
-                    <input type="text" class="form-control" id="inputMemberName1" placeholder="Member 1 Email..." required="required" maxlength="50">
-                    <input type="text" class="form-control" id="inputMemberName2" placeholder="Member 2 Email..." required="required" maxlength="50">
-                    <input type="text" class="form-control" id="inputMemberName3" placeholder="Member 3 Email..." required="required" maxlength="50">
-                    <input type="text" class="form-control" id="inputMemberName4" placeholder="Member 4 Email..." required="required" maxlength="50">
-                    <button class="btn btn-secondary mt-2">Add More</button>
+                    <input type="text" class="members form-control" id="inputMemberName1" placeholder="Member 1 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName2" placeholder="Member 2 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName3" placeholder="Member 3 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName4" placeholder="Member 4 Email..." required="required" maxlength="50">
+                    <button class="btn btn-secondary mt-2" onclick="addMember();">Add More</button>
                 </div>
                 <hr>
 
-                <button type="submit" name="submit" class="btn btn-primary" onclick="readEventInput();">Submit</button>
+                <button type="submit" name="submit" class="btn btn-primary" onclick="readRSOInput();">Submit</button>
                 <p id="logstatus" style="font-size: 1.0em;"></p>
             </form>
         </div> 
