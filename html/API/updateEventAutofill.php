@@ -18,18 +18,18 @@
   $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
-  $sql = "UPDATE Events
-          SET Name = '$eventName', Description = '$description', contact_num = '$contactNumber', Contact_Email = '$email', startDate = '$startDate', endDate = '$endDate', startTime = '$startTime', endTime = '$endTime', Longitude = '$longitude', Latitude = '$latitude', Category = '$category' 
-          WHERE ID = $eventID";
+  $sql = "SELECT Description, contact_num, Contact_Email, startDate, endDate, startTime, endTime, Longitude, Latitude, Category 
+          FROM Events 
+          Where ID = $eventID";
 
   if(mysqli_query($conn, $sql))
   {
-    //echo "Records UPDATED successfully";
-    returnInfo("done");
+    //echo "Event successfully found";
+    returnInfo($sql);
   }
   else
   {
-    //echo "failed to UPDATE records";
+    //echo "failed to find Event";
     returnError( $conn->error );
   }
 
