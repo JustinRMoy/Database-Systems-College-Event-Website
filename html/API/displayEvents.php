@@ -24,11 +24,17 @@
 
     if($result = mysqli_query($conn, $sql))
     {
-        $jsonPackage = $result->fetch_assoc();
-        echo json_encode($jsonPackage);
+        $theWholePackage = array();
+        while ($rows = mysqli_fetch_array($result))
+        {
+            array_push($theWholePackage, $rows);
+        }
+    
+        echo json_encode($theWholePackage);
     }
     else
     {
+        print_r("IN ELSE STATEMENT");
         print_r($conn->error);
     }
 
