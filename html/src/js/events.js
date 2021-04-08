@@ -122,7 +122,7 @@ function createCommentBoxContent(avgRating, eventId, name){
     eventRating.innerHTML = "Rating: " + avgRating;
 
     if(localStorage.getItem("loggedIn") == true){
-        //add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
+        //var userInput = ;//add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
     }
     
 
