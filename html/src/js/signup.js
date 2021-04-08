@@ -23,9 +23,11 @@ function signup()
         var json = '{"fullName" : "' + fullname + '", "password" : "' + hashedPassword + '", "email" : "' + email + '", "university" : "' + university + '"}';
        
         var request = new XMLHttpRequest();
+
         // request.open("POST", "http://198.199.77.197/API/signup.php", true);
         // http://127.0.0.1:5500/html/API/signup.php
         request.open("POST", "http://127.0.0.1:5500/html/API/signup.php", true);
+
 
         request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
         try {

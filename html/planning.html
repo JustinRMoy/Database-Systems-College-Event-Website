@@ -54,20 +54,21 @@
             <form accept-charset="UTF-8" action="https://getform.io/f/{your-form-endpoint-goes-here}" method="POST" target="_blank">
                 <div class="form-group mb-2">
                     <label for="inputEventName">Event Name</label>
-                    <input type="text" name="eventName" class="form-control" id="inputEventName" placeholder="Enter Event Name" required="required">
+                    <input type="text" name="eventName" class="form-control" id="inputEventName" placeholder="Enter Event Name..." required="required" maxlength="200">
                 </div>
                 <div class="form-group mb-2">
                     <label for="inputEventEmail" required="required">Email Address</label>
-                    <input type="email" name="email" class="form-control" id="inputEventEmail" aria-describedby="emailHelp" placeholder="Enter Contact Email">
+                    <input type="email" name="email" class="form-control" id="inputEventEmail" aria-describedby="emailHelp" placeholder="Enter Contact Email..." maxlength="100">
                 </div>
                 <div class="form-group mb-2">
                     <label for="inputEventPhoneNumber" required="required">Phone Number</label>
-                    <input type="email" name="email" class="form-control" id="inputEventPhoneNumber" aria-describedby="emailHelp" placeholder="Enter Contact Number">
+                    <input type="text" name="email" class="form-control" id="inputEventPhoneNumber" aria-describedby="emailHelp" placeholder="Enter Contact Number..." maxlength="15">
                 </div>
                 <div class="form-group mb-2">
                     <label for="inputEventDescription" required="required">Description</label>
-                    <input style="height:180px; padding-bottom:150px" type="email" name="email" class="form-control" id="inputEventDescription" aria-describedby="emailHelp" placeholder="Enter Description">
+                    <input style="height:180px; padding-bottom:150px" type="text" name="description" class="form-control" id="inputEventDescription" aria-describedby="emailHelp" placeholder="Enter Description..." maxlength="500">
                 </div>
+
                 <div class="container px-1 px-sm-5 mx-auto mt-2">
                     <form autocomplete="off">
                         <div class="flex-row d-flex justify-content-center">
@@ -84,18 +85,29 @@
                         </div>
                     </form>
                 </div>
+
                 <div class="container px-1 px-sm-5 mx-auto mt-2">
                     <div class="d-flex justify-content-center">
                     <label for="appt">Start Time:&nbsp;</label>
                     <input type="time" id="inputStartTime" name="appt"
                            min="06:00" max="18:00" required>
-                    <label for="appt">End Time:&nbsp;</label>
+
+                    <label for="appt">&nbsp;End Time:&nbsp;</label>
+
                     <input type="time" id="inputEndTime" name="appt"
                            min="06:00" max="18:00" required>
                     </div>
-                    <small class="d-flex justify-content-center">Event hours range from 6am to 10pm</small>
+                    <small class="d-flex justify-content-center">Event hours range from 6am to 10pm.</small>
 
                 </div>
+
+                <div class="mt-2 d-flex justify-content-center">
+                    <label>Longitude:&nbsp;</label>
+                    <input class="col-2" type="text" name="longitude" id="inputEventLongitude" maxlength="50">
+                    <label>&nbsp;Latitude:&nbsp;</label>
+                    <input class="col-2" type="text" name="latitude" id="inputEventLatitude" maxlength="50">
+                </div>
+
                 <div class="form-group mb-2">
                     <label for="inputCategory">Event Type</label>
                     <select class="form-control" id="inputCategory" name="platform" required="required">
@@ -107,7 +119,7 @@
                 <hr>
                 <div class="form-group mt-3">
                     <label class="mr-2">Upload your images:</label>
-                    <input type="file" name="file">
+                    <input type="file" name="file" id="file">
                 </div>
                 <hr>
                 <button type="submit" class="btn btn-primary" onclick="readEventInput();">Submit</button>

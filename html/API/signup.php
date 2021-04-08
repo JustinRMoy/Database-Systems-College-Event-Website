@@ -11,12 +11,15 @@
   
   $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
 
+
   if ($result = mysqli_query($conn, $sql_select))
+
   {
     if (checkEmailUsed($Email, $conn))
     {
       $UniNum = $result->fetch_assoc();
       $ID = $UniNum['ID'];
+
 
       // Generate a random token for users
       // $token = openssl_random_pseudo_bytes(16);
@@ -30,6 +33,7 @@
         //echo "Records inserted successfully";
         // sendEmail($Email, $conn);
         returnInfo($info);
+
       }
       else
       {
@@ -48,6 +52,7 @@
   {
     //echo "failed to find Uni ID records";
     returnError($conn->error);
+
   }
 
   mysqli_close($conn);
@@ -86,6 +91,7 @@
       return True;
   }
   
+
 //   function sendEmail($Email, $conn){
 
 //     // Generate a random token for users
@@ -143,3 +149,4 @@
 //     echo '<script>alert("Email sent successfully !")</script>';
 // }
 ?>
+

@@ -16,9 +16,11 @@ function readEventInput()
     var endTime = document.getElementById("inputEndTime").value;
     var startDate = formatDate(document.getElementById("start").value);
     var endDate = formatDate(document.getElementById("end").value);
+
     var category = document.getElementById("inputCategory").value;
 		
         var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '"}';
+
 
     	var request = new XMLHttpRequest();
 	    request.open("POST", eventURL, true);
@@ -54,6 +56,7 @@ function readEventInput()
                 document.getElementById("inputEndTime").value = "";
                 document.getElementById("start").value = "";
                 document.getElementById("end").value = "";
+
             }
 
             request.send(jsonPayload);
@@ -73,6 +76,7 @@ function readEventInput()
             document.getElementById("inputEndTime").value = "";
             document.getElementById("start").value = "";
             document.getElementById("end").value = "";
+
 	   }
 	
 }

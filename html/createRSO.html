@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+    <head> 
+        <title>Create RSO</title>         
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css"> 
+        <link rel="stylesheet" href="src/css/bootstrap.min.css"> 
+        <link rel="shortcut icon" href="img/UCFlogo.png"/> 
+        <script src="src/js/createRSO.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
+        <style type="text/css">h1 { font-size: 20px; margin-top: 24px; margin-bottom: 24px; } img { height: 40px; }</style>         
+    </head>     
+    <body> 
+          <script type="text/javascript">
+            document.addEventListener('DOMContentLoaded', function() 
+            {
+                readEventCookie();
+            }, false);
+        </script>
+        <nav class="navbar navbar-expand navbar-light bg-light border">
+          <a class="navbar-brand" href="index.html"><img src="img/UCFlogo.png" class="" width="50" height="50" alt="">&nbsp;Event Management Site
+        </a>
+          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="d-flex justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Events.html">Events</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Plan
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="planning.html">Add Event</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="planning.html">Edit Event</a>
+                </div>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+            </ul>
+          </div>
+        </nav> 
+
+        <div class="col-md-8 offset-md-2 mt-5 bg-light">
+            <h2 class="bg-dark text-light">&nbsp;Add Your RSO Here!</h2>
+            <form accept-charset="UTF-8" method="POST" enctype="multipart/form-data">
+                <div class="form-group mb-2">
+                    <label>RSO Name</label>
+                    <input type="text" name="eventName" class="form-control" id="inputRSOName" placeholder="Enter RSO Name..." required="required" maxlength="200">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="inputEventDescription" required="required">Description</label>
+                    <input style="height:180px; padding-bottom:150px" type="text" name="description" class="form-control" id="inputRSODescription" aria-describedby="emailHelp" placeholder="Enter Description..." maxlength="500">
+                </div>
+
+                <div class="form-group mb-2">
+                    <label for="inputCategory">RSO Members</label>
+                    <input type="text" class="members form-control" id="inputMemberName1" placeholder="Member 1 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName2" placeholder="Member 2 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName3" placeholder="Member 3 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName4" placeholder="Member 4 Email..." required="required" maxlength="50">
+                    <button class="btn btn-secondary mt-2" onclick="addMember();">Add More</button>
+                </div>
+                <hr>
+
+                <button type="submit" name="submit" class="btn btn-primary" onclick="readRSOInput();">Submit</button>
+                <p id="logstatus" style="font-size: 1.0em;"></p>
+            </form>
+        </div> 
+
+        <footer class="bg-dark mt-5"> 
+            <div class="container pb-2 pt-3">
+                <p class="text-light"><a href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">&copy;School Event System</a> by <a href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">Team5</a></p> 
+            </div>             
+        </footer>         
+        <style>#row_style { margin-top: 30px; } #submit { display: block; margin: auto; }</style>         
+        <!-- you need to include the shieldui css and js assets in order for the charts to work -->         
+        <script type="text/javascript">
+            $(document).ready(function(){
+
+            $('.input-daterange').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true,
+            calendarWeeks : true,
+            clearBtn: true,
+            disableTouchKeyboard: true
+            });
+
+            });
+        </script>
+    </body>

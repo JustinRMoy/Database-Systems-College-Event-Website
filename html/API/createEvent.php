@@ -30,6 +30,7 @@
   {
     //echo "failed to insert records";
     returnError( $conn->error );
+
   }
 
   mysqli_close($conn);
