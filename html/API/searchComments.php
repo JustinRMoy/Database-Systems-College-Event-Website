@@ -37,7 +37,7 @@
     //Event not found
     else
     {
-        error("No comments found");
+        error("None");
     }
 
     $conn->close();

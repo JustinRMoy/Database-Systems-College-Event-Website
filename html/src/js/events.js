@@ -1,6 +1,8 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 
+var btnDisplay, commentBoxDisplay, spanDisplay;
+
 document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
     var UniID = localStorage.getItem("UniversityID");
     getEvents("", 0);
@@ -22,7 +24,7 @@ function getComments(eventId, avgRating, name){
     var commentList = createCommentList(eventId);
     var userCommentDiv = createUserCommentDiv(eventId);
     var otherUserCommentDiv = createOtherUserCommentDiv(eventId);
-    var body = document.getElementsByTagName("body");
+    var body = document.getElementById("body");
     
 
 	var xhr = new XMLHttpRequest();
@@ -38,6 +40,15 @@ function getComments(eventId, avgRating, name){
 
 			    if (comments.error != "None" && comments.error != "No comments found")
 				    window.location.href = "index.html";
+
+                if(comments.error == "No comments found"){
+                    commentList.appendChild(userCommentDiv);
+                    commentList.appendChild(otherUserCommentDiv);
+                     commentBoxContent.appendChild(commentList);
+                     commentBox.appendChild(commentBoxContent);
+                     body.appendChild(commentBox);
+                    return;
+                }
 				    			
 				for (var i = 0; i < comments.results.length; i++)
                 {
@@ -45,8 +56,9 @@ function getComments(eventId, avgRating, name){
                     var studentId = comments.results[i].StudentId;
                     var rating = comments.results[i].Rating;
                     var commentId = comments.results[i].CommentId;
+                   /* var loggedUser = localStorage.getItem("StudentId");
 
-                    if(studentId == localStorage.getItem("StudentId")){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!!
+                    if(studentId == loggedUser){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
                         var userCommentCard = createUserCommentCard(comment, studentId, rating, eventId, commentId);
                         userCommentDiv.appendChild(userCommentCard);
                         userCommentDiv.appendChild(<br></br>); //should add a break!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -54,7 +66,7 @@ function getComments(eventId, avgRating, name){
                         var otherCommentCard = createOtherCommentCard(comment, studentId, rating, eventId, commentId);
                         otherUserCommentDiv.appendChild(otherCommentCard);
                         otherUserCommentDiv.appendChild(<br></br>);
-                    }
+                    }*/
 
                 }
 
@@ -72,12 +84,6 @@ function getComments(eventId, avgRating, name){
 	}
 	catch(err)
 	{
-        commentList.appendChild(userCommentDiv);
-        commentList.appendChild(otherUserCommentDiv);
-        commentBoxContent.appendChild(commentList);
-        commentBox.appendChild(commentBoxContent);
-        body.appendChild(commentBox);
-
 		window.location.href = "#";
 		return;
 	}
@@ -87,6 +93,8 @@ function createCommentBox(eventId){
     var commentCard = document.createElement("div");
     commentCard.className = "commentBox";
     commentCard.setAttribute("id", "commentBox-" + eventId);
+    commentCard.setAttribute("name", "commentBox");
+    commentBoxDisplay = commentCard;
 
     return commentCard;
 }
@@ -99,6 +107,8 @@ function createCommentBoxContent(avgRating, eventId, name){
     var ex = document.createElement("span");
     ex.className = "close";
     ex.setAttribute("id", "span-" + eventId);
+    ex.innerHTML = "&times;";
+    spanDisplay = ex;
 
     var title = document.createElement("h1");
     title.setAttribute("id", "eventTitle-" + eventId);
@@ -261,7 +271,7 @@ function getEvents(query, UniversityID)
 			{
 				var events = JSON.parse( xhr.responseText );
 
-			    if (events.error != "None" && events.error != "No events found")
+			    if (events.error != "None" && events.error != "No comments found")
 				    window.location.href = "index.html";
 				    
 				var eventList = document.getElementById("eventList");
@@ -277,8 +287,8 @@ function getEvents(query, UniversityID)
                     var phone = events.results[i].Phone;
                     var email = events.results[i].Email;
                     var avgRating = events.results[i].Avg_Rating;
-                    //getComments(eventId, avgRating, name);//get the comments for that event
-                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email);
+                    getComments(eventId, avgRating, name);//get the comments for that event
+                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email); 
                     eventList.appendChild(eventCard);
                 }
                 localStorage.setItem("editMode", "false");
@@ -332,8 +342,9 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var commentButton = document.createElement("button");
     commentButton.setAttribute("id", "commentButton-" + eventId);
     commentButton.setAttribute("data-id", eventId);
-    //commentButton.onclick = showComments(eventId); //getComments
     commentButton.innerHTML = "Comments";
+    btnDisplay = commentButton;
+    showComments(eventId);
 
     eventContainer.appendChild(title);
     eventContainer.appendChild(dateTime);
@@ -349,28 +360,28 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
 
 function showComments(eventId){
 
-    var commentBox = document.getElementById("commentBox-" + eventId); //this used to be called modal
+   // commentBoxDisplay = document.getElementById("commentBox"); //this used to be called modal
 
     // Get the button that opens the modal
-    var btn = document.getElementById("commentButton-" + eventId);
+    //btnDisplay = document.getElementById("commentButton-" + eventId);
 
     // Get the <span> element that closes the modal
-    var span = document.getElementById("span-" + eventId);
+    //spanDisplay = document.getElementById("span");
 
     // When the user clicks the button, open the modal 
-    btn.onclick = function() {
-    commentBox.style.display = "block";
+    btnDisplay.onclick = function() {
+        document.getElementById("commentBox-" + eventId).style.display = "block";
     }
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-    commentBox.style.display = "none";
+    spanDisplay.onclick = function() {
+        document.getElementById("commentBox-" + eventId).style.display = "none";
     }
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-        if (event.target == commentBox) {
-            commentBox.style.display = "none";
+        if (event.target == document.getElementsByName("commentBox")) {
+            document.getElementsByName("commentBox").style.display = "none";
         }
     }
 }
