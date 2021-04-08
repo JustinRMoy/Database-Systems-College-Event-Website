@@ -25,6 +25,7 @@
   if(mysqli_query($conn, $sql))
   {
     //echo "Event successfully found";
+    echo("Event found is: " + $sql);
     returnInfo($sql);
   }
   else
