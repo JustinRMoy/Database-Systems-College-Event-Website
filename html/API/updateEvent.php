@@ -5,7 +5,6 @@
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
   $eventID = $inputFromJson['eventID'];
-  //$uniID = $inputFromJson['uniID'];
   $eventName = $inputFromJson['EventName'];
   $email =  $inputFromJson['Email'];
   $contactNumber = $inputFromJson['PhoneNumber'];
