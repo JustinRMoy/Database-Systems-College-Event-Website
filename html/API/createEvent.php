@@ -17,8 +17,8 @@
   $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
-  $check = "SELECT * FROM Events WHERE (startTime >= '$startTime' AND 
-  startTime <= '$endTime') OR (endTime >= '$startTime' AND endTime <= '$endTime')
+  $check = "SELECT * FROM Events WHERE (startTime <= '$startTime' AND 
+  endTime >= '$startTime') OR (startTime <= '$endTime' AND endTime >= '$endTime')
   AND startDate = '$startDate' AND endDate = '$endDate' AND Longitude = '$longitude'
   AND Latitude = '$latitude'";
   $result = mysqli_query($conn, $check);
