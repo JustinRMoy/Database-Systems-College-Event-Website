@@ -17,6 +17,16 @@
   $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
+  $check = "SELECT * FROM Events WHERE starTime = '$startTime' AND endTime = '$endTime'
+  AND startDate = '$startDate' AND endDate = '$endDate' AND Longitude = '$longitude'
+  AND Latitude = '$latitude'";
+  $result = mysqli_query($conn, $check);
+  $rows = mysqli_num_rows($result);
+
+  if ($row > 0)
+  {
+    returnError("Event conflicts with another event's date, time and location")
+  }
 
   $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category)
   VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."')";
@@ -37,6 +47,8 @@
   function returnError($error){
     $retval = '{"msg":"' . $error .'"}';
     outputJson($retval);
+    mysqli_close($conn);
+    exit;
   }
   
   function returnInfo($info)
