@@ -30,7 +30,7 @@
             array_push($theWholePackage, $rows);
         }
     
-        echo json_encode($theWholePackage);
+        toJSON($theWholePackage);
     }
     else
     {
@@ -39,3 +39,9 @@
     }
 
     $conn->close();
+
+    function toJSON($json)
+    {
+        header("Content-type:application/json");
+        echo json_encode($json);
+    }
