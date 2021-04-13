@@ -8,6 +8,7 @@
   $Password =  $inputFromJson['password'];
   $University = $inputFromJson['university'];
   $Email = $inputFromJson['email'];
+  $verifyToken = md5(time().$Email);
   
   $sql_select = "SELECT ID FROM University WHERE Name = '$University'";
 
@@ -22,12 +23,12 @@
       // $token = openssl_random_pseudo_bytes(16);
       // $token = bin2hex($token);
 
-      $sql = "INSERT INTO Users (Password, Email, Name, UniversityID, User_level) 
-      VALUES ('".$Password."','".$Email."','".$FullName."', '".$ID."', 'Student')";
+      $sql = "INSERT INTO Users (Password, Email, Name, UniversityID, User_level, emailToken) 
+      VALUES ('".$Password."','".$Email."','".$FullName."', '".$ID."', 'Student', '".$verifyToken."')";
 
       if (mysqli_query($conn, $sql))
       {
-        //echo "Records inserted successfully";
+        // echo "Records inserted successfully";
         // sendEmail($Email, $conn);
         returnInfo($info);
       }
