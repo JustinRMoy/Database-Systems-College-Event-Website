@@ -128,13 +128,7 @@ body{
       display: block;
   }
 
-  .otherUsers p{
-      border-top: black solid;
-  }
-
-  .userComment{
-      border-top: solid black;
-  }
+  
 
   .user_name{
     font-size:24px;

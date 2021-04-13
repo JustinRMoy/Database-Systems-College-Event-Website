@@ -24,7 +24,7 @@
                     //seperate search results
                 }
                 $resultCount++;
-                $searchResults .= '{"Comment": "' . $eventData["Comment"] . '", "StudentId": "' . $eventData["StudentID"] . '", "Rating": "' . $eventData["Rating"] . '"}';
+                $searchResults .= '{"Comment": "' . $eventData["Comment"] . '", "StudentId": "' . $eventData["StudentID"] . '", "CommentId": "' . $eventData["CommentID"] . '", "Rating": "' . $eventData["Rating"] . '"}';
                 //gets data from the searched event
         }
         
@@ -37,7 +37,7 @@
     //Event not found
     else
     {
-        error("No events found");
+        error("None");
     }
 
     $conn->close();
