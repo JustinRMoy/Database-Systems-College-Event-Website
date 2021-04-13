@@ -167,47 +167,45 @@ function confirmCode()
     document.getElementById("emailconf").innerHTML = "";
     document.getElementById("confCode").innerHTML = "";
 
-    if (validateInput(fullname, email, password, confirmPassword))
+    var hashedPassword = md5(password);
+    var json = '{"Email" : "' + email + '", "emailToken" : "' + emailCode + '"}';
+    var successMessage = "Successfully verified: " + email;
+    
+    var request = new XMLHttpRequest();
+    // request.open("POST", "http://198.199.77.197/API/signup.php", true);
+    // http://127.0.0.1:5500/html/API/signup.php
+    request.open("POST", "http://198.199.77.197/API/confirmEmail.php", true);
+
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        request.onreadystatechange = function()
     {
-        var hashedPassword = md5(password);
-        var json = '{"Email" : "' + email + '", "emailToken" : "' + emailCode + '"}';
-        var successMessage = "Successfully verified: " + email;
-       
-        var request = new XMLHttpRequest();
-        // request.open("POST", "http://198.199.77.197/API/signup.php", true);
-        // http://127.0.0.1:5500/html/API/signup.php
-        request.open("POST", "http://198.199.77.197/API/confirmEmail.php", true);
+        if (this.readyState == 4 && this.status == 200)
+        {    
+            var jsonObject = JSON.parse(request.responseText);
+            var endpointmsg = jsonObject['msg'];
+            console.log(endpointmsg);
 
-        request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-        try {
-            request.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {    
-                var jsonObject = JSON.parse(request.responseText);
-                var endpointmsg = jsonObject['msg'];
-                console.log(endpointmsg);
-
-                if (endpointmsg === "verified")
-                {
-                    document.getElementById("upstatus").innerHTML = successMessage; 
-                }
-
-                else if (endpointmsg !== "verified")
-                {
-                    document.getElementById("upstatus").innerHTML = "Token may have expired"; 
-                }
+            if (endpointmsg === "verified")
+            {
+                document.getElementById("upstatus").innerHTML = successMessage; 
             }
-        };
-            request.responseType="text";
-            console.log(json);
-            request.send(json);
-            //window.location.href = "login.html";
+
+            else if (endpointmsg !== "verified")
+            {
+                document.getElementById("upstatus").innerHTML = "Token may have expired"; 
+            }
         }
-        catch(error)
-        {
-            document.getElementById("upstatus").innerHTML = error.message;
-            document.getElementById("upstatus").style.color = "red";
-        }
+    };
+        request.responseType="text";
+        console.log(json);
+        request.send(json);
+        //window.location.href = "login.html";
     }
+    catch(error)
+    {
+        document.getElementById("upstatus").innerHTML = error.message;
+        document.getElementById("upstatus").style.color = "red";
+    }
+    
 }
