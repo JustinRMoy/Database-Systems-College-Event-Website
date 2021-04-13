@@ -1,6 +1,4 @@
 <?php
-  //Load Composer's autoloader
-  require 'vendor/autoload.php';
 
   // Connect to database.
   require 'db_conn.php';
@@ -16,7 +14,8 @@
 
   if (mysql_num_rows($select)==1)
   {
-    mysql_query("UPDATE Users SET isVerified='Y', emailToken='' WHERE emailToken ='$checkToken'");
+    $sql = mysql_query("UPDATE Users SET isVerified='Y', emailToken='' WHERE emailToken ='$checkToken'");
+    $newResult = mysqli_query($conn, $sql);
     returnInfo("verified");
   }
 
