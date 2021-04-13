@@ -29,15 +29,14 @@
         // echo "Records inserted successfully";
         
         $fromEmail = 'collegeEventManagerCOP4710@outlook.com';
-        $toEmail = $Email;
         $subjectName = "Email confirmation";
         $message = 'Generated code:' .$verifyToken. ;
 
-        $to = $toEmail;
+        $to = $Email;
         $subject = $subjectName;
-        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers = "From: '.$fromEmail.' \r\n";
+        $headers .= "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        $headers .= 'From: '.$fromEmail.'<'.$fromEmail.'>' . "\r\n".'Reply-To: '.$fromEmail."\r\n" . 'X-Mailer: PHP/' . phpversion();
         $message = '<!doctype html>
           <html lang="en">
           <head>
@@ -58,7 +57,6 @@
           </html>';
 
         mail($to, $subject, $message, $headers);
-
 
         returnInfo($info);
       }
