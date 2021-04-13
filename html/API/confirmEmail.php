@@ -7,10 +7,10 @@
 
   $Email = $inputFromJson['Email'];
   $checkToken = $inputFromJson['emailToken'];
-  $verify = 'Y'
+  $verify = 'Y';
 
   // Check if the token references any User in the database.
-  $sql = "UPDATE Users SET isVerified = '$verify' WHERE emailToken = '$checkToken'";
+  $sql = "UPDATE Users SET isVerified = 'Y' WHERE emailToken = 'ed49050180d8e5d8de83131a34afeebc'";
   $result = mysqli_query($conn, $sql);
 
   if (mysql_num_rows($result)==1)
