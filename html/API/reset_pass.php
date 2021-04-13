@@ -9,6 +9,9 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
+// Connect to database.
+require 'db_conn.php';
+
 //Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
@@ -18,7 +21,7 @@ if($_GET['key'] && $_GET['reset'])
   $email=$_GET['key'];
   $pass=$_GET['reset'];
   mysql_connect('localhost','root','');
-  mysql_select_db('pricereviewdb');
+  mysql_select_db('DataBasey2');
   $select=mysql_query("select email,password from user where md5(email)='$email' and md5(password)='$pass'");
 
   if (mysql_num_rows($select)==1)
