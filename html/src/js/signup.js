@@ -167,7 +167,6 @@ function confirmCode()
     document.getElementById("emailconf").innerHTML = "";
     document.getElementById("confCode").innerHTML = "";
 
-    var hashedPassword = md5(password);
     var json = '{"Email" : "' + email + '", "emailToken" : "' + emailCode + '"}';
     var successMessage = "Successfully verified: " + email;
     
