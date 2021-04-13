@@ -28,9 +28,9 @@
       {
         // echo "Records inserted successfully";
         
-        $fromEmail = 'collegeEventManagerCOP4710@outlook.com';
-        $subjectName = "Email confirmation";
-        $message = 'Generated code:' .$verifyToken. ;
+        // $fromEmail = 'collegeEventManagerCOP4710@outlook.com';
+        // $subjectName = "Email confirmation";
+        // $message = 'Generated code:' .$verifyToken. ;
 
         // $to = $Email;
         // $subject = $subjectName;
