@@ -28,7 +28,7 @@
 
       if (mysqli_query($conn, $sql))
       {
-        //echo "Records inserted successfully";
+        // echo "Records inserted successfully";
         // sendEmail($Email, $conn);
         returnInfo($info);
       }
