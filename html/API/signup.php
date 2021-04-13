@@ -87,17 +87,6 @@
   
   function sendEmail($Email, $conn, $code){
 
-    if (mysqli_query($conn, $sql))
-    {
-      // echo "Records inserted successfully";
-      echo("Email sent!");
-    }
-    else
-    {
-      //echo "failed to insert records";
-      returnError($conn->error);
-    }
-
     // Email Password: COP4710Hurts
 
     $fromEmail = 'collegeEventManagerCOP4710@outlook.com';
