@@ -1,48 +1,27 @@
 <?php
 
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+  // Connect to database.
+  require 'db_conn.php';
 
-//Load Composer's autoloader
-require 'vendor/autoload.php';
+  // $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-//Instantiation and passing `true` enables exceptions
-$mail = new PHPMailer(true);
-
-// Ensure that the URL contains the token
-if ($_GET['token'])
-{
-  // Receive token via URL parameters
-  $checkToken = $_GET['token'];
-
-  mysql_connect('localhost','root','');
-  mysql_select_db('DataBasey2');
+  $checkToken = $inputFromJson['emailToken'];
+  $verify = 'Y';
 
   // Check if the token references any User in the database.
-  $select = mysql_query("SELECT Email FROM Users WHERE emailToken ='$checkToken'");
+  $sql = "UPDATE Users SET isVerified = 'Y' WHERE emailToken = 'ed49050180d8e5d8de83131a34afeebc'";
 
-  if (mysql_num_rows($select)==1)
+  if (mysqli_query($conn, $sql))
   {
-    $result = mysqli_query($conn, $sql_select)
-    returnInfo("Successfully verified: " . $Email .);
+    returnInfo("verified");
   }
 
   else
   {
-    echo("Token may have expired or was not sent properly.");
+    returnError("Token may have expired or was not sent properly.");
   }
 
   mysqli_close($conn);
-}
-
-else
-{
-  echo("Error, token not found in URL");
-  mysqli_close($conn);
-}
 
 function returnError($error)
 {
