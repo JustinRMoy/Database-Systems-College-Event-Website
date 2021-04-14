@@ -63,14 +63,15 @@
                     <input style="height:180px; padding-bottom:150px" type="text" name="description" class="form-control" id="inputRSODescription" aria-describedby="emailHelp" placeholder="Enter Description..." maxlength="500">
                 </div>
 
-                <div class="form-group mb-2">
+                <div class="form-group mb-2" id="rsoMembers">
                     <label for="inputCategory">RSO Members</label>
                     <input type="text" class="members form-control" id="inputMemberName1" placeholder="Member 1 Email..." required="required" maxlength="50">
                     <input type="text" class="members form-control" id="inputMemberName2" placeholder="Member 2 Email..." required="required" maxlength="50">
                     <input type="text" class="members form-control" id="inputMemberName3" placeholder="Member 3 Email..." required="required" maxlength="50">
                     <input type="text" class="members form-control" id="inputMemberName4" placeholder="Member 4 Email..." required="required" maxlength="50">
-                    <button class="btn btn-secondary mt-2" onclick="addMember();">Add More</button>
                 </div>
+                    <button class="btn btn-secondary mt-2" onclick="addMember();">Add More</button>
+                    <button class="btn btn-secondary mt-2 ml-2" onclick="resetMembers();">Reset</button>
                 <hr>
 
                 <button type="submit" name="submit" class="btn btn-primary" onclick="readRSOInput();">Submit</button>

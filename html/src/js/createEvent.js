@@ -16,9 +16,11 @@ function readEventInput()
     var endTime = document.getElementById("inputEndTime").value;
     var startDate = formatDate(document.getElementById("start").value);
     var endDate = formatDate(document.getElementById("end").value);
+    var longitude = document.getElementById("inputEventLongitude").value;
+    var latitude = document.getElementById("inputEventLatitude").value;
     var category = document.getElementById("inputCategory").value;
 		
-        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '"}';
+        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '", "longitude" : "' + longitude + '", "latitude" : "' + latitude + '"}';
 
     	var request = new XMLHttpRequest();
 	    request.open("POST", eventURL, true);
@@ -54,6 +56,8 @@ function readEventInput()
                 document.getElementById("inputEndTime").value = "";
                 document.getElementById("start").value = "";
                 document.getElementById("end").value = "";
+                document.getElementById("inputEventLongitude").value = "";
+                document.getElementById("inputEventLatitude").value = "";
             }
 
             request.send(jsonPayload);
@@ -73,6 +77,8 @@ function readEventInput()
             document.getElementById("inputEndTime").value = "";
             document.getElementById("start").value = "";
             document.getElementById("end").value = "";
+            document.getElementById("inputEventLongitude").value = "";
+            document.getElementById("inputEventLatitude").value = "";
 	   }
 	
 }

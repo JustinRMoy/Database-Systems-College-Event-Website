@@ -89,9 +89,24 @@ function readRSOCookie()
     // }
 }
 
+var count = 5;
 function addMember()
 {
     var memberList = document.getElementById("rsoMembers");
 
-    memberList.innerHTML += `<input type="text" class="members form-control" placeholder="Member Email..." required="required" maxlength="50">`;
+    memberList.innerHTML += `<input type="text" class="members form-control" id="inputMemberName`+ count +`" placeholder="Member ` + count + ` Email..." required="required" maxlength="50">`;
+    count++;
+}
+
+function resetMembers()
+{
+
+    var memberList = document.getElementById("rsoMembers");
+
+    memberList.innerHTML = `<label for="inputCategory">RSO Members</label>
+                    <input type="text" class="members form-control" id="inputMemberName1" placeholder="Member 1 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName2" placeholder="Member 2 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName3" placeholder="Member 3 Email..." required="required" maxlength="50">
+                    <input type="text" class="members form-control" id="inputMemberName4" placeholder="Member 4 Email..." required="required" maxlength="50">`;
+    count = 5;
 }
