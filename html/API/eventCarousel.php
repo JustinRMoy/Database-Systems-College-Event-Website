@@ -20,7 +20,7 @@
 
         while ($row = mysqli_fetch_array($result))
         {
-            array_push($row, $arr);
+            array_push($arr, $row);
         }
 
         toJSON($arr);
