@@ -2,16 +2,15 @@ var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 
 
-document.addrsoListener(`DOMContentLoaded`, function () { //change getRso to use UniID later
-    var UniID = localStorage.getItem("UniversityID");
-    getrso("", 0);
-    //getComments("10", 0);
+document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
+    var UniversityID = localStorage.getItem("UniversityID");
+    getRsos(0);
   });
 
 
-function getRsos(UniversityID)
+function getRsos(uniId)
 {
-	var jsonPayload = '{"UniversityID" : "' + UniversityID + '"}';//change this to include security level
+	var jsonPayload = '{"uniID" : "' + uniID + '"}';//change this to include security level
 	var url = urlBase + '/API/getRSOList.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -35,7 +34,7 @@ function getRsos(UniversityID)
                 {
                     var name = rso.results[i].Name;
                     var description = rso.results[i].Description;
-                    var rsoId = rso.results[i].rsoId;
+                    var rsoId = rso.results[i].ID;
                     var rsoCard = createRsoCard(name, description, rsoId, "http://198.199.77.197/img/ICpt2.jpg"); 
                     rsoList.appendChild(rsoCard);
                 }
