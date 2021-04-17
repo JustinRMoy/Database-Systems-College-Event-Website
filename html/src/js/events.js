@@ -121,24 +121,26 @@ function createCommentBoxContent(avgRating, eventId, name){
     eventRating.setAttribute("data-id", eventId);
     eventRating.innerHTML = "Rating: " + avgRating;
 
-    if(localStorage.getItem("loggedIn") == true){
+    if(localStorage.getItem("loggedIn") == "true"){
         //var userInput = ;//add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
+        var form = document.createElement("form");
+        form.setAttribute("id", "form-" + eventId);
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Enter Comment";
+        input.setAttribute("id", "userCommentInput-" + eventId);
+
+        form.appendChild(input);
     }
     
-    var form = document.createElement("form");
-    form.setAttribute("id", "form-" + eventId);
-
-    var input = document.createElement("input");
-    input.type = "text";
-    input.placeholder = "Enter Comment";
-    input.setAttribute("id", "userCommentInput-" + eventId);
-
-    form.appendChild(input);
+    
 
     commentBoxContent.appendChild(ex);
     commentBoxContent.appendChild(title);
     commentBoxContent.appendChild(eventRating);
-    commentBoxContent.appendChild(form);
+    if(localStorage.getItem("loggedIn") == "true") 
+        commentBoxContent.appendChild(form);
 
     return commentBoxContent;
 }
