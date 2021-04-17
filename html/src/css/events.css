@@ -177,3 +177,12 @@ body{
 .card{
   margin-top: 10px;
 }
+
+.commentBox-content input{
+  border: none;
+  border-bottom: solid black;
+  background-color: transparent;
+  display: block;
+  outline: none;
+
+}

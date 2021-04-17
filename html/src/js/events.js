@@ -125,11 +125,20 @@ function createCommentBoxContent(avgRating, eventId, name){
         //var userInput = ;//add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
     }
     
+    var form = document.createElement("form");
+    form.setAttribute("id", "form-" + eventId);
+
+    var input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "Enter Comment";
+    input.setAttribute("id", "userCommentInput-" + eventId);
+
+    form.appendChild(input);
 
     commentBoxContent.appendChild(ex);
     commentBoxContent.appendChild(title);
     commentBoxContent.appendChild(eventRating);
-    //commentBoxContent.appendChild(userInput);
+    commentBoxContent.appendChild(form);
 
     return commentBoxContent;
 }
