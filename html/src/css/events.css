@@ -162,3 +162,18 @@ body{
     color: #123C69;
     outline: none;
   }
+
+  .commentBox-content button{
+    border-radius: 5px;
+    border: none;
+    background-color: #000000;
+    color: #EAE7DC;
+}
+
+.commentBox-content button:hover{
+    background-color: #AC3B61;
+    color: #EAE7DC;
+}
+.card{
+  margin-top: 10px;
+}
