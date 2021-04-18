@@ -1,8 +1,7 @@
 let rsoURL = "http://198.199.77.197/API/createRSO.php";
 
 var userID = -1;
-var rsoID;
-var uniID = 1; // This needs a value to work
+var uniID = -1; // This needs a value to work
 
 function readRSOInput()
 {   
