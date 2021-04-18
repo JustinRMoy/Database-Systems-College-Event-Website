@@ -83,6 +83,31 @@ function readEventInput()
 	
 }
 
+function getRSOList()
+{
+    var jsonPayload = '{ "userID" :' + userID + '}';
+    var request = new XMLHttpRequest();
+
+    request.open("POST", "http://198.199.77.197/API/getUserRSOList.php", true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try 
+    {
+
+        request.onreadystatechange = function() 
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                document.getElementById("inputRSO").innerHTML = this.responseText;
+            }
+        }
+        request.send(jsonPayload);
+    }
+
+    catch(err)
+    {}
+}
+
 function readEventCookie()
 {
     var data = document.cookie;
