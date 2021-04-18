@@ -1,7 +1,6 @@
 let eventURL = "http://198.199.77.197/API/createEvent.php";
 
 var userID = -1;
-var rsoID;
 var uniID = 1; // This needs a value to work
 
 function readEventInput()
@@ -19,8 +18,23 @@ function readEventInput()
     var longitude = document.getElementById("inputEventLongitude").value;
     var latitude = document.getElementById("inputEventLatitude").value;
     var category = document.getElementById("inputCategory").value;
+    var rsoName = document.getElementById("inputRSO").value;
+
+    if (category == "RSO" && rsoName == "None")
+    {
+        document.getElementById("logstatus").innerHTML = "You must pick an RSO to create an RSO event.";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
+
+    else if (category != "RSO" && rsoName != "None")
+    {
+        document.getElementById("logstatus").innerHTML = "Your event type must be 'RSO' if you want to create an RSO event.";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
 		
-        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '", "longitude" : "' + longitude + '", "latitude" : "' + latitude + '"}';
+        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '", "longitude" : "' + longitude + '", "latitude" : "' + latitude + '", "rsoName" : "' + rsoName + '"}';
 
     	var request = new XMLHttpRequest();
 	    request.open("POST", eventURL, true);
@@ -125,11 +139,6 @@ function readEventCookie()
 		else if( tokens[0] == "uniID")
 		{
             uniID = parseInt(tokens[1].trim());
-        }
-        
-        else if( tokens[0] == "rsoID")
-        {
-            rsoID = parseInt(tokens[1].trim());
         }
 	}
 

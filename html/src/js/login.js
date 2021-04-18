@@ -5,7 +5,6 @@ var userID = -1;
 var userLevel = '';
 var userName = '';
 var uniID = -1;
-var rsoID = -1;
 
 function login()
 {   
@@ -79,7 +78,6 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "rsoID=" + rsoID + ";expires=" + date.toGMTString();
 	document.cookie = "uniID=" + uniID + ";expires=" + date.toGMTString();
 	document.cookie = "userName=" + userName + ";expires=" + date.toGMTString();
 	document.cookie = "userID=" + userID + ";expires=" + date.toGMTString();
