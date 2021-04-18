@@ -4,7 +4,7 @@
   
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  $rsoID = $inputFromJson['rsoID'];
+  $rsoName = $inputFromJson['rsoName'];
   $uniID = $inputFromJson['uniID'];
   $eventName = $inputFromJson['EventName'];
   $email =  $inputFromJson['Email'];
@@ -30,8 +30,13 @@
     returnError("Event conflicts with another event's date, time and location");
   }
 
-  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category)
-  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."')";
+  $sql_id = "SELECT ID FROM RSO WHERE Name = '$rsoName'";
+  $query = mysqli_query($conn, $sql_id);
+  $RSO = $query->fetch_assoc();
+  $ID = $RSO['ID'];
+
+  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category, RSOID)
+  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."', $ID)";
 
   if(mysqli_query($conn, $sql))
   {
