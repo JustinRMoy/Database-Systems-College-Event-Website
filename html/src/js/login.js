@@ -5,7 +5,6 @@ var userID = -1;
 var userLevel = '';
 var userName = '';
 var uniID = -1;
-var rsoID = -1;
 
 function login()
 {   
@@ -61,6 +60,7 @@ function login()
 	   {
 			document.getElementById("logstatus").innerHTML = err.message;
 	   }
+	   localStorage.setItem("loggedIn", "true");
 	}
 }
 
@@ -70,6 +70,7 @@ function logout()
 	customer_id = 0;
 	document.cookie = "customer_id= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
 	window.location.href = "index.html";
+	localStorage.setItem("loggedIn", "false");
 }
 
 function saveCookie()
@@ -77,7 +78,6 @@ function saveCookie()
 	var minutes = 20;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "rsoID=" + rsoID + ";expires=" + date.toGMTString();
 	document.cookie = "uniID=" + uniID + ";expires=" + date.toGMTString();
 	document.cookie = "userName=" + userName + ";expires=" + date.toGMTString();
 	document.cookie = "userID=" + userID + ";expires=" + date.toGMTString();

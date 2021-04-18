@@ -1,7 +1,6 @@
 let eventURL = "http://198.199.77.197/API/createEvent.php";
 
 var userID = -1;
-var rsoID;
 var uniID = 1; // This needs a value to work
 
 function readEventInput()
@@ -16,9 +15,26 @@ function readEventInput()
     var endTime = document.getElementById("inputEndTime").value;
     var startDate = formatDate(document.getElementById("start").value);
     var endDate = formatDate(document.getElementById("end").value);
+    var longitude = document.getElementById("inputEventLongitude").value;
+    var latitude = document.getElementById("inputEventLatitude").value;
     var category = document.getElementById("inputCategory").value;
+    var rsoName = document.getElementById("inputRSO").value;
+
+    if (category == "RSO" && rsoName == "None")
+    {
+        document.getElementById("logstatus").innerHTML = "You must pick an RSO to create an RSO event.";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
+
+    else if (category != "RSO" && rsoName != "None")
+    {
+        document.getElementById("logstatus").innerHTML = "Your event type must be 'RSO' if you want to create an RSO event.";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
 		
-        var jsonPayload = '{"EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '"}';
+        var jsonPayload = '{"userID" : ' + userID + ', "EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '", "longitude" : "' + longitude + '", "latitude" : "' + latitude + '", "rsoName" : "' + rsoName + '"}';
 
     	var request = new XMLHttpRequest();
 	    request.open("POST", eventURL, true);
@@ -54,6 +70,8 @@ function readEventInput()
                 document.getElementById("inputEndTime").value = "";
                 document.getElementById("start").value = "";
                 document.getElementById("end").value = "";
+                document.getElementById("inputEventLongitude").value = "";
+                document.getElementById("inputEventLatitude").value = "";
             }
 
             request.send(jsonPayload);
@@ -73,8 +91,35 @@ function readEventInput()
             document.getElementById("inputEndTime").value = "";
             document.getElementById("start").value = "";
             document.getElementById("end").value = "";
+            document.getElementById("inputEventLongitude").value = "";
+            document.getElementById("inputEventLatitude").value = "";
 	   }
 	
+}
+
+function getRSOList()
+{
+    var jsonPayload = '{ "userID" :' + userID + '}';
+    var request = new XMLHttpRequest();
+
+    request.open("POST", "http://198.199.77.197/API/getUserRSOList.php", true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    try 
+    {
+
+        request.onreadystatechange = function() 
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                document.getElementById("inputRSO").innerHTML = this.responseText;
+            }
+        }
+        request.send(jsonPayload);
+    }
+
+    catch(err)
+    {}
 }
 
 function readEventCookie()
@@ -94,11 +139,6 @@ function readEventCookie()
 		else if( tokens[0] == "uniID")
 		{
             uniID = parseInt(tokens[1].trim());
-        }
-        
-        else if( tokens[0] == "rsoID")
-        {
-            rsoID = parseInt(tokens[1].trim());
         }
 	}
 

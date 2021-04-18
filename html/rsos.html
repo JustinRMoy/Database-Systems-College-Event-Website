@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet"> 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+    rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" 
+    crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link href="src/css/rso.css" rel="stylesheet">
+    <script src="src/js/rsos.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RSOs</title>
+</head>
+<body id="body">
+    
+    <script>
+      var count = 1;
+      function setColor(btn, color) {
+          var property = document.getElementById(btn);
+
+          if (count == 0) {
+              property.style.color = "#C1C1C1"
+              count = 1;        
+          }
+          else {
+              property.style.color = color
+              count = 0;
+          }
+      }
+    </script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #EEE2DC;">
+        <a class="navbar-brand" style="color: #123C69" href="#">Event Management Site</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" style="color: #123C69" href="Events.html">Events </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" style="color: #123C69" href="planning.html">Plan</a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" style="color: #123C69" href="login.html">Login</a>
+            </li>
+          </ul>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <img class="pull-right" src="img/UCFlogo.png" width="38%" id="UCFLogo">
+          </li>
+      </ul>
+      </nav>
+
+      <!--<button type="button" onclick="handleSearch()">Press Me!</button> KILL ME!!!!!!!!-->
+      
+      <div style="position: relative;" id="rsoList">
+        <div class="row mb-3">
+          <div class="imgPlaceholder" id="rsoImg"></div>
+            <div class="rsoContainer" id="theRso">
+              <h1 id="rsoName">Rso Name</h1>
+                <p id="rsoDescription">
+                    Aliqua est aliquip enim exercitation sint nostrud culpa dolore elit esse eiusmod. 
+                    Enim non laboris eu dolore aute reprehenderit adipisicing eiusmod exercitation aliquip amet aliquip incididunt nisi.
+                    Proident culpa in voluptate eiusmod est adipisicing consectetur commodo cillum ex ut aliquip irure voluptate. Laborum officia velit do fugiat.
+                </p>
+                <button type="button" class="btn col-md-2" id="joinButton" onclick="joinRso(0);">
+                   Join Here
+                </button>
+          </div>
+        </div>
+      </div> 
+
+      <footer class="bg-dark mt-5"> 
+          <div class="container pb-2 pt-3">
+              <p class="text-light"><a href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">&copy;School Event System</a> by <a href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">Team5</a></p> 
+          </div>             
+      </footer>  
+</body>
+</html>

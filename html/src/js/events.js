@@ -56,16 +56,16 @@ function getComments(eventId, avgRating, name){
                     var studentId = comments.results[i].StudentId;
                     var rating = comments.results[i].Rating;
                     var commentId = comments.results[i].CommentId;
-                   /* var loggedUser = localStorage.getItem("StudentId");
+                    /*var loggedUser = localStorage.getItem("StudentId");
 
                     if(studentId == loggedUser){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
                         var userCommentCard = createUserCommentCard(comment, studentId, rating, eventId, commentId);
                         userCommentDiv.appendChild(userCommentCard);
-                        userCommentDiv.appendChild(<br></br>); //should add a break!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        //userCommentDiv.appendChild(<br></br>); //should add a break!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                     }else{
                         var otherCommentCard = createOtherCommentCard(comment, studentId, rating, eventId, commentId);
                         otherUserCommentDiv.appendChild(otherCommentCard);
-                        otherUserCommentDiv.appendChild(<br></br>);
+                        //otherUserCommentDiv.appendChild(<br></br>);
                     }*/
 
                 }
@@ -121,15 +121,26 @@ function createCommentBoxContent(avgRating, eventId, name){
     eventRating.setAttribute("data-id", eventId);
     eventRating.innerHTML = "Rating: " + avgRating;
 
-    if(localStorage.getItem("loggedIn") == true){
+    if(localStorage.getItem("loggedIn") == "true"){
         //var userInput = ;//add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
+        var form = document.createElement("form");
+        form.setAttribute("id", "form-" + eventId);
+
+        var input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Enter Comment";
+        input.setAttribute("id", "userCommentInput-" + eventId);
+
+        form.appendChild(input);
     }
+    
     
 
     commentBoxContent.appendChild(ex);
     commentBoxContent.appendChild(title);
     commentBoxContent.appendChild(eventRating);
-    //commentBoxContent.appendChild(userInput);
+    if(localStorage.getItem("loggedIn") == "true") 
+        commentBoxContent.appendChild(form);
 
     return commentBoxContent;
 }
@@ -191,10 +202,22 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     var brk = document.createElement("br");
 
     //button
-    //span
-    //button
-    //span append span to buttons
+    var editButton = document.createElement("button");
+    editButton.className = "button";
+    editButton.setAttribute("id", "editButton-" + commentId);
+    editButton.setAttribute("data-id", commentId);
+    /*editButton.onclick = funtion(){
 
+    }*/
+
+    var deleteButton = document.createElement("button");
+    deleteButton.className = "button";
+    deleteButton.setAttribute("id", "deleteButton-" + commentId);
+    deleteButton.setAttribute("data-id", commentId);
+    /*deleteButton.onclick = function(){
+
+    }*/
+    
     cardBody.appendChild(timeStamp);
     cardBody.appendChild(studentName);
     cardBody.appendChild(commentText);
@@ -217,7 +240,7 @@ function createOtherCommentCard(comment, studentId, rating, eventId, commentId){
     cardBody.className = "card-body";
     cardBody.setAttribute("id", "card-body-" + commentId);
 
-    var timeStamp = document.createElement("div");
+    var timeStamp = document.createElement("p");
     timeStamp.className = "pull-right";
     timeStamp.setAttribute("id", "timeStamp-" + commentId);
 
