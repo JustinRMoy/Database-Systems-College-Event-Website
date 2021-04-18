@@ -10,6 +10,8 @@
 
     $result = mysqli_query($conn, $sql);
 
+    echo "<option value='None'>None</option>"
+
     while ($row = mysqli_fetch_array($result))
     {
         $ID = $row['RSOID'];
