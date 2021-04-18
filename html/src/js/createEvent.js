@@ -1,7 +1,8 @@
 let eventURL = "http://198.199.77.197/API/createEvent.php";
 
 var userID = -1;
-var uniID = 1; // This needs a value to work
+var uniID = -1; // This needs a value to work
+var userLevel = '';
 
 function readEventInput()
 {   
@@ -30,6 +31,20 @@ function readEventInput()
     else if (category != "RSO" && rsoName != "None")
     {
         document.getElementById("logstatus").innerHTML = "Your event type must be 'RSO' if you want to create an RSO event.";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
+
+    if (category != "RSO" && userLevel != "Super Admin")
+    {
+        document.getElementById("logstatus").innerHTML = "You must be a super admin to create a public or private event";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
+
+    else if (category == "RSO" && userLevel != "Admin")
+    {
+        document.getElementById("logstatus").innerHTML = "You must be an admin of an RSO to create an RSO event.";
         document.getElementById("logstatus").style.color = "red";
         return;
     }
@@ -140,6 +155,11 @@ function readEventCookie()
 		else if( tokens[0] == "uniID")
 		{
             uniID = parseInt(tokens[1].trim());
+        }
+
+        else if (tokens[0] == "userLevel")
+        {
+            userLevel = tokens[1].trim();
         }
 	}
 
