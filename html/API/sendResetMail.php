@@ -12,7 +12,7 @@
   $resetToken = md5(time().$Email);
 
   // Check if the token references any User in the database.
-  $sql = "UPDATE Users SET resetToken = $resetToken WHERE Email = $Email";
+  $sql = "UPDATE Users SET resetToken = '$resetToken' WHERE Email = '$Email'";
 
   if (mysqli_query($conn, $sql))
   {

@@ -195,7 +195,7 @@ function sendResetCode()
 
             else if (endpointmsg !== "Email sent")
             {
-                document.getElementById("resCodeStatus").innerHTML = "Token may have expired"; 
+                document.getElementById("resCodeStatus").innerHTML = "Email not found"; 
             }
         }
     };
