@@ -311,8 +311,10 @@ function getEvents(query, UniversityID)
                     var email = events.results[i].Email;
                     var avgRating = events.results[i].Avg_Rating;
                     var category = events.results[i].Category;
+                    var long = events.results[i].long;
+                    var lat = events.results[i].lat;
                     getComments(eventId, avgRating, name);//get the comments for that event
-                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email, category); 
+                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email, category, long, lat); 
                     eventList.appendChild(eventCard);
                 }
                 localStorage.setItem("editMode", "false");
@@ -328,7 +330,7 @@ function getEvents(query, UniversityID)
 	}
 }
 
-function createEventCard(name, description, time, date, eventId, imgUrl, phone, email, category){
+function createEventCard(name, description, time, date, eventId, imgUrl, phone, email, category, long, lat){
     var eventCard = document.createElement("div");
     eventCard.className = "row mb-3";
     eventCard.setAttribute("data-id", eventId);
@@ -350,7 +352,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     var dateTime = document.createElement("h5");
     dateTime.setAttribute("id", "eventDate-" + eventId);
     dateTime.setAttribute("data-id", eventId);
-    dateTime.innerHTML = "on " + date + " at " + time;
+    dateTime.innerHTML = "on " + date + " at " + time + ", Location: " + long + ", " + lat;
 
     var eventDesc = document.createElement("p");
     eventDesc.setAttribute("id", "eventDescription-" + eventId);
