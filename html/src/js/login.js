@@ -41,7 +41,7 @@ function login()
 
 						else
 						{
-							//userLevel = jsonObj.User_level;
+							userLevel = jsonObj.User_level;
 							userName = jsonObj.Name;
 							uniID = jsonObj.Uni;
 							//rsoID = jsonObj.RSO;
@@ -75,7 +75,7 @@ function logout()
 
 function saveCookie()
 {
-	var minutes = 20;
+	var minutes = 40;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
 	document.cookie = "uniID=" + uniID + ";expires=" + date.toGMTString();

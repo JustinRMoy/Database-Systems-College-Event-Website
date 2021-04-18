@@ -1,7 +1,8 @@
 let eventURL = "http://198.199.77.197/API/createEvent.php";
 
 var userID = -1;
-var uniID = 1; // This needs a value to work
+var uniID = -1; // This needs a value to work
+var userLevel = '';
 
 function readEventInput()
 {   
@@ -33,6 +34,20 @@ function readEventInput()
         document.getElementById("logstatus").style.color = "red";
         return;
     }
+
+    if (category != "RSO" && userLevel != "Super Admin")
+    {
+        document.getElementById("logstatus").innerHTML = "You must be a super admin to create a public or private event";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
+
+    else if (category == "RSO" && userLevel != "Admin")
+    {
+        document.getElementById("logstatus").innerHTML = "You must be an admin of an RSO to create an RSO event.";
+        document.getElementById("logstatus").style.color = "red";
+        return;
+    }
 		
         var jsonPayload = '{"userID" : ' + userID + ', "EventName" : "' + eventName + '", "Email" : "' + contactEmail + '", "Description" : "' + description + '", "PhoneNumber" : "' + contactNumber + '", "uniID" : ' + uniID + ' , "startTime" : "' + startTime + '", "endTime" : "' + endTime + '", "startDate" : "' + startDate + '", "endDate" : "' + endDate + '", "category" : "' + category + '", "longitude" : "' + longitude + '", "latitude" : "' + latitude + '", "rsoName" : "' + rsoName + '"}';
 
@@ -53,6 +68,17 @@ function readEventInput()
                     {
                         document.getElementById("logstatus").innerHTML = jsonObj.msg;
                         document.getElementById("logstatus").style.color = "green";
+
+                        document.getElementById("inputEventName").value = "";
+                        document.getElementById("inputEventEmail").value = "";
+                        document.getElementById("inputEventPhoneNumber").value = "";
+                        document.getElementById("inputEventDescription").value = "";
+                        document.getElementById("inputStartTime").value = "";
+                        document.getElementById("inputEndTime").value = "";
+                        document.getElementById("start").value = "";
+                        document.getElementById("end").value = "";
+                        document.getElementById("inputEventLongitude").value = "";
+                        document.getElementById("inputEventLatitude").value = "";
                     }
 
                     else
@@ -62,16 +88,6 @@ function readEventInput()
                     }
                 }
 
-                document.getElementById("inputEventName").value = "";
-                document.getElementById("inputEventEmail").value = "";
-                document.getElementById("inputEventPhoneNumber").value = "";
-                document.getElementById("inputEventDescription").value = "";
-                document.getElementById("inputStartTime").value = "";
-                document.getElementById("inputEndTime").value = "";
-                document.getElementById("start").value = "";
-                document.getElementById("end").value = "";
-                document.getElementById("inputEventLongitude").value = "";
-                document.getElementById("inputEventLatitude").value = "";
             }
 
             request.send(jsonPayload);
@@ -139,6 +155,11 @@ function readEventCookie()
 		else if( tokens[0] == "uniID")
 		{
             uniID = parseInt(tokens[1].trim());
+        }
+
+        else if (tokens[0] == "userLevel")
+        {
+            userLevel = tokens[1].trim();
         }
 	}
 
