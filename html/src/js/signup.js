@@ -185,12 +185,12 @@ function confirmCode()
             var endpointmsg = jsonObject['msg'];
             console.log(endpointmsg);
 
-            if (endpointmsg === "verified")
+            if (endpointmsg === "User has been verified")
             {
                 document.getElementById("confStatus").innerHTML = successMessage; 
             }
 
-            else if (endpointmsg !== "verified")
+            else if (endpointmsg !== "User has been verified")
             {
                 document.getElementById("confStatus").innerHTML = "Token may have expired"; 
             }
