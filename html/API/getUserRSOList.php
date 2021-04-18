@@ -12,9 +12,10 @@
 
     while ($row = mysqli_fetch_array($result))
     {
-        $sql = "SELECT Name FROM RSO WHERE ID = $row['ID']";
-        $result = mysqli_query($conn, $sql);
-        $RSO = $result->fetch_assoc();
+        $ID = $row['RSOID'];
+        $sql_select = "SELECT Name FROM RSO WHERE ID = $ID";
+        $next = mysqli_query($conn, $sql_select);
+        $RSO = $next->fetch_assoc();
         $name = $RSO['Name'];
         echo "<option value='$name'>$name</option>";
     }
