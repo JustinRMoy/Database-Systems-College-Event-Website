@@ -125,8 +125,6 @@
           </div>
           <div class="modal-body">
             <form class="form-group">
-              <label for="emailab">Enter your Email</label>
-              <input type="text" class="form-control" id="emailcodeResPass" placeholder="Email">
               <label for="codelab">Enter provided code</label>
               <input type="text" class="form-control" id="resPassCode" placeholder="Reset password code">
               <label for="emailab">Enter new password</label>
@@ -138,7 +136,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" onclick="resetPassword();">Reset password</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModalres" onclick="emptyText();">Send new code</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#myModalres" onclick="sendResetCode();">Send new code</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" onclick="emptyText();">Close</button>
           </div>
         </div>

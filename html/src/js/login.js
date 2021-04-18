@@ -154,3 +154,116 @@ function checkPasswordlog(password)
 
     return true;
 }
+
+function checkNewPassword(confirmPassword, password)
+{
+    if (confirmPassword !== password)
+    {
+        document.getElementById("upstatus").innerHTML = "The two passwords are not matched!";
+        document.getElementById("upstatus").style.color = "red";
+        return false;
+    }
+    return true;
+}
+
+function sendResetCode()
+{
+    var email = document.getElementById("emailcodeRes").value;
+
+    document.getElementById("emailcodeRes").innerHTML = "";
+
+    var json = '{"Email" : "' + email + '"}';
+    var successMessage = "Successfully sent email: " + email;
+    
+    var request = new XMLHttpRequest();
+    request.open("POST", "http://198.199.77.197/API/sendResetMail.php", true);
+
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        request.onreadystatechange = function()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {    
+            var jsonObject = JSON.parse(request.responseText);
+            var endpointmsg = jsonObject['msg'];
+            console.log(endpointmsg);
+
+            if (endpointmsg === "Email sent")
+            {
+                document.getElementById("resCodeStatus").innerHTML = successMessage; 
+            }
+
+            else if (endpointmsg !== "Email sent")
+            {
+                document.getElementById("resCodeStatus").innerHTML = "Token may have expired"; 
+            }
+        }
+    };
+        request.responseType="text";
+        console.log(json);
+        request.send(json);
+        //window.location.href = "login.html";
+    }
+    catch(error)
+    {
+        document.getElementById("resCodeStatus").innerHTML = error.message;
+        document.getElementById("resCodeStatus").style.color = "red";
+    }
+}
+
+function resetPassword()
+{
+		var resetCode = document.getElementById("resPassCode").value;
+		var newPassword = document.getElementById("resNewPass").value;
+		var confirmNewPassword = document.getElementById("ConfirmResNewPass").value;
+		
+		if (checkNewPassword(confirmNewPassword, newPassword))
+		{
+			document.getElementById("emailcodeRes").innerHTML = "";
+
+			var hashedNewPassword = md5(newPassword);
+
+			var json = '{"resetToken" : "' + resetCode + '", "newPassword" : "' + hashedNewPassword + '"}';
+			var successMessage = "Successfully reset password for: " + email;
+			
+			var request = new XMLHttpRequest();
+			request.open("POST", "http://198.199.77.197/API/reset_pass.php", true);
+	
+			request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+			try {
+					request.onreadystatechange = function()
+			{
+					if (this.readyState == 4 && this.status == 200)
+					{    
+							var jsonObject = JSON.parse(request.responseText);
+							var endpointmsg = jsonObject['msg'];
+							console.log(endpointmsg);
+	
+							if (endpointmsg === "Password has been reset")
+							{
+									document.getElementById("resPassStatus").innerHTML = successMessage; 
+							}
+	
+							else if (endpointmsg !== "Password has been reset")
+							{
+									document.getElementById("resPassStatus").innerHTML = "Token may have expired"; 
+							}
+					}
+			};
+					request.responseType="text";
+					console.log(json);
+					request.send(json);
+					//window.location.href = "login.html";
+			}
+			catch(error)
+			{
+					document.getElementById("resPassStatus").innerHTML = error.message;
+					document.getElementById("resPassStatus").style.color = "red";
+			}
+		}
+
+		else
+		{
+
+		}
+}
