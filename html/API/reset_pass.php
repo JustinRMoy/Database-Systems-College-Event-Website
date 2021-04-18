@@ -8,8 +8,6 @@
   $checkToken = $inputFromJson['resetToken'];
   $newPassword = $inputFromJson['newPassword'];
 
-  $newPassword = md5(newPassword);
-
   // Check if the token references any User in the database.
   $sql = "UPDATE Users SET Password = $newPassword WHERE resetToken = $checkToken";
 

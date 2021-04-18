@@ -206,5 +206,4 @@ function confirmCode()
         document.getElementById("upstatus").innerHTML = error.message;
         document.getElementById("upstatus").style.color = "red";
     }
-    
 }

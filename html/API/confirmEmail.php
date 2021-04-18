@@ -35,7 +35,7 @@ function returnInfo($info)
   outputJson($retval);
 }
 
-function outputJson ($file)
+function outputJson($file)
 {
   header("Content-type:application/json");
   $jsonObj = json_encode($file);
