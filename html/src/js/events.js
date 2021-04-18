@@ -310,8 +310,9 @@ function getEvents(query, UniversityID)
                     var phone = events.results[i].Phone;
                     var email = events.results[i].Email;
                     var avgRating = events.results[i].Avg_Rating;
+                    var category = events.results[i].Category;
                     getComments(eventId, avgRating, name);//get the comments for that event
-                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email); 
+                    var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email, category); 
                     eventList.appendChild(eventCard);
                 }
                 localStorage.setItem("editMode", "false");
@@ -327,7 +328,7 @@ function getEvents(query, UniversityID)
 	}
 }
 
-function createEventCard(name, description, time, date, eventId, imgUrl, phone, email){
+function createEventCard(name, description, time, date, eventId, imgUrl, phone, email, category){
     var eventCard = document.createElement("div");
     eventCard.className = "row mb-3";
     eventCard.setAttribute("data-id", eventId);
@@ -344,7 +345,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
     title.setAttribute("id", "eventTitle-" + eventId);
     title.setAttribute("data-id", eventId);
     title.setAttribute("href", "#");
-    title.innerHTML = name;
+    title.innerHTML = name + ": " + category;
 
     var dateTime = document.createElement("h5");
     dateTime.setAttribute("id", "eventDate-" + eventId);
