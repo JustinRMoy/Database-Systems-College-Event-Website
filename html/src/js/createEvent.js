@@ -29,7 +29,7 @@ function readEventInput()
 
     else if (category != "RSO" && rsoName != "None")
     {
-        document.getElementById("logstatus").innerHTML = "Your event category must be 'RSO' if you want to create an RSO event.";
+        document.getElementById("logstatus").innerHTML = "Your event type must be 'RSO' if you want to create an RSO event.";
         document.getElementById("logstatus").style.color = "red";
         return;
     }
