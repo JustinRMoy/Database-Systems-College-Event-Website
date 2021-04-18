@@ -53,6 +53,17 @@ function readEventInput()
                     {
                         document.getElementById("logstatus").innerHTML = jsonObj.msg;
                         document.getElementById("logstatus").style.color = "green";
+
+                        document.getElementById("inputEventName").value = "";
+                        document.getElementById("inputEventEmail").value = "";
+                        document.getElementById("inputEventPhoneNumber").value = "";
+                        document.getElementById("inputEventDescription").value = "";
+                        document.getElementById("inputStartTime").value = "";
+                        document.getElementById("inputEndTime").value = "";
+                        document.getElementById("start").value = "";
+                        document.getElementById("end").value = "";
+                        document.getElementById("inputEventLongitude").value = "";
+                        document.getElementById("inputEventLatitude").value = "";
                     }
 
                     else
@@ -62,16 +73,6 @@ function readEventInput()
                     }
                 }
 
-                document.getElementById("inputEventName").value = "";
-                document.getElementById("inputEventEmail").value = "";
-                document.getElementById("inputEventPhoneNumber").value = "";
-                document.getElementById("inputEventDescription").value = "";
-                document.getElementById("inputStartTime").value = "";
-                document.getElementById("inputEndTime").value = "";
-                document.getElementById("start").value = "";
-                document.getElementById("end").value = "";
-                document.getElementById("inputEventLongitude").value = "";
-                document.getElementById("inputEventLatitude").value = "";
             }
 
             request.send(jsonPayload);
