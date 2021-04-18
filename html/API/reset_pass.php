@@ -9,7 +9,7 @@
   $newPassword = $inputFromJson['newPassword'];
 
   // Check if the token references any User in the database.
-  $sql = "UPDATE Users SET Password = $newPassword WHERE resetToken = $checkToken";
+  $sql = "UPDATE Users SET Password = '$newPassword' WHERE resetToken = '$checkToken'";
 
   if (mysqli_query($conn, $sql))
   {

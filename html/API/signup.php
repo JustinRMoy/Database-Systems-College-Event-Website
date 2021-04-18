@@ -30,7 +30,7 @@
         
         $fromEmail = "collegeEventManagerCOP4710@outlook.com";
         $subjectName = "Email confirmation";
-        $codeMessage = 'Generated code:' . $verifyToken . ' ';
+        $codeMessage = 'Generated code: ' . $verifyToken . ' ';
 
         $to = $Email;
         $subject = $subjectName;

@@ -18,7 +18,7 @@
   {
     $fromEmail = "collegeEventManagerCOP4710@outlook.com";
     $subjectName = "Reset Password";
-    $codeMessage = 'Generated code:' . $resetToken . ' ';
+    $codeMessage = 'Generated code: ' . $resetToken . ' ';
 
     $to = $Email;
     $subject = $subjectName;
