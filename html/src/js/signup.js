@@ -187,12 +187,12 @@ function confirmCode()
 
             if (endpointmsg === "verified")
             {
-                document.getElementById("upstatus").innerHTML = successMessage; 
+                document.getElementById("confStatus").innerHTML = successMessage; 
             }
 
             else if (endpointmsg !== "verified")
             {
-                document.getElementById("upstatus").innerHTML = "Token may have expired"; 
+                document.getElementById("confStatus").innerHTML = "Token may have expired"; 
             }
         }
     };

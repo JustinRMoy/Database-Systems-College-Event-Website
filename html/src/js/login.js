@@ -264,6 +264,6 @@ function resetPassword()
 
 		else
 		{
-
+			;
 		}
 }

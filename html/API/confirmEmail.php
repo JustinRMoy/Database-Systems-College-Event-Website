@@ -9,7 +9,7 @@
   $verify = 'Y';
 
   // Check if the token references any User in the database.
-  $sql = "UPDATE Users SET isVerified = $verify WHERE emailToken = $checkToken";
+  $sql = "UPDATE Users SET isVerified = '$verify' WHERE emailToken = '$checkToken'";
 
   if (mysqli_query($conn, $sql))
   {
