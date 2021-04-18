@@ -1,39 +1,46 @@
 <?php
 
-//Import PHPMailer classes into the global namespace
-//These must be at the top of your script, not inside a function
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+  // Connect to database.
+  require 'db_conn.php';
 
-//Load Composer's autoloader
-require 'vendor/autoload.php';
+  $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-// Connect to database.
-require 'db_conn.php';
+  $checkToken = $inputFromJson['resetToken'];
+  $newPassword = $inputFromJson['newPassword'];
 
-//Instantiation and passing `true` enables exceptions
-$mail = new PHPMailer(true);
+  $newPassword = md5(newPassword);
 
+  // Check if the token references any User in the database.
+  $sql = "UPDATE Users SET Password = $newPassword WHERE resetToken = $checkToken";
 
-if($_GET['key'] && $_GET['reset'])
-{
-  $email=$_GET['key'];
-  $pass=$_GET['reset'];
-  mysql_connect('localhost','root','');
-  mysql_select_db('DataBasey2');
-  $select=mysql_query("select email,password from user where md5(email)='$email' and md5(password)='$pass'");
-
-  if (mysql_num_rows($select)==1)
+  if (mysqli_query($conn, $sql))
   {
-    ?>
-    <form method="post" action="submit_new.php">
-    <input type="hidden" name="email" value="<?php echo $email;?>">
-    <p>Enter New password</p>
-    <input type="password" name='password'>
-    <input type="submit" name="submit_password">
-    </form>
-    <?php
+    returnInfo("Password has been reset");
   }
-}
+
+  else
+  {
+    returnError("Token may have expired or was not sent properly.");
+  }
+
+  mysqli_close($conn);
+
+  function returnError($error)
+  {
+    $retval->msg = $error;
+    outputJson($retval);
+  }
+  
+  function returnInfo($info)
+  {
+    $retval->msg = $info;
+    outputJson($retval);
+  }
+  
+  function outputJson ($file)
+  {
+    header("Content-type:application/json");
+    $jsonObj = json_encode($file);
+    echo $jsonObj;
+  }
 ?>
