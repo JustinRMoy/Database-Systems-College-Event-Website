@@ -3,8 +3,8 @@ var extension = 'php';
 
 
 document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
-    var UniversityID = localStorage.getItem("UniversityID");
-    getRsos(0);
+    var uniID = localStorage.getItem("uniID");
+    getRsos(uniID);
   });
 
 
