@@ -19,8 +19,8 @@
   $latitude = $inputFromJson['latitude'];
   $category = $inputFromJson['category'];
 
-  $check = "SELECT * FROM Events WHERE (startTime <= '$startTime' AND 
-  endTime >= '$startTime') OR (startTime <= '$endTime' AND endTime >= '$endTime')
+  $check = "SELECT * FROM Events WHERE ((startTime <= '$startTime' AND 
+  endTime >= '$startTime') OR (startTime <= '$endTime' AND endTime >= '$endTime'))
   AND startDate = '$startDate' AND endDate = '$endDate' AND Longitude = '$longitude'
   AND Latitude = '$latitude'";
   $result = mysqli_query($conn, $check);
@@ -42,13 +42,13 @@
     returnError("You are not an admin for this RSO. Only the admin for the RSO can create an RSO event");
   }
 
-  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category, RSOID)
+  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category, RSO)
   VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."', $rsoID)";
 
   if(mysqli_query($conn, $sql))
   {
     //echo "Records inserted successfully";
-    returnInfo("done");
+    returnInfo("Successfully added event!");
   }
   else
   {
