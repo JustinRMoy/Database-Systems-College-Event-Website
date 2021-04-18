@@ -37,7 +37,7 @@
   $rsoID = $RSO['ID'];
   $adminID = $RSO['AdminID'];
 
-  if ($adminID != $userID)
+  if ($rsoID != NULL && $adminID != $userID)
   {
     returnError("You are not an admin for this RSO. Only the admin for the RSO can create an RSO event");
   }
