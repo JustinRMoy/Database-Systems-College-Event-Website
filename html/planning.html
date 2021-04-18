@@ -109,11 +109,25 @@
                 <div class="form-group mb-2">
                     <label for="inputCategory">Event Type</label>
                     <select class="form-control" id="inputCategory" name="platform" required="required">
-                        <option>Everyone</option>
-                        <option>Student</option>
-                        <option>Staff</option>
+                        <option>Public</option>
+                        <option>Private</option>
+                        <option>RSO</option>
                     </select>
                 </div>
+                <div class="form-group mb-2">
+                  <label for="inputRSO">RSO</label>
+                  <select class="form-control" id="inputRSO" name="platform" required="required">
+                    <script>
+                      var request = new XMLHttpRequest();
+                      request.onload = function()
+                      {
+                          document.getElementById("inputRSO").innerHTML = this.responseText;
+                      };
+                      request.open("GET", "http://198.199.77.197/API/getUserRSOList.php", true);
+                      request.send();
+                    </script>
+                  </select>
+              </div>
                 <hr>
                 <div class="form-group mt-3">
                     <label class="mr-2">Upload your images:</label>
