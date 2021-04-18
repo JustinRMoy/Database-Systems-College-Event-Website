@@ -224,7 +224,7 @@ function resetPassword()
 			var hashedNewPassword = md5(newPassword);
 
 			var json = '{"resetToken" : "' + resetCode + '", "newPassword" : "' + hashedNewPassword + '"}';
-			var successMessage = "Successfully reset password for: " + email;
+			var successMessage = "Successfully reset password";
 			
 			var request = new XMLHttpRequest();
 			request.open("POST", "http://198.199.77.197/API/reset_pass.php", true);
