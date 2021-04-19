@@ -1,16 +1,12 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
+var userID = -1;
+var uniID = -1;
 
 
-document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
-    var uniID = localStorage.getItem("uniID");
-    getRsos(uniID);
-  });
-
-
-function getRsos(uniId)
+function getRsos()
 {
-	var jsonPayload = '{"uniID" : "' + uniID + '"}';//change this to include security level
+	var jsonPayload = '{"uniID" : ' + uniID + '}';//change this to include security level
 	var url = urlBase + '/API/getRSOList.' + extension;
 
 	var xhr = new XMLHttpRequest();
@@ -24,7 +20,7 @@ function getRsos(uniId)
 			{
 				var rso = JSON.parse( xhr.responseText );
 
-			    if (rso.error != "None")
+			    if (rso.length == 0)
 				    window.location.href = "index.html";
 				    
 				var rsoList = document.getElementById("rsoList");
@@ -83,19 +79,25 @@ function createRsoCard(name, description, rsoId, imgUrl){
     joinButton.setAttribute("onclick", "joinRso(" + rsoId + ")")
     joinButton.innerHTML = "Join Here";
 
+    var logstatus = document.createElement("p");
+    logstatus.setAttribute("id", "logstatus");
+    logstatus.setAttribute("style", "font-size: 1.0em;");
+
     rsoContainer.appendChild(title);
     rsoContainer.appendChild(rsoDesc);
     rsoContainer.appendChild(joinButton);
 
     rsoCard.appendChild(rsoImage);
     rsoCard.appendChild(rsoContainer);
+    rsoCard.appendChild(logstatus);
 
     return rsoCard;
 }
 
-function joinRso(rsoId){
+function joinRso(rsoID){
 
-    var jsonPayload = '{"rsoId" : "' + rsoId + '"}';//change this to include security level
+
+    var jsonPayload = '{"rsoId" : ' + rsoId + ', "userID" : ' + userID + '}';//change this to include security level
     var url = urlBase + '/API/joinRSO.' + extension;
 
     var xhr = new XMLHttpRequest();
@@ -110,10 +112,17 @@ function joinRso(rsoId){
                 var rso = JSON.parse( xhr.responseText );
                     
                 
-                if (rso.error != "None")
-                    window.location.href = "index.html";
-                
-                return;
+                if (rso.msg != "Successfully joined RSO!")
+                {
+                    document.getElementById("logstatus").innerHTML = rso.msg;
+                    document.getElementById("logstatus").style.color = "red";
+                }
+
+                else
+                {
+                    document.getElementById("logstatus").innerHTML = rso.msg;
+                    document.getElementById("logstatus").style.color = "green";
+                }
             }
         };
         xhr.send(jsonPayload);
@@ -123,4 +132,30 @@ function joinRso(rsoId){
         window.location.href = "#";
         return;
     }
+}
+
+function readCookie()
+{
+    var data = document.cookie;
+	var splits = data.split(";");
+	for(var i = 0; i < splits.length; i++)
+	{
+		var thisOne = splits[i].trim();
+        var tokens = thisOne.split("=");
+        
+        if (tokens[0] == "userID")
+        {
+            userID = parseInt(tokens[1].trim());
+        }
+        
+		else if( tokens[0] == "uniID")
+		{
+            uniID = parseInt(tokens[1].trim());
+        }
+        
+        else if( tokens[0] == "userLevel")
+        {
+            userLevel = tokens[1].trim();
+        }
+	}
 }
