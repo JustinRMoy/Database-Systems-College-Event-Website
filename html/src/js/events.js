@@ -290,7 +290,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     
     deleteCommentBtn = deleteButton;
     deleteCommentBtn.onclick = function() {
-        var json = '{"CommentID" : "' + commentId + '", "mode" : ' + 2 + '}';
+        var json = '{"CommentId" : "' + commentId + '", "mode" : ' + 2 + '}';
         var successMessage = "Successfully deleted comment";
 
         var request = new XMLHttpRequest();
