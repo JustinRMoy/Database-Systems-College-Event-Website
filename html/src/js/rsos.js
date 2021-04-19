@@ -26,11 +26,11 @@ function getRsos()
 				var rsoList = document.getElementById("rsoList");
 				
 				
-				for (var i = 0; i < rso.results.length; i++)
+				for (var i = 0; i < rso.length; i++)
                 {
-                    var name = rso.results[i].Name;
-                    var description = rso.results[i].Description;
-                    var rsoId = rso.results[i].ID;
+                    var name = rso[i].Name;
+                    var description = rso[i].Description;
+                    var rsoId = rso[i].ID;
                     var rsoCard = createRsoCard(name, description, rsoId, "http://198.199.77.197/img/ICpt2.jpg"); 
                     rsoList.appendChild(rsoCard);
                 }
@@ -97,7 +97,7 @@ function createRsoCard(name, description, rsoId, imgUrl){
 function joinRso(rsoID){
 
 
-    var jsonPayload = '{"rsoId" : ' + rsoId + ', "userID" : ' + userID + '}';//change this to include security level
+    var jsonPayload = '{"rsoId" : ' + rsoID + ', "userID" : ' + userID + '}';//change this to include security level
     var url = urlBase + '/API/joinRSO.' + extension;
 
     var xhr = new XMLHttpRequest();
