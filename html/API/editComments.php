@@ -25,7 +25,7 @@ $mode = $inputFromJson['mode'];
   if ($mode == 1)
   {
     //1 = create comment
-    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) VALUES ($userId, $eventId ,$comment)";
+    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) VALUES ($userId, $eventId ,'$comment')";
 
   }
   else if ($mode == 2)
@@ -39,7 +39,7 @@ $mode = $inputFromJson['mode'];
   else if ($mode == 3)
   {
     //update a comment
-    $sql = "UPDATE Comments SET Comment=$comment WHERE CommentID=$commentId";
+    $sql = "UPDATE Comments SET Comment='$comment' WHERE CommentID=$commentId";
   }
   else
   {
