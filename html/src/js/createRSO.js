@@ -2,6 +2,7 @@ let rsoURL = "http://198.199.77.197/API/createRSO.php";
 
 var userID = -1;
 var uniID = -1; // This needs a value to work
+var userLevel = '';
 
 function readRSOInput()
 {   
@@ -9,51 +10,57 @@ function readRSOInput()
 
     var rsoName = document.getElementById("inputRSOName").value;
     var description = document.getElementById("inputRSODescription").value;
-    var members = document.getElementsByClassName("members");
-    var membersJSON = JSON.stringify(members);
+    //var members = document.getElementsByClassName("members");
+    //var membersJSON = JSON.stringify(members);
+
+    if (userLevel != "Student" || userLevel != "Admin")
+    {
+        document.getElementById("logstatus").innerHTML = "You must be a student or admin to create an RSO";
+        document.getElementById("logstatus").style.color = "red";
+    }
 		
-        var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : "' + membersJSON + '"}';
+    //var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : "' + membersJSON + '", "admin" : ' + userID + ', "uniID" : ' + uniID + '}';
 
-    	var request = new XMLHttpRequest();
-	    request.open("POST", rsoURL, true);
-	    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    /*var request = new XMLHttpRequest();
+    request.open("POST", rsoURL, true);
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
-	    try 
+    try 
+    {
+
+        request.onreadystatechange = function() 
         {
-
-            request.onreadystatechange = function() 
+            if (this.readyState == 4 && this.status == 200)
             {
-                if (this.readyState == 4 && this.status == 200)
+                var jsonObj = JSON.parse(request.responseText);
+
+                if (jsonObj.msg === "done")
                 {
-                    var jsonObj = JSON.parse(request.responseText);
-
-                    if (jsonObj.msg === "done")
-                    {
-                        document.getElementById("logstatus").innerHTML = jsonObj.msg;
-                        document.getElementById("logstatus").style.color = "green";
-                    }
-
-                    else
-                    {
-                        document.getElementById("logstatus").innerHTML = jsonObj.msg;
-                        document.getElementById("logstatus").style.color = "red";
-                    }
+                    document.getElementById("logstatus").innerHTML = jsonObj.msg;
+                    document.getElementById("logstatus").style.color = "green";
+                    document.getElementById("inputRSOName").value = "";
+                    document.getElementById("inputRSODescription").value = "";
+                    document.getElementsByClassName("members").value = "";
                 }
 
-                document.getElementById("inputRSOName").value = "";
-                document.getElementById("inputRSODescription").value = "";
-                document.getElementsByClassName("members").value = "";
+                else
+                {
+                    document.getElementById("logstatus").innerHTML = jsonObj.msg;
+                    document.getElementById("logstatus").style.color = "red";
+                }
             }
-
-            request.send(jsonPayload);
 
         }
 
-	   catch(err)
-	   {
-            document.getElementById("logstatus").innerHTML = "Error info not sent";
-            document.getElementById("logstatus").style.color = "red";
-	   }
+        request.send(jsonPayload);
+
+    }
+
+    catch(err)
+    {
+        document.getElementById("logstatus").innerHTML = "Error info not sent";
+        document.getElementById("logstatus").style.color = "red";
+    }*/
 	
 }
 
@@ -76,16 +83,11 @@ function readRSOCookie()
             uniID = parseInt(tokens[1].trim());
         }
         
-        else if( tokens[0] == "rsoID")
+        else if( tokens[0] == "userLevel")
         {
-            rsoID = parseInt(tokens[1].trim());
+            userLevel = tokens[1].trim();
         }
 	}
-
-	// if( userID < 0 )
-	// {
-	// 	window.location.href = "index.html";
-    // }
 }
 
 var count = 5;
