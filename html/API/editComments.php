@@ -11,40 +11,39 @@
   //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
   //$result = mysqli_query($conn, $sql_select);
   //$Users = $result->fetch_assoc();
- 
 
-  if ($inputFromJson['mode'] == 1)
+$userId = $inputFromJson['userId'];
+$eventId = $inputFromJson['eventId'];
+$commentId = $inputFromJson['commentId'];
+$comment = $inputFromJson['comment'];
+$mode = $inputFromJson['mode'];
+
+  if ($mode == 1)
   {
     //1 = create comment
     $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
-    VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
+    VALUES ('.$userId.','.$eventId.','.$comment.')";
 
   }
-
-  else if ($inputFromJson['mode'] == 2)
+  else if ($mode == 2)
   {
     //delete a comment
-    $sql = "DELETE FROM Comments 
-    WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+    $sql = "DELETE FROM Comments WHERE CommentID = '.$commentId.'";
   }
-  
-  else if ($inputFromJson['mode'] == 3)
+  else if ($mode == 3)
   {
     //update a comment
-    $sql = "UPDATE Comments 
-    SET Comment='" . $inputFromJson['comment'] . "'
-    WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+    $sql = "UPDATE Comments SET Comment='.$comment.' WHERE CommentID='$commentId'";
   }
-  
   else
   {
       echo "No mode selected";
   }
 
-  if ((mysqli_query($conn, $sql))
+  if (mysqli_query($conn, $sql))
   {
-     //sendEmail("mr.l.t@hotmail.com");
-     returnInfo("done");
+     sendEmail("mr.l.t@hotmail.com");
+     returnInfo("hi");
   }
   else
   {
