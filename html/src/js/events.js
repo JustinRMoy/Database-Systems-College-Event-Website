@@ -45,7 +45,7 @@ function getComments(eventId, avgRating, name, userID){
 	var url = urlBase + '/API/searchComments.' + extension;
 
     var commentBox = createCommentBox(eventId);
-    var commentBoxContent = createCommentBoxContent(avgRating, eventId, name);
+    var commentBoxContent = createCommentBoxContent(avgRating, eventId, name, userID);
     var commentList = createCommentList(eventId);
     var userCommentDiv = createUserCommentDiv(eventId);
     var otherUserCommentDiv = createOtherUserCommentDiv(eventId);
@@ -124,7 +124,7 @@ function createCommentBox(eventId){
 
     return commentCard;
 }
-function createCommentBoxContent(avgRating, eventId, name){
+function createCommentBoxContent(avgRating, eventId, name, userID){
 
     var commentBoxContent = document.createElement("div");
     commentBoxContent.className = "commentBox-content";
@@ -159,7 +159,7 @@ function createCommentBoxContent(avgRating, eventId, name){
 
         var inputButton = document.createElement("button");
         inputButton.setAttribute("id", "submitComment-" + eventId);
-        inputButton.onclick = addComment();
+        inputButton.onclick = addComment(userID, eventId);
         inputButton.innerHTML = "Add Comment";
 
 
@@ -439,9 +439,9 @@ function showComments(eventId){
     }
 }
 
-function addComment()
+function addComment(userID, EventID)
 {
-    var commentContent = document.getElementById("userCommentInput");
+    var commentContent = document.getElementById("userCommentInput-" + EventID);
 
     var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
     var successMessage = "Successfully edited comment ";
