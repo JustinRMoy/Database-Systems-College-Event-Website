@@ -8,7 +8,7 @@
   $sql;
     
   //Only Selects UCF IF for now
-  //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
+  //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida'";
   //$result = mysqli_query($conn, $sql_select);
   //$Users = $result->fetch_assoc();
 
@@ -21,19 +21,18 @@ $mode = $inputFromJson['mode'];
   if ($mode == 1)
   {
     //1 = create comment
-    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
-    VALUES ('.$userId.','.$eventId.','.$comment.')";
+    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) VALUES ($userId, $eventId ,'.$comment.')";
 
   }
   else if ($mode == 2)
   {
     //delete a comment
-    $sql = "DELETE FROM Comments WHERE CommentID = '.$commentId.'";
+    $sql = "DELETE FROM Comments WHERE CommentID = $commentId";
   }
   else if ($mode == 3)
   {
     //update a comment
-    $sql = "UPDATE Comments SET Comment='.$comment.' WHERE CommentID='$commentId'";
+    $sql = "UPDATE Comments SET Comment='.$comment.' WHERE CommentID=$commentId";
   }
   else
   {
