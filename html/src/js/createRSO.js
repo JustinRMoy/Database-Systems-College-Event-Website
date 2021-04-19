@@ -10,7 +10,14 @@ function readRSOInput()
 
     var rsoName = document.getElementById("inputRSOName").value;
     var description = document.getElementById("inputRSODescription").value;
-    var members = document.getElementsByClassName("members");
+    var members = [];
+    
+    // Change 4 to var depending on how we want this to be done
+    for (var i = 1; i < 5; i++)
+    {
+        members[i-1] = document.getElementById("inputMemberName" + i);
+    }
+
     var membersJSON = JSON.stringify(members);
 
     if (userLevel != "Student" || userLevel != "Admin")
