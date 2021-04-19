@@ -80,7 +80,7 @@ function createRsoCard(name, description, rsoId, imgUrl){
     joinButton.innerHTML = "Join Here";
 
     var logstatus = document.createElement("p");
-    logstatus.setAttribute("id", "logstatus");
+    logstatus.setAttribute("id", "rsoLogstatus-" + rsoId);
     logstatus.setAttribute("style", "font-size: 1.0em;");
 
     rsoContainer.appendChild(title);
@@ -97,7 +97,7 @@ function createRsoCard(name, description, rsoId, imgUrl){
 function joinRso(rsoID){
 
 
-    var jsonPayload = '{"rsoId" : ' + rsoID + ', "userID" : ' + userID + '}';//change this to include security level
+    var jsonPayload = '{"rsoID" : ' + rsoID + ', "userID" : ' + userID + '}';//change this to include security level
     var url = urlBase + '/API/joinRSO.' + extension;
 
     var xhr = new XMLHttpRequest();
@@ -114,14 +114,14 @@ function joinRso(rsoID){
                 
                 if (rso.msg != "Successfully joined RSO!")
                 {
-                    document.getElementById("logstatus").innerHTML = rso.msg;
-                    document.getElementById("logstatus").style.color = "red";
+                    document.getElementById("rsoLogstatus-" + rsoID).innerHTML = rso.msg;
+                    document.getElementById("rsoLogstatus-" + rsoID).style.color = "red";
                 }
 
                 else
                 {
-                    document.getElementById("logstatus").innerHTML = rso.msg;
-                    document.getElementById("logstatus").style.color = "green";
+                    document.getElementById("rsoLogstatus-" + rsoID).innerHTML = rso.msg;
+                    document.getElementById("rsoLogstatus-" + rsoID).style.color = "green";
                 }
             }
         };
