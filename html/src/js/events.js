@@ -1,12 +1,13 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 
-var btnDisplay, commentBoxDisplay, spanDisplay, userID, uniID, userLevel;
+var btnDisplay, commentBoxDisplay, spanDisplay;
 
 document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
 
     var data = document.cookie;
 	var splits = data.split(";");
+    var userID, uniID, userLevel;
 
 	for(var i = 0; i < splits.length; i++)
 	{
