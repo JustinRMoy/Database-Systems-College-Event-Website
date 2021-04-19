@@ -72,12 +72,12 @@ $result = mysqli_query($conn, $sql_ros_id);
 $RSONum = $result->fetch_assoc();
 $id = $RSONum['ID'];
 
-$sql_user_rso = "UPDATE Users SET RSOID = " .$id. " WHERE ID = " .$admin;
+$sql_user_rso = "INSERT INTO Members (StudentID, RSOID) VALUES (" .$admin. ", " .$id. ")";
 mysqli_query($conn, $sql_user_rso);
 
 foreach($students as $student)
 {
-    $sql_user_rso = "UPDATE Users SET RSOID = " .$id. " WHERE Email = '" .$student. "'";
+    $sql_user_rso = "INSERT INTO Members (StudentID, RSOID) VALUES (" .$student. ", " .$id. ")";
     mysqli_query($conn, $sql_user_rso);
 }
 
