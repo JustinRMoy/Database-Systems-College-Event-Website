@@ -231,8 +231,6 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     commentText.setAttribute("id", "comment-" + commentId);
     commentText.innerHTML = comment;
 
-    var brk = document.createElement("br");
-
     //button
     var editButton = document.createElement("button");
     editButton.className = "button";
@@ -249,6 +247,9 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     
     deleteCommentBtn = deleteButton;
     deleteCommentBtn.onclick = deleteComment(commentId);
+
+    
+    var brk = document.createElement("br");
 
     cardBody.appendChild(timeStamp);
     //cardBody.appendChild(studentName);
