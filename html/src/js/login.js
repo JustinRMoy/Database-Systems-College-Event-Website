@@ -5,7 +5,6 @@ var userID = -1;
 var userLevel = '';
 var userName = '';
 var uniID = -1;
-var rsoID = -1;
 
 function login()
 {   
@@ -42,7 +41,7 @@ function login()
 
 						else
 						{
-							//userLevel = jsonObj.User_level;
+							userLevel = jsonObj.User_level;
 							userName = jsonObj.Name;
 							uniID = jsonObj.Uni;
 							//rsoID = jsonObj.RSO;
@@ -61,23 +60,27 @@ function login()
 	   {
 			document.getElementById("logstatus").innerHTML = err.message;
 	   }
+	   localStorage.setItem("loggedIn", "true");
 	}
 }
 
 
 function logout()
 {
-	customer_id = 0;
-	document.cookie = "customer_id= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	userID = -1;
+	userLevel = '';
+	userName = '';
+	uniID = -1;
+	// document.cookie = "customer_id= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	localStorage.clear();
 	window.location.href = "index.html";
 }
 
 function saveCookie()
 {
-	var minutes = 20;
+	var minutes = 40;
 	var date = new Date();
 	date.setTime(date.getTime()+(minutes*60*1000));
-	document.cookie = "rsoID=" + rsoID + ";expires=" + date.toGMTString();
 	document.cookie = "uniID=" + uniID + ";expires=" + date.toGMTString();
 	document.cookie = "userName=" + userName + ";expires=" + date.toGMTString();
 	document.cookie = "userID=" + userID + ";expires=" + date.toGMTString();
@@ -153,4 +156,117 @@ function checkPasswordlog(password)
     }
 
     return true;
+}
+
+function checkNewPassword(confirmPassword, password)
+{
+    if (confirmPassword !== password)
+    {
+        document.getElementById("upstatus").innerHTML = "The two passwords are not matched!";
+        document.getElementById("upstatus").style.color = "red";
+        return false;
+    }
+    return true;
+}
+
+function sendResetCode()
+{
+    var email = document.getElementById("emailcodeRes").value;
+
+    document.getElementById("emailcodeRes").innerHTML = "";
+
+    var json = '{"Email" : "' + email + '"}';
+    var successMessage = "Successfully sent email: " + email;
+    
+    var request = new XMLHttpRequest();
+    request.open("POST", "http://198.199.77.197/API/sendResetMail.php", true);
+
+    request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        request.onreadystatechange = function()
+    {
+        if (this.readyState == 4 && this.status == 200)
+        {    
+            var jsonObject = JSON.parse(request.responseText);
+            var endpointmsg = jsonObject['msg'];
+            console.log(endpointmsg);
+
+            if (endpointmsg === "Email sent")
+            {
+                document.getElementById("resCodeStatus").innerHTML = successMessage; 
+            }
+
+            else if (endpointmsg !== "Email sent")
+            {
+                document.getElementById("resCodeStatus").innerHTML = "Email not found"; 
+            }
+        }
+    };
+        request.responseType="text";
+        console.log(json);
+        request.send(json);
+        //window.location.href = "login.html";
+    }
+    catch(error)
+    {
+        document.getElementById("resCodeStatus").innerHTML = error.message;
+        document.getElementById("resCodeStatus").style.color = "red";
+    }
+}
+
+function resetPassword()
+{
+		var resetCode = document.getElementById("resPassCode").value;
+		var newPassword = document.getElementById("resNewPass").value;
+		var confirmNewPassword = document.getElementById("ConfirmResNewPass").value;
+		
+		if (checkNewPassword(confirmNewPassword, newPassword))
+		{
+			document.getElementById("emailcodeRes").innerHTML = "";
+
+			var hashedNewPassword = md5(newPassword);
+
+			var json = '{"resetToken" : "' + resetCode + '", "newPassword" : "' + hashedNewPassword + '"}';
+			var successMessage = "Successfully reset password";
+			
+			var request = new XMLHttpRequest();
+			request.open("POST", "http://198.199.77.197/API/reset_pass.php", true);
+	
+			request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+			try {
+					request.onreadystatechange = function()
+			{
+					if (this.readyState == 4 && this.status == 200)
+					{    
+							var jsonObject = JSON.parse(request.responseText);
+							var endpointmsg = jsonObject['msg'];
+							console.log(endpointmsg);
+	
+							if (endpointmsg === "Password has been reset")
+							{
+									document.getElementById("resPassStatus").innerHTML = successMessage; 
+							}
+	
+							else if (endpointmsg !== "Password has been reset")
+							{
+									document.getElementById("resPassStatus").innerHTML = "Token may have expired"; 
+							}
+					}
+			};
+					request.responseType="text";
+					console.log(json);
+					request.send(json);
+					//window.location.href = "login.html";
+			}
+			catch(error)
+			{
+					document.getElementById("resPassStatus").innerHTML = error.message;
+					document.getElementById("resPassStatus").style.color = "red";
+			}
+		}
+
+		else
+		{
+			;
+		}
 }
