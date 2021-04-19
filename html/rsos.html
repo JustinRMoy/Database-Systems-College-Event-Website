@@ -78,22 +78,14 @@
 
       <!--<button type="button" onclick="handleSearch()">Press Me!</button> KILL ME!!!!!!!!-->
       
-      <div style="position: relative;" id="rsoList">
-        <div class="row mb-3">
-          <div class="imgPlaceholder" id="rsoImg"></div>
-            <div class="rsoContainer" id="theRso">
-              <h1 id="rsoName">Rso Name</h1>
-                <p id="rsoDescription">
-                    Aliqua est aliquip enim exercitation sint nostrud culpa dolore elit esse eiusmod. 
-                    Enim non laboris eu dolore aute reprehenderit adipisicing eiusmod exercitation aliquip amet aliquip incididunt nisi.
-                    Proident culpa in voluptate eiusmod est adipisicing consectetur commodo cillum ex ut aliquip irure voluptate. Laborum officia velit do fugiat.
-                </p>
-                <button type="button" class="btn col-md-2" id="joinButton" onclick="joinRso(0);">
-                   Join Here
-                </button>
-          </div>
-        </div>
-      </div> 
+     <div style="position: relative;" id="rsoList"></div>
+
+      <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() 
+        {
+            getRsos();
+        }, false);
+      </script>
 
       <footer class="bg-dark mt-5"> 
           <div class="container pb-2 pt-3">
