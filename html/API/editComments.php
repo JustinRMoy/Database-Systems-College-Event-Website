@@ -40,15 +40,14 @@
       echo "No mode selected";
   }
 
-  if (!(mysqli_query($conn, $sql)))
+  if ((mysqli_query($conn, $sql))
   {
-    echo "SQL Error";
-    returnError( $conn->error );
+     //sendEmail("mr.l.t@hotmail.com");
+     returnInfo("done");
   }
   else
   {
-    //sendEmail("mr.l.t@hotmail.com");
-    returnInfo("done");
+    returnError( $conn->error );
   }
   $conn->close();
     
