@@ -26,7 +26,7 @@ function readRSOInput()
         document.getElementById("logstatus").style.color = "red";
     }
 		
-    var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : "' + membersJSON + '", "admin" : ' + userID + ', "uniID" : ' + uniID + '}';
+    var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : ' + membersJSON + ', "admin" : ' + userID + ', "uniID" : ' + uniID + '}';
 
     var request = new XMLHttpRequest();
     request.open("POST", rsoURL, true);
