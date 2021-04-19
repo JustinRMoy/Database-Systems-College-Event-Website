@@ -68,10 +68,10 @@ function login()
 function logout()
 {
 	userID = -1;
-	userLevel = '';
-	userName = '';
+	userLevel = "";
+	userName = "";
 	uniID = -1;
-	// document.cookie = "customer_id= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	deleteAllCookies();
 	localStorage.clear();
 	window.location.href = "index.html";
 }
@@ -87,11 +87,16 @@ function saveCookie()
 	document.cookie = "userLevel=" + userLevel + ";expires=" + date.toGMTString();
 }
 
-// var userID = -1;
-// var userLevel = '';
-// var name = '';
-// var uniID = -1;
-// var rsoID = -1;
+function deleteAllCookies() {
+	var cookies = document.cookie.split(";");
+
+	for (var i = 0; i < cookies.length; i++) {
+			var cookie = cookies[i];
+			var eqPos = cookie.indexOf("=");
+			var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+			document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+	}
+}
 
 function readCookie()
 {
