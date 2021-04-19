@@ -97,7 +97,7 @@ function createRsoCard(name, description, rsoId, imgUrl){
 function joinRso(rsoID){
 
 
-    var jsonPayload = '{"rsoId" : ' + rsoID + ', "userID" : ' + userID + '}';//change this to include security level
+    var jsonPayload = '{"rsoID" : ' + rsoID + ', "userID" : ' + userID + '}';//change this to include security level
     var url = urlBase + '/API/joinRSO.' + extension;
 
     var xhr = new XMLHttpRequest();
