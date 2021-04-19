@@ -254,6 +254,8 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     //cardBody.appendChild(studentName);
     cardBody.appendChild(commentText);
     cardBody.appendChild(brk);
+    cardBody.appendChild(editButton);
+    cardBody.appendChild(deleteButton);
     /*cardBody.appendChild(social);
     cardBody.appendChild(like); append the buttons here!!!!!!!!!!!!!!!!
     */
