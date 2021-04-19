@@ -2,62 +2,61 @@
 
   require 'db_conn.php';
   
-  echo 'TEST 1'
+  echo 'TEST 1';
 
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-  echo 'TEST 2'
+  echo 'TEST 2';
 
   //$user_level = $inputFromJson['user_level'];
   $sql;
     
   //Only Selects UCF IF for now
-  //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
+  //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida'";
   //$result = mysqli_query($conn, $sql_select);
   //$Users = $result->fetch_assoc();
- 
 
-  if ($inputFromJson['mode'] == 1)
+$userId = $inputFromJson['userId'];
+$eventId = $inputFromJson['eventId'];
+$commentId = $inputFromJson['commentId'];
+$comment = $inputFromJson['comment'];
+$mode = $inputFromJson['mode'];
+
+  if ($mode == 1)
   {
     //1 = create comment
-    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
-    VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
+    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) VALUES ($userId, $eventId ,'.$comment.')";
 
   }
-
-  else if ($inputFromJson['mode'] == 2)
+  else if ($mode == 2)
   {
     //delete a comment
     $sql = "DELETE FROM Comments 
     WHERE CommentID='" . $inputFromJson['commentId'] . "'";
 
-    echo 'TEST 3, after QUERY'
+    echo 'TEST 3, after QUERY';
   }
-  
-  else if ($inputFromJson['mode'] == 3)
+  else if ($mode == 3)
   {
     //update a comment
-    $sql = "UPDATE Comments 
-    SET Comment='" . $inputFromJson['comment'] . "'
-    WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+    $sql = "UPDATE Comments SET Comment='.$comment.' WHERE CommentID=$commentId";
   }
-  
   else
   {
       echo "No mode selected";
   }
 
-  echo 'TEST 4'
+  echo 'TEST 4';
 
-  if ((mysqli_query($conn, $sql))
+  if (mysqli_query($conn, $sql))
   {
      //sendEmail("mr.l.t@hotmail.com");
-     echo 'TEST 5'
+     echo 'TEST 5';
      returnInfo("done");
   }
   else
   {
-    echo 'TEST 6'
+    echo 'TEST 6';
     returnInfo( "Unable to perform comment operation" );
   }
   $conn->close();
