@@ -10,8 +10,8 @@ function readRSOInput()
 
     var rsoName = document.getElementById("inputRSOName").value;
     var description = document.getElementById("inputRSODescription").value;
-    //var members = document.getElementsByClassName("members");
-    //var membersJSON = JSON.stringify(members);
+    var members = document.getElementsByClassName("members");
+    var membersJSON = JSON.stringify(members);
 
     if (userLevel != "Student" || userLevel != "Admin")
     {
@@ -19,9 +19,9 @@ function readRSOInput()
         document.getElementById("logstatus").style.color = "red";
     }
 		
-    //var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : "' + membersJSON + '", "admin" : ' + userID + ', "uniID" : ' + uniID + '}';
+    var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : "' + membersJSON + '", "admin" : ' + userID + ', "uniID" : ' + uniID + '}';
 
-    /*var request = new XMLHttpRequest();
+    var request = new XMLHttpRequest();
     request.open("POST", rsoURL, true);
     request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
 
@@ -60,7 +60,7 @@ function readRSOInput()
     {
         document.getElementById("logstatus").innerHTML = "Error info not sent";
         document.getElementById("logstatus").style.color = "red";
-    }*/
+    }
 	
 }
 
