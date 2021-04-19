@@ -40,7 +40,7 @@ document.addEventListener(`DOMContentLoaded`, function () { //change getEvents t
     return;
 }*/
 
-function getComments(eventId, avgRating, name){
+function getComments(eventId, avgRating, name, userID){
     var jsonPayload = '{"eventId": "' + eventId + '"}';
 	var url = urlBase + '/API/searchComments.' + extension;
 
@@ -81,17 +81,17 @@ function getComments(eventId, avgRating, name){
                     var studentId = comments.results[i].StudentId;
                     var rating = comments.results[i].Rating;
                     var commentId = comments.results[i].CommentId;
-                    var loggedUser = localStorage.getItem("StudentId");
+                    
 
-                    //if(studentId == loggedUser){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
+                    if(studentId == userID){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
                         var userCommentCard = createUserCommentCard(comment, studentId, rating, eventId, commentId);
                         userCommentDiv.appendChild(userCommentCard);
                         //userCommentDiv.appendChild(<br></br>); //should add a break!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    /*}else{
+                    }else{
                         var otherCommentCard = createOtherCommentCard(comment, studentId, rating, eventId, commentId);
                         otherUserCommentDiv.appendChild(otherCommentCard);
                         //otherUserCommentDiv.appendChild(<br></br>);
-                    }*/
+                    }
 
                 }
 
@@ -118,6 +118,7 @@ function createCommentBox(eventId){
     var commentCard = document.createElement("div");
     commentCard.className = "commentBox";
     commentCard.setAttribute("id", "commentBox-" + eventId);
+    commentCard.setAttribute("data-id", eventId);
     commentCard.setAttribute("name", "commentBox");
     commentBoxDisplay = commentCard;
 
@@ -155,6 +156,12 @@ function createCommentBoxContent(avgRating, eventId, name){
         input.type = "text";
         input.placeholder = "Enter Comment";
         input.setAttribute("id", "userCommentInput-" + eventId);
+
+        var inputButton = document.createElement("button");
+        inputButton.setAttribute("id", "submitComment-" + eventId);
+        inputButton.onclick = addComment();
+        inputButton.innerHTML = "Add Comment";
+
 
         form.appendChild(input);
     }
@@ -333,7 +340,7 @@ function getEvents(UserID, UniversityID, UserLevel)
                     var category = events.results[i].Category;
                     var long = events.results[i].long;
                     var lat = events.results[i].lat;
-                    getComments(eventId, avgRating, name);//get the comments for that event
+                    getComments(eventId, avgRating, name, UserID);//get the comments for that event
                     var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email, category, long, lat);
                     eventList.appendChild(eventCard);
                 }
