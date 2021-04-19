@@ -2,7 +2,11 @@
 
   require 'db_conn.php';
   
+  echo 'TEST 1';
+
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
+
+  echo 'TEST 2';
 
   //$user_level = $inputFromJson['user_level'];
   $sql;
@@ -27,7 +31,10 @@ $mode = $inputFromJson['mode'];
   else if ($mode == 2)
   {
     //delete a comment
-    $sql = "DELETE FROM Comments WHERE CommentID = $commentId";
+    $sql = "DELETE FROM Comments 
+    WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+
+    echo 'TEST 3, after QUERY';
   }
   else if ($mode == 3)
   {
@@ -39,13 +46,17 @@ $mode = $inputFromJson['mode'];
       echo "No mode selected";
   }
 
+  echo 'TEST 4';
+
   if (mysqli_query($conn, $sql))
   {
-     sendEmail("mr.l.t@hotmail.com");
-     returnInfo("hi");
+     //sendEmail("mr.l.t@hotmail.com");
+     echo 'TEST 5';
+     returnInfo("done");
   }
   else
   {
+    echo 'TEST 6';
     returnInfo( "Unable to perform comment operation" );
   }
   $conn->close();
