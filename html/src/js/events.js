@@ -206,9 +206,8 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     editButton.className = "button";
     editButton.setAttribute("id", "editButton-" + commentId);
     editButton.setAttribute("data-id", commentId);
-    /*editButton.onclick = funtion(){
 
-    }*/
+    editButton.onclick = editComment();
 
     var deleteButton = document.createElement("button");
     deleteButton.className = "button";

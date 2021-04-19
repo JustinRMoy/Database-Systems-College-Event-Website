@@ -77,8 +77,14 @@ mysqli_query($conn, $sql_user_rso);
 
 foreach($students as $student)
 {
-    $sql_user_rso = "INSERT INTO Members (StudentID, RSOID) VALUES (" .$student. ", " .$id. ")";
-    mysqli_query($conn, $sql_user_rso);
+    $sql_student = "SELECT ID from Users WHERE (Email = '" . $student . "')";
+    $studentResult = mysqli_query($conn, $sql_student);
+
+    $studentSearch = $studentResult->fetch_assoc();
+    $studentNum = $studentSearch['ID'];
+
+    $sql_student_rso = "INSERT INTO Members (StudentID, RSOID) VALUES (" .$studentNum. ", " .$id. ")";
+    mysqli_query($conn, $sql_student_rso);
 }
 
 returnInfo("RSO created successfully!");
