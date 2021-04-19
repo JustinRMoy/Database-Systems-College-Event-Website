@@ -1,12 +1,13 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 
-var btnDisplay, commentBoxDisplay, spanDisplay, userID, uniID, userLevel;
+var btnDisplay, commentBoxDisplay, spanDisplay, submitCommentBtn, editCommentBtn, deleteCommentBtn;
 
 document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
 
     var data = document.cookie;
 	var splits = data.split(";");
+    var userID, uniID, userLevel;
 
 	for(var i = 0; i < splits.length; i++)
 	{
@@ -39,12 +40,12 @@ document.addEventListener(`DOMContentLoaded`, function () { //change getEvents t
     return;
 }*/
 
-function getComments(eventId, avgRating, name){
+function getComments(eventId, avgRating, name, userID){
     var jsonPayload = '{"eventId": "' + eventId + '"}';
 	var url = urlBase + '/API/searchComments.' + extension;
 
     var commentBox = createCommentBox(eventId);
-    var commentBoxContent = createCommentBoxContent(avgRating, eventId, name);
+    var commentBoxContent = createCommentBoxContent(avgRating, eventId, name, userID);
     var commentList = createCommentList(eventId);
     var userCommentDiv = createUserCommentDiv(eventId);
     var otherUserCommentDiv = createOtherUserCommentDiv(eventId);
@@ -80,17 +81,17 @@ function getComments(eventId, avgRating, name){
                     var studentId = comments.results[i].StudentId;
                     var rating = comments.results[i].Rating;
                     var commentId = comments.results[i].CommentId;
-                    var loggedUser = localStorage.getItem("StudentId");
+                    
 
-                    //if(studentId == loggedUser){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
+                    if(studentId == userID){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
                         var userCommentCard = createUserCommentCard(comment, studentId, rating, eventId, commentId);
                         userCommentDiv.appendChild(userCommentCard);
                         //userCommentDiv.appendChild(<br></br>); //should add a break!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    /*}else{
+                    }else{
                         var otherCommentCard = createOtherCommentCard(comment, studentId, rating, eventId, commentId);
                         otherUserCommentDiv.appendChild(otherCommentCard);
                         //otherUserCommentDiv.appendChild(<br></br>);
-                    }*/
+                    }
 
                 }
 
@@ -117,12 +118,13 @@ function createCommentBox(eventId){
     var commentCard = document.createElement("div");
     commentCard.className = "commentBox";
     commentCard.setAttribute("id", "commentBox-" + eventId);
+    commentCard.setAttribute("data-id", eventId);
     commentCard.setAttribute("name", "commentBox");
     commentBoxDisplay = commentCard;
 
     return commentCard;
 }
-function createCommentBoxContent(avgRating, eventId, name){
+function createCommentBoxContent(avgRating, eventId, name, userID){
 
     var commentBoxContent = document.createElement("div");
     commentBoxContent.className = "commentBox-content";
@@ -155,7 +157,15 @@ function createCommentBoxContent(avgRating, eventId, name){
         input.placeholder = "Enter Comment";
         input.setAttribute("id", "userCommentInput-" + eventId);
 
+        var inputButton = document.createElement("button");
+        inputButton.setAttribute("id", "submitComment-" + eventId);
+        inputButton.innerHTML = "Add Comment";
+        submitCommentBtn = inputButton;
+        submitCommentBtn.onclick = addComment(userID, eventId);
+
+
         form.appendChild(input);
+        form.appendChild(inputButton);
     }
 
     commentBoxContent.appendChild(ex);
@@ -221,25 +231,33 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     commentText.setAttribute("id", "comment-" + commentId);
     commentText.innerHTML = comment;
 
-    var brk = document.createElement("br");
-
     //button
     var editButton = document.createElement("button");
     editButton.className = "button";
     editButton.setAttribute("id", "editButton-" + commentId);
     editButton.setAttribute("data-id", commentId);
-
-    editButton.onclick = editComment(commentId, commentContent);
+    editButton.innerHTML = "Edit";
+    
+    editCommentBtn = editButton;
+    editCommentBtn.onclick = editComment(commentId);
 
     var deleteButton = document.createElement("button");
     deleteButton.className = "button";
     deleteButton.setAttribute("id", "deleteButton-" + commentId);
     deleteButton.setAttribute("data-id", commentId);
-    deleteButton.onclick = deleteComment(commentId);
+    deleteButton.innerHTML = "Delete";
+    
+    deleteCommentBtn = deleteButton;
+    deleteCommentBtn.onclick = deleteComment(commentId);
+
+    
+    var brk = document.createElement("br");
 
     cardBody.appendChild(timeStamp);
     //cardBody.appendChild(studentName);
     cardBody.appendChild(commentText);
+    cardBody.appendChild(editButton);
+    cardBody.appendChild(deleteButton);
     cardBody.appendChild(brk);
     /*cardBody.appendChild(social);
     cardBody.appendChild(like); append the buttons here!!!!!!!!!!!!!!!!
@@ -332,7 +350,7 @@ function getEvents(UserID, UniversityID, UserLevel)
                     var category = events.results[i].Category;
                     var long = events.results[i].long;
                     var lat = events.results[i].lat;
-                    getComments(eventId, avgRating, name);//get the comments for that event
+                    getComments(eventId, avgRating, name, UserID);//get the comments for that event
                     var eventCard = createEventCard(name, description, time, date, eventId, "http://198.199.77.197/img/ICpt2.jpg", phone, email, category, long, lat);
                     eventList.appendChild(eventCard);
                 }
@@ -406,6 +424,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
 function showComments(eventId){
 
    // commentBoxDisplay = document.getElementById("commentBox"); //this used to be called modal
+   // commentBoxDisplay = document.getElementById("commentBox"); //this used to be called modal
 
     // Get the button that opens the modal
     //btnDisplay = document.getElementById("commentButton-" + eventId);
@@ -431,10 +450,11 @@ function showComments(eventId){
     }
 }
 
-function addComment()
+function addComment(userID, EventID)
 {
-    var commentContent = document.getElementById("userCommentInput");
+    var commentContent = document.getElementById("userCommentInput-" + EventID);
 
+    if(commentContent == null) return;
     var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
     var successMessage = "Successfully edited comment ";
   
@@ -476,8 +496,10 @@ function addComment()
     }
 }
 
-function editComment(commentContent)
+function editComment(commentID)
 {
+    var commentContent = null;   ////////////////////FIX Matthew bc reasons
+    if(commentContent == null) return;
   var json = '{"commentId" : "' + commentID + '", "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
   var successMessage = "Successfully edited comment ";
 

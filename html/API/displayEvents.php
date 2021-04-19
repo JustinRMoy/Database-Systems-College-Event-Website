@@ -4,14 +4,18 @@
 
     $inputFromJson = json_decode(file_get_contents('php://input'), true);
 
-    $rsoID = $inputFromJson['rsoID'];
-    $userLevel = $inputFromJson['userLevel'];
+    $userID = $inputFromJson['UserID'];
+    $userLevel = $inputFromJson['UserLevel'];
     $uniID = $inputFromJson['UniversityID'];
+
+    $rsoID = 
+
+
 
     // Different events will be selected based on UserLevel
     if ($userLevel == "Admin" || $userLevel == "Student")
     {
-        $sql = "SELECT * FROM Events WHERE (Category = 'Private RSO' AND RSO = $rsoID) OR Category = 'Public' OR (Category = 'Private University' AND UniversityID = $uniID)";
+        $sql = "SELECT * FROM Events WHERE (Category = 'RSO' AND RSO = $rsoID) OR Category = 'Public' OR (Category = 'University' AND UniversityID = $uniID)";
     }
     elseif ($userLevel == "SuperAdmin")
     {
