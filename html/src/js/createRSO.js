@@ -41,7 +41,7 @@ function readRSOInput()
             {
                 var jsonObj = JSON.parse(request.responseText);
 
-                if (jsonObj.msg === "done")
+                if (jsonObj.msg === "RSO created successfully!")
                 {
                     document.getElementById("logstatus").innerHTML = jsonObj.msg;
                     document.getElementById("logstatus").style.color = "green";
@@ -59,6 +59,7 @@ function readRSOInput()
 
         }
 
+        console.log(jsonPayload);
         request.send(jsonPayload);
 
     }
