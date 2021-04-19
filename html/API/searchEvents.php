@@ -57,65 +57,76 @@
         $flag = 1;
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    $sql = "SELECT RSOID FROM Members WHERE (StudentID = " .$inputFromJson['UserID']. ")"; 
-    $rsoIDs = mysqli_query($conn, $sql);
-    $numRowsRSO = mysqli_num_rows($rsoIDs);
-    $count = 0;
-    $rsoIDs = $rsoIDs->fetch_assoc();
+    if($userID != null){
+        $sql = "SELECT RSOID FROM Members WHERE (StudentID = " .$inputFromJson['UserID']. ")"; 
+        $rsoIDs = mysqli_query($conn, $sql);
+        $numRowsRSO = mysqli_num_rows($rsoIDs);
+        $count = 0;
+        $rsoIDs = $rsoIDs->fetch_assoc();
 
-    if($numRowsRSO > 0){
-        foreach($rsoIDs as $rsoID){
-            if ($userLevel == "Admin" || $userLevel == "Student")
-            {
-                $sql = "SELECT * FROM Events WHERE (Category = 'RSO' AND RSO = $rsoID)";
-            }
-            else
-            {
-                if($flag == 1)
+        if($numRowsRSO > 0){
+            foreach($rsoIDs as $rsoID){
+                if ($userLevel == "Admin" || $userLevel == "Student")
                 {
-                    error("No events found");
-                    break;
+                    $sql = "SELECT * FROM Events WHERE (Category = 'RSO' AND RSO = $rsoID)";
                 }
                 else
                 {
-                    break;
+                    if($flag == 1)
+                    {
+                        error("No events found");
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
-            }
-            /*if($inputFromJson['security'] != 0){
-                $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%' AND UniversityID='" .$inputFromJson['UniversityID']. "')"; 
-            }else $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%')"; */
-            $result = mysqli_query($conn, $sql);
-            $numRows = mysqli_num_rows($result);
-        
+                /*if($inputFromJson['security'] != 0){
+                    $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%' AND UniversityID='" .$inputFromJson['UniversityID']. "')"; 
+                }else $sql = "SELECT * FROM Events WHERE (Name LIKE '%" .$inputFromJson['search']. "%')"; */
+                $result = mysqli_query($conn, $sql);
+                $numRows = mysqli_num_rows($result);
+            
 
-            //Review SQL Result
-            if($numRows > 0)
-            {
-                $count++;
-                //Event found
-                while($eventData = $result->fetch_assoc()){
-                        if($resultCount > 0){
-                            $searchResults .= ", ";
-                            //seperate search results
-                        }
-                        $resultCount++;
-                        $searchResults .= '{"Name": "' . $eventData["Name"] . '", "long": "' . $eventData["Longitude"] . '", "lat": "' . $eventData["Latitude"] . '", "Description": "' . $eventData["Description"] . '", "Time": "' . $eventData["startTime"] . '", "Date": "' . $eventData["startDate"] . '", "eventId": "' . $eventData["ID"] . '", "Phone": "' . $eventData["contact_num"] . '", "Category": "' . $eventData["Category"] . '", "Email": "' . $eventData["Contact_Email"] . '", "Avg_Rating": "' . $eventData["Avg_Rating"] . '"}';
-                        //gets data from the searched event
+                //Review SQL Result
+                if($numRows > 0)
+                {
+                    $count++;
+                    //Event found
+                    while($eventData = $result->fetch_assoc()){
+                            if($resultCount > 0){
+                                $searchResults .= ", ";
+                                //seperate search results
+                            }
+                            $resultCount++;
+                            $searchResults .= '{"Name": "' . $eventData["Name"] . '", "long": "' . $eventData["Longitude"] . '", "lat": "' . $eventData["Latitude"] . '", "Description": "' . $eventData["Description"] . '", "Time": "' . $eventData["startTime"] . '", "Date": "' . $eventData["startDate"] . '", "eventId": "' . $eventData["ID"] . '", "Phone": "' . $eventData["contact_num"] . '", "Category": "' . $eventData["Category"] . '", "Email": "' . $eventData["Contact_Email"] . '", "Avg_Rating": "' . $eventData["Avg_Rating"] . '"}';
+                            //gets data from the searched event
+                    }
+                    
+                    /*if (isset($Users["RSOID"]))
+                        $RSO = $Users["RSOID"];
+                    */
+                    //echo ($id);
                 }
-                
-                /*if (isset($Users["RSOID"]))
-                    $RSO = $Users["RSOID"];
-                */
-                //echo ($id);
+                //Event not found
             }
-            //Event not found
-        }
 
-        if($flag == 1 && $count == 0){
-            error("No events found");
+            if($flag == 1 && $count == 0){
+                error("No events found");
+            }
+            else{
+                returnWithInfo($searchResults);
+            }
         }
-        else{
-            returnWithInfo($searchResults);
+        else
+        {
+            if($flag == 1){
+                error("No events found");
+            }
+            else{
+                returnWithInfo($searchResults);
+            }
         }
     }
     else
