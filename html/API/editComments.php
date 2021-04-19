@@ -47,7 +47,7 @@
   }
   else
   {
-    returnError( $conn->error );
+    returnError( "Unable to perform comment operation" );
   }
   $conn->close();
     
