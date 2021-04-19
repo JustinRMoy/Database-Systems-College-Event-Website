@@ -1,7 +1,7 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 
-var btnDisplay, commentBoxDisplay, spanDisplay;
+var btnDisplay, commentBoxDisplay, spanDisplay, submitCommentBtn;
 
 document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
 
@@ -159,11 +159,13 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
 
         var inputButton = document.createElement("button");
         inputButton.setAttribute("id", "submitComment-" + eventId);
-        inputButton.onclick = addComment(userID, eventId);
         inputButton.innerHTML = "Add Comment";
+        submitCommentBtn = inputButton;
+        submitCommentBtn.onclick = addComment(userID, eventId);
 
 
         form.appendChild(input);
+        form.appendChild(inputButton);
     }
 
     commentBoxContent.appendChild(ex);
@@ -413,6 +415,7 @@ function createEventCard(name, description, time, date, eventId, imgUrl, phone, 
 
 function showComments(eventId){
 
+   // commentBoxDisplay = document.getElementById("commentBox"); //this used to be called modal
    // commentBoxDisplay = document.getElementById("commentBox"); //this used to be called modal
 
     // Get the button that opens the modal
