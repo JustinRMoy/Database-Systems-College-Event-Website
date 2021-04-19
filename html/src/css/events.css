@@ -124,10 +124,18 @@ body{
   }
 
   .userComment button{
+    border-radius: 5px;
+    border: none;
+    background-color: #000000;
+    color: #EAE7DC;
       float: right;
       display: block;
   }
 
+  .userComment button:hover{
+    background-color: #AC3B61;
+    color: #EAE7DC;
+  }
   
 
   .user_name{
