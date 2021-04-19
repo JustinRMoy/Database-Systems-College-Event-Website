@@ -15,7 +15,7 @@ function readRSOInput()
     // Change 4 to var depending on how we want this to be done
     for (var i = 1; i < 5; i++)
     {
-        members[i-1] = document.getElementById("inputMemberName" + i);
+        members[i-1] = document.getElementById("inputMemberName" + i).value;
     }
 
     var membersJSON = JSON.stringify(members);
