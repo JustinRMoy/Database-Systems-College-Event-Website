@@ -67,10 +67,13 @@ function login()
 
 function logout()
 {
-	customer_id = 0;
-	document.cookie = "customer_id= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	userID = -1;
+	userLevel = '';
+	userName = '';
+	uniID = -1;
+	// document.cookie = "customer_id= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	localStorage.clear();
 	window.location.href = "index.html";
-	localStorage.setItem("loggedIn", "false");
 }
 
 function saveCookie()
