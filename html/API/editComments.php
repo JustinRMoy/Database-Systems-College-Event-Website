@@ -29,7 +29,8 @@
   }
   
   else if ($inputFromJson['mode'] == 3)
-  {//update a comment
+  {
+    //update a comment
     $sql = "UPDATE Comments 
     SET Comment='" . $inputFromJson['comment'] . "'
     WHERE CommentID='" . $inputFromJson['commentId'] . "'";
@@ -47,7 +48,7 @@
   }
   else
   {
-    returnError( "Unable to perform comment operation" );
+    returnInfo( "Unable to perform comment operation" );
   }
   $conn->close();
     
