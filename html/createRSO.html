@@ -15,7 +15,7 @@
           <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() 
             {
-                readEventCookie();
+                readRSOCookie();
             }, false);
         </script>
         <nav class="navbar navbar-expand navbar-light bg-light border">
@@ -34,13 +34,14 @@
                 <a class="nav-link" href="Events.html">Events</a>
               </li>
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Plan
-                </a>
+                <a class="nav-link" href="planning.html">Plan</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RSO</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="planning.html">Add Event</a>
+                  <a class="dropdown-item" href="createRSO.html">Create RSO</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="planning.html">Edit Event</a>
+                  <a class="dropdown-item" href="rsos.html">Join RSO</a>
                 </div>
               </li>
               <li class="nav-item">
@@ -74,7 +75,7 @@
                     <button class="btn btn-secondary mt-2 ml-2" onclick="resetMembers();">Reset</button>
                 <hr>
 
-                <button type="submit" name="submit" class="btn btn-primary" onclick="readRSOInput();">Submit</button>
+                <button type="submit" name="submit" class="btn btn-primary" onclick="">Submit</button>
                 <p id="logstatus" style="font-size: 1.0em;"></p>
             </form>
         </div> 
@@ -84,9 +85,9 @@
                 <p class="text-light"><a href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">&copy;School Event System</a> by <a href="https://github.com/JustinRMoy/Database-Systems-College-Event-Website">Team5</a></p> 
             </div>             
         </footer>         
-        <style>#row_style { margin-top: 30px; } #submit { display: block; margin: auto; }</style>         
+       <!-- <style>#row_style { margin-top: 30px; } #submit { display: block; margin: auto; }</style>-->      
         <!-- you need to include the shieldui css and js assets in order for the charts to work -->         
-        <script type="text/javascript">
+        <!--<script type="text/javascript">
             $(document).ready(function(){
 
             $('.input-daterange').datepicker({
@@ -98,5 +99,5 @@
             });
 
             });
-        </script>
+        </script>-->
     </body>

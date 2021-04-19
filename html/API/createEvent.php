@@ -31,19 +31,28 @@
     returnError("Event conflicts with another event's date, time and location");
   }
 
-  $sql_id = "SELECT ID, AdminID FROM RSO WHERE Name = '$rsoName'";
-  $query = mysqli_query($conn, $sql_id);
-  $RSO = $query->fetch_assoc();
-  $rsoID = $RSO['ID'];
-  $adminID = $RSO['AdminID'];
-
-  if ($rsoID != NULL && $adminID != $userID)
+  if ($rsoName != "None")
   {
-    returnError("You are not an admin for this RSO. Only the admin for the RSO can create an RSO event");
+    $sql_id = "SELECT ID, AdminID FROM RSO WHERE Name = '$rsoName'";
+    $query = mysqli_query($conn, $sql_id);
+    $RSO = $query->fetch_assoc();
+    $rsoID = $RSO['ID'];
+    $adminID = $RSO['AdminID'];
+
+    if ($rsoID != NULL && $adminID != $userID)
+    {
+      returnError("You are not an admin for this RSO. Only the admin for the RSO can create an RSO event");
+    }
+
+    $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category, RSO)
+    VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."', $rsoID)";
   }
 
-  $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category, RSO)
-  VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."', $rsoID)";
+  else
+  {
+    $sql = "INSERT INTO Events (Name, Description, contact_num, Contact_Email, UniversityID, startDate, endDate, startTime, endTime, Longitude, Latitude, Category)
+    VALUES ('".$eventName."','".$description."','".$contactNumber."','".$email."', $uniID , '".$startDate."','".$endDate."','".$startTime."','".$endTime."','".$longitude."','".$latitude."','".$category."')";
+  }
 
   if(mysqli_query($conn, $sql))
   {

@@ -56,13 +56,13 @@ function getComments(eventId, avgRating, name){
                     var studentId = comments.results[i].StudentId;
                     var rating = comments.results[i].Rating;
                     var commentId = comments.results[i].CommentId;
-                    /*var loggedUser = localStorage.getItem("StudentId");
+                    var loggedUser = localStorage.getItem("StudentId");
 
-                    if(studentId == loggedUser){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
+                    //if(studentId == loggedUser){ //make sure local storage variable name matches!!!!!!!!!!!!!!!!!!!!!!! this is an errort and needs to bge changed
                         var userCommentCard = createUserCommentCard(comment, studentId, rating, eventId, commentId);
                         userCommentDiv.appendChild(userCommentCard);
                         //userCommentDiv.appendChild(<br></br>); //should add a break!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                    }else{
+                    /*}else{
                         var otherCommentCard = createOtherCommentCard(comment, studentId, rating, eventId, commentId);
                         otherUserCommentDiv.appendChild(otherCommentCard);
                         //otherUserCommentDiv.appendChild(<br></br>);
@@ -185,7 +185,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     timeStamp.className = "pull-right";
     timeStamp.setAttribute("id", "timeStamp-" + commentId);
 
-    var small = document.createElement("small");
+    /*var small = document.createElement("small");
     small.setAttribute("id", "small-" + commentId);
     small.innerHTML = "PLACEHOLDER";//comment table in db doesn't have this !!!!!!!!!!!!!
 
@@ -193,7 +193,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
 
     var studentName = document.createElement("h4");
     studentName.className = "media-heading user_name";
-    studentName.innerHTML = "PLACEHOLDER"; //comment table in DB doesn't have this!!!!!!!!!!!!!!!!
+    studentName.innerHTML = "PLACEHOLDER"; //comment table in DB doesn't have this!!!!!!!!!!!!!!!!*/
 
     var commentText = document.createElement("p");
     commentText.setAttribute("id", "comment-" + commentId);
@@ -219,7 +219,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     }*/
     
     cardBody.appendChild(timeStamp);
-    cardBody.appendChild(studentName);
+    //cardBody.appendChild(studentName);
     cardBody.appendChild(commentText);
     cardBody.appendChild(brk);
     /*cardBody.appendChild(social);
@@ -244,7 +244,7 @@ function createOtherCommentCard(comment, studentId, rating, eventId, commentId){
     timeStamp.className = "pull-right";
     timeStamp.setAttribute("id", "timeStamp-" + commentId);
 
-    var small = document.createElement("small");
+    /*var small = document.createElement("small");
     small.setAttribute("id", "small-" + commentId);
     small.innerHTML = "PLACEHOLDER";//comment table in db doesn't have this !!!!!!!!!!!!!
 
@@ -252,7 +252,7 @@ function createOtherCommentCard(comment, studentId, rating, eventId, commentId){
 
     var studentName = document.createElement("h4");
     studentName.className = "media-heading user_name";
-    studentName.innerHTML = "PLACEHOLDER"; //comment table in DB doesn't have this!!!!!!!!!!!!!!!!
+    studentName.innerHTML = "PLACEHOLDER"; //comment table in DB doesn't have this!!!!!!!!!!!!!!!!*/
 
     var commentText = document.createElement("p");
     commentText.setAttribute("id", "comment-" + commentId);
@@ -266,7 +266,7 @@ function createOtherCommentCard(comment, studentId, rating, eventId, commentId){
     //span append span to buttons
 
     cardBody.appendChild(timeStamp);
-    cardBody.appendChild(studentName);
+    //cardBody.appendChild(studentName);
     cardBody.appendChild(commentText);
     cardBody.appendChild(brk);
     /*cardBody.appendChild(social);

@@ -64,7 +64,7 @@ function readEventInput()
                 {
                     var jsonObj = JSON.parse(request.responseText);
 
-                    if (jsonObj.msg === "done")
+                    if (jsonObj.msg === "Successfully added event!")
                     {
                         document.getElementById("logstatus").innerHTML = jsonObj.msg;
                         document.getElementById("logstatus").style.color = "green";
