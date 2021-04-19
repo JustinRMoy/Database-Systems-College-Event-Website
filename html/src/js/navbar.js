@@ -4,6 +4,8 @@ var userLevel = '';
 
 function showNavBar()
 {
+  console.log(userLevel);
+
 	if (userLevel == "Student" || userLevel == "Admin")
 	{
 		console.log(showLoggedInButtons());

@@ -4,51 +4,33 @@
         <title>Create RSO</title>         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css"> 
         <link rel="stylesheet" href="src/css/bootstrap.min.css"> 
-        <link rel="shortcut icon" href="img/UCFlogo.png"/> 
+        <link rel="shortcut icon" href="img/UCFlogo.png"/>
+        <link href="src/css/style.css" rel="stylesheet"> 
         <script src="src/js/createRSO.js"></script>
+        <script src="src/js/login.js"></script>
+        <script src="src/js/navbar.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.js"></script>
         <style type="text/css">h1 { font-size: 20px; margin-top: 24px; margin-bottom: 24px; } img { height: 40px; }</style>         
     </head>     
     <body> 
-          <script type="text/javascript">
+        <script type="text/javascript">
             document.addEventListener('DOMContentLoaded', function() 
             {
                 readRSOCookie();
             }, false);
         </script>
-        <nav class="navbar navbar-expand navbar-light bg-light border">
-          <a class="navbar-brand" href="index.html"><img src="img/UCFlogo.png" class="" width="50" height="50" alt="">&nbsp;Event Management Site
-        </a>
-          <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
 
-          <div class="d-flex justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="Events.html">Events</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="planning.html">Plan</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">RSO</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="createRSO.html">Create RSO</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="rsos.html">Join RSO</a>
-                </div>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="login.html">Login</a>
-              </li>
-            </ul>
-          </div>
+        <script type="text/javascript">
+          document.addEventListener('DOMContentLoaded', function() 
+          {
+            readNavCookie();
+            showNavBar();
+          }, false);
+        </script>
+        <nav class="navbar navbar-expand navbar-light bg-light border" id="navbarList">
+
         </nav> 
 
         <div class="col-md-8 offset-md-2 mt-5 bg-light">
