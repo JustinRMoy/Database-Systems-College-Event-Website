@@ -61,6 +61,7 @@
     $rsoIDs = mysqli_query($conn, $sql);
     $numRowsRSO = mysqli_num_rows($rsoIDs);
     $count = 0;
+    $rsoIDs = $rsoIDs->fetch_assoc();
 
     if($numRowsRSO > 0){
         foreach($rsoIDs as $rsoID){
