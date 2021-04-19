@@ -160,8 +160,7 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
         var inputButton = document.createElement("button");
         inputButton.setAttribute("id", "submitComment-" + eventId);
         inputButton.innerHTML = "Add Comment";
-        submitCommentBtn = inputButton;
-        submitCommentBtn.onclick = function () {
+        inputButton.onclick = function () {
             var commentContent = document.getElementById("userCommentInput-" + EventId).value;
 
             if  (commentContent == undefined || commentContent == null) 
