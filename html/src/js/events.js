@@ -1,7 +1,7 @@
 var urlBase = 'http://198.199.77.197';
 var extension = 'php';
 
-var btnDisplay, commentBoxDisplay, spanDisplay, submitCommentBtn;
+var btnDisplay, commentBoxDisplay, spanDisplay, submitCommentBtn, editCommentBtn, deleteCommentBtn;
 
 document.addEventListener(`DOMContentLoaded`, function () { //change getEvents to use UniID later
 
@@ -238,14 +238,17 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     editButton.className = "button";
     editButton.setAttribute("id", "editButton-" + commentId);
     editButton.setAttribute("data-id", commentId);
-
-    editButton.onclick = editComment(commentId, commentContent);
+    
+    editCommentBtn = editButton;
+    editCommentBtn.onclick = editComment(commentId);
 
     var deleteButton = document.createElement("button");
     deleteButton.className = "button";
     deleteButton.setAttribute("id", "deleteButton-" + commentId);
     deleteButton.setAttribute("data-id", commentId);
-    deleteButton.onclick = deleteComment(commentId);
+    
+    deleteCommentBtn = deleteButton;
+    deleteCommentBtn.onclick = deleteComment(commentId);
 
     cardBody.appendChild(timeStamp);
     //cardBody.appendChild(studentName);
@@ -446,6 +449,7 @@ function addComment(userID, EventID)
 {
     var commentContent = document.getElementById("userCommentInput-" + EventID);
 
+    if(commentContent == null) return;
     var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
     var successMessage = "Successfully edited comment ";
   
@@ -487,8 +491,10 @@ function addComment(userID, EventID)
     }
 }
 
-function editComment(commentContent)
+function editComment(commentID)
 {
+    var commentContent = null;   ////////////////////FIX Matthew bc reasons
+    if(commentContent == null) return;
   var json = '{"commentId" : "' + commentID + '", "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
   var successMessage = "Successfully edited comment ";
 
