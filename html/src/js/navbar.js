@@ -6,7 +6,7 @@ function showNavBar()
 {
   console.log(userLevel);
 
-	if (userLevel == "Student" || userLevel == "Admin")
+	if (userLevel == "Student" || userLevel == "Admin" || userLevel == "Super Admin")
 	{
 		console.log(showLoggedInButtons());
 	}
