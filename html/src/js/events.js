@@ -530,8 +530,8 @@ function editComment(commentID)
         
         editable.addEventListener('input', function() {
             document.getElementById("submitEditButton-" + commentID).onclick = function(){    
-                var commentContent = document.getElementById("comment-" + commentID).innerHTML;
-                console.log(commentContent + "," + commentID);
+                var commentContent = document.getElementById("comment-" + commentID).innerHTML + "";
+               // console.log(commentContent + "," + commentID);
                 var json = '{"commentId" : ' + commentID + ', "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
                 var successMessage = "Successfully edited comment ";
 
@@ -558,12 +558,13 @@ function editComment(commentID)
                             {
                                 // document.getElementById("confStatus").innerHTML = "Comment was unable to be edited";
                             }
+                            
+                        window.location.href = "Events.html";
                         }
                     };
                         request.responseType="text";
                         //console.log(json);
                         request.send(json);
-                        window.location.href = "Events.html";
                     }
                     catch(error)
                     {
