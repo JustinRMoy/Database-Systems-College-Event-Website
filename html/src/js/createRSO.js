@@ -21,10 +21,11 @@ function readRSOInput()
 
     var membersJSON = JSON.stringify(members);
 
-    if (userLevel != "Student" || userLevel != "Admin")
+    if (userLevel != "Student" && userLevel != "Admin")
     {
         document.getElementById("logstatus").innerHTML = "You must be a student or admin to create an RSO";
         document.getElementById("logstatus").style.color = "red";
+        return;
     }
 		
     var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : ' + membersJSON + ', "admin" : ' + userID + ', "uniID" : ' + uniID + '}';
