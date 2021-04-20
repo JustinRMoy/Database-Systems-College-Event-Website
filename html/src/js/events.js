@@ -527,6 +527,9 @@ function editComment(commentID)
         editable.contentEditable = "true";
         document.getElementById("submitEditButton-" + commentID).style.display = "block";
         document.getElementById("editButton-" + commentID).style.display = "none";
+        editable.style.backgroundColor = "white";
+        editable.style.borderBottom = "solid black";
+        editable.style.outline = "none";
         
         editable.addEventListener('input', function() {
             document.getElementById("submitEditButton-" + commentID).onclick = function(){    
