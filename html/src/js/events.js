@@ -241,6 +241,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
 
     var commentText = document.createElement("p");
     commentText.setAttribute("id", "comment-" + commentId);
+    commentText.contentEditable = "true";
     commentText.innerHTML = comment;
 
     //button
@@ -251,7 +252,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     editButton.innerHTML = "Edit";
     
     editCommentBtn = editButton;
-    editCommentBtn.onclick = editComment(commentId);
+    editComment(commentId);
 
     var deleteButton = document.createElement("button");
     deleteButton.className = "button";
@@ -514,47 +515,49 @@ function addComment(userID, EventID)
 
 function editComment(commentID)
 {
-    var commentContent = null;   ////////////////////FIX Matthew bc reasons
-    if(commentContent == null) return;
-  var json = '{"commentId" : "' + commentID + '", "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
-  var successMessage = "Successfully edited comment ";
+    editCommentBtn.onclick = function(){
+        if(document.getElementById("comment-" + commentID) == null) return;
+        var commentContent = document.getElementById("comment-" + commentID).innerHTML;
+        var json = '{"commentId" : "' + commentID + '", "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
+        var successMessage = "Successfully edited comment ";
 
-  var request = new XMLHttpRequest();
+        var request = new XMLHttpRequest();
 
-  request.open("POST", "http://198.199.77.197/API/editComments.php", true);
-  {
-    try {
-        request.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200)
+        request.open("POST", "http://198.199.77.197/API/editComments.php", true);
         {
-            var jsonObject = JSON.parse(request.responseText);
-            var endpointmsg = jsonObject['msg'];
-            console.log(endpointmsg);
-  
-            if (endpointmsg === "done")
-            {   
-                // Build status into comments?
-                // document.getElementById("confStatus").innerHTML = successMessage;
-            }
-  
-            else if (endpointmsg !== "done")
+            try {
+                request.onreadystatechange = function()
             {
-                // document.getElementById("confStatus").innerHTML = "Comment was unable to be edited";
+                if (this.readyState == 4 && this.status == 200)
+                {
+                    var jsonObject = JSON.parse(request.responseText);
+                    var endpointmsg = jsonObject['msg'];
+                    //console.log(endpointmsg);
+        
+                    if (endpointmsg === "done")
+                    {   
+                        // Build status into comments?
+                        // document.getElementById("confStatus").innerHTML = successMessage;
+                    }
+        
+                    else if (endpointmsg !== "done")
+                    {
+                        // document.getElementById("confStatus").innerHTML = "Comment was unable to be edited";
+                    }
+                }
+            };
+                request.responseType="text";
+                //console.log(json);
+                request.send(json);
+                window.location.href = "Events.html";
+            }
+            catch(error)
+            {
+                document.getElementById("commentStatus").innerHTML = error.message;
+                document.getElementById("commentStatus").style.color = "red";
             }
         }
-    };
-        request.responseType="text";
-        console.log(json);
-        request.send(json);
-        window.location.href = "Events.html";
     }
-    catch(error)
-    {
-        document.getElementById("commentStatus").innerHTML = error.message;
-        document.getElementById("commentStatus").style.color = "red";
-    }
-  }
 }
 
 function deleteComment(commentID)
