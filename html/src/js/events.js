@@ -151,7 +151,7 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
         //var userInput = ;//add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
         var form = document.createElement("form");
         form.setAttribute("id", "form-" + eventId);
-        form.action = "../../API/editComments.php";
+        //form.action = "../../API/editComments.php";
 
         var input = document.createElement("input");
         input.type = "text";
@@ -260,7 +260,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     deleteButton.innerHTML = "Delete";
     
     deleteCommentBtn = deleteButton;
-    deleteCommentBtn.onclick = deleteComment(commentId);
+    deleteComment(commentId);
 
     
     var brk = document.createElement("br");
@@ -560,43 +560,44 @@ function editComment(commentID)
 function deleteComment(commentID)
 {
   // Use JQUERY to select comments based on comment ID
-  return;
-  var json = '{"CommentID" : "' + commentID + '", "mode" : ' + 2 + '}';
-  var successMessage = "Successfully deleted comment";
+  deleteCommentBtn.onclick = function(){
+        var json = '{"CommentID" : "' + commentID + '", "mode" : ' + 2 + '}';
+        var successMessage = "Successfully deleted comment";
 
-  var request = new XMLHttpRequest();
+        var request = new XMLHttpRequest();
 
-  request.open("POST", "http://198.199.77.197/API/editComments.php", true);
+        request.open("POST", "http://198.199.77.197/API/editComments.php", true);
 
-  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-      request.onreadystatechange = function()
-  {
-      if (this.readyState == 4 && this.status == 200)
-      {
-          var jsonObject = JSON.parse(request.responseText);
-          var endpointmsg = jsonObject['msg'];
-          console.log(endpointmsg);
+        request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        try {
+            request.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                var jsonObject = JSON.parse(request.responseText);
+                var endpointmsg = jsonObject['msg'];
+                console.log(endpointmsg);
 
-          if (endpointmsg === "done")
-          {
-            //   document.getElementById("confStatus").innerHTML = successMessage;
-          }
+                if (endpointmsg === "done")
+                {
+                    //   document.getElementById("confStatus").innerHTML = successMessage;
+                }
 
-          else if (endpointmsg !== "done")
-          {
-            //   document.getElementById("confStatus").innerHTML = "Comment was unable to be deleted";
-          }
-      }
-  };
-      request.responseType="text";
-      console.log(json);
-      request.send(json);
-      window.location.href = "Events.html";
-  }
-  catch(error)
-  {
-      document.getElementById("upstatus").innerHTML = error.message;
-      document.getElementById("upstatus").style.color = "red";
-  }
+                else if (endpointmsg !== "done")
+                {
+                    //   document.getElementById("confStatus").innerHTML = "Comment was unable to be deleted";
+                }
+            }
+        };
+            request.responseType="text";
+            console.log(json);
+            request.send(json);
+            window.location.href = "Events.html";
+        }
+        catch(error)
+        {
+            document.getElementById("upstatus").innerHTML = error.message;
+            document.getElementById("upstatus").style.color = "red";
+        }
+    }
 }
