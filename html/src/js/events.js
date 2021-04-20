@@ -531,6 +531,7 @@ function editComment(commentID)
         editable.addEventListener('input', function() {
             document.getElementById("submitEditButton-" + commentID).onclick = function(){    
                 var commentContent = document.getElementById("comment-" + commentID).innerHTML;
+                console.log(commentContent);
                 var json = '{"commentId" : "' + commentID + '", "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
                 var successMessage = "Successfully edited comment ";
 
@@ -570,8 +571,6 @@ function editComment(commentID)
                         document.getElementById("commentStatus").style.color = "red";
                     }
                 }
-                document.getElementById("submitEditButton-" + commentID).style.display = "none";
-                document.getElementById("editButton-" + commentID).style.display = "block";
             }
         });
         
