@@ -557,6 +557,7 @@ function editComment(commentID)
 function deleteComment(commentID)
 {
   // Use JQUERY to select comments based on comment ID
+  if(commentID == null) return;
   var json = '{"CommentID" : "' + commentID + '", "mode" : ' + 2 + '}';
   var successMessage = "Successfully deleted comment";
 
