@@ -608,12 +608,13 @@ function deleteComment(commentID)
                 {
                     //   document.getElementById("confStatus").innerHTML = "Comment was unable to be deleted";
                 }
+                
+            window.location.href = "Events.html";
             }
         };
             request.responseType="text";
             //console.log(json);
             request.send(json);
-            window.location.href = "Events.html";
         }
         catch(error)
         {
