@@ -37,7 +37,8 @@ $mode = $inputFromJson['mode'];
   }
   else
   {
-      echo "No mode selected";
+    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) VALUES ($userId, $eventId ,'$comment')";  
+    //echo "No mode selected";
   }
 
   if (mysqli_query($conn, $sql))

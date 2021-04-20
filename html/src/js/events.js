@@ -151,17 +151,28 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
         //var userInput = ;//add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
         var form = document.createElement("form");
         form.setAttribute("id", "form-" + eventId);
+        form.action = "../../API/editComments.php";
 
         var input = document.createElement("input");
         input.type = "text";
+        input.name = "comment";
         input.placeholder = "Enter Comment";
         input.setAttribute("id", "userCommentInput-" + eventId);
+
+        var hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.value = eventId;
+        hiddenInput.name = "eventId";
+        hiddenInput.setAttribute("id", "hiddenInput-" + eventId);
 
         var inputButton = document.createElement("button");
         inputButton.setAttribute("id", "submitComment-" + eventId);
         inputButton.innerHTML = "Add Comment";
-        submitCommentBtn = inputButton;
-        submitCommentBtn.onclick = addComment(userID, eventId);
+        inputButton.type = "submit";
+        inputButton.value = userID;
+        inputButton.name = "userId";
+        //submitCommentBtn = inputButton;
+        //submitCommentBtn.onclick = addComment(userID, eventId);
 
 
         form.appendChild(input);
@@ -452,6 +463,7 @@ function showComments(eventId){
 
 function addComment(userID, EventID)
 {
+    if(document.getElementById("userCommentInput-" + EventID) == null) return;
     var commentContent = document.getElementById("userCommentInput-" + EventID).value;
 
     if(commentContent == null) return;
