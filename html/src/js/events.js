@@ -536,7 +536,7 @@ function showComments(eventId){
 
 function addCommentProto(userID, EventID)
 {
-    var commentContent = document.getElementById("userCommentInput-" + EventID);
+    var commentContent = document.getElementById("userCommentInput-" + EventID).value;
 
     if (commentContent == undefined || commentContent == null) 
         return;
@@ -555,7 +555,7 @@ function addCommentProto(userID, EventID)
           {
               var jsonObject = JSON.parse(request.responseText);
               var endpointmsg = jsonObject['msg'];
-              console.log(endpointmsg);
+              //console.log(endpointmsg);
     
               if (endpointmsg === "done")
               {   
@@ -567,10 +567,11 @@ function addCommentProto(userID, EventID)
               {
                   // document.getElementById("commentStatus").innerHTML = "Comment was unable to be added";
               }
+              return;
           }
       };
-          request.responseType="text";
-          console.log(json);
+          //request.responseType="text";
+          //console.log(json);
           request.send(json);
           window.location.href = "Events.html";
       }
