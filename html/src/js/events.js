@@ -161,13 +161,18 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
         inputButton.setAttribute("id", "submitComment-" + eventId);
         inputButton.innerHTML = "Add Comment";
         inputButton.onclick = function () {
+            console.log("PRINTINGGGGGGG");
             var commentContent = document.getElementById("userCommentInput-" + EventId).value;
 
             if  (commentContent == undefined || commentContent == null) 
+            {
+                console.log("Print something bitch");
                 return;
+            }
+
 
             var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
-            var successMessage = "Successfully added comment ";
+            console.log("Successfully added comment ");
           
             var request = new XMLHttpRequest();
           
@@ -184,8 +189,7 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
             
                       if (endpointmsg === "done")
                       {   
-                          // Build status into comments?
-                          // document.getElementById("commentStatus").innerHTML = successMessage;
+                          console.log("Json object is: " + jsonObject);
                       }
             
                       else if (endpointmsg !== "done")
@@ -534,9 +538,10 @@ function addCommentProto(userID, EventID)
 {
     var commentContent = document.getElementById("userCommentInput-" + EventID);
 
-    if  (commentContent == undefined || commentContent == null) 
+    if (commentContent == undefined || commentContent == null) 
         return;
     var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
+    
     var successMessage = "Successfully edited comment ";
   
     var request = new XMLHttpRequest();
