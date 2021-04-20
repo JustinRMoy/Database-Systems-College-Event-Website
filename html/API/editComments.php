@@ -11,6 +11,8 @@
   //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
   //$result = mysqli_query($conn, $sql_select);
   //$Users = $result->fetch_assoc();
+
+  echo $inputFromJson['comment'] . ", " . $inputFromJson['userId'] . ", " . $inputFromJson['eventId'];
   if($inputFromJson['comment'] != null || $inputFromJson['comment'] != ""){
 
     if($inputFromJson['mode'] == 1){//1 = create comment

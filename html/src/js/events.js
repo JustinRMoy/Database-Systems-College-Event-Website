@@ -177,6 +177,7 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
 
         form.appendChild(input);
         form.appendChild(inputButton);
+        form.appendChild(hiddenInput);
     }
 
     commentBoxContent.appendChild(ex);
@@ -557,7 +558,7 @@ function editComment(commentID)
 function deleteComment(commentID)
 {
   // Use JQUERY to select comments based on comment ID
-  if(commentID == null) return;
+  return;
   var json = '{"CommentID" : "' + commentID + '", "mode" : ' + 2 + '}';
   var successMessage = "Successfully deleted comment";
 
