@@ -151,65 +151,33 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
         //var userInput = ;//add code for creating the form/input that allow user to create comments only if logged in !!!!!!!!!!!!!!!!!!!!!!!!!
         var form = document.createElement("form");
         form.setAttribute("id", "form-" + eventId);
+        //form.action = "../../API/editComments.php";
 
         var input = document.createElement("input");
         input.type = "text";
+        input.name = "comment";
         input.placeholder = "Enter Comment";
         input.setAttribute("id", "userCommentInput-" + eventId);
+
+        /*var hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.value = eventId;
+        hiddenInput.name = "eventId";
+        hiddenInput.setAttribute("id", "hiddenInput-" + eventId);*/
 
         var inputButton = document.createElement("button");
         inputButton.setAttribute("id", "submitComment-" + eventId);
         inputButton.innerHTML = "Add Comment";
-        inputButton.onclick = function () {
-            var commentContent = document.getElementById("userCommentInput-" + EventId).value;
-
-            if  (commentContent == undefined || commentContent == null) 
-                return;
-
-            var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
-            var successMessage = "Successfully added comment ";
-          
-            var request = new XMLHttpRequest();
-          
-            request.open("POST", "http://198.199.77.197/API/editComments.php", true);
-            {
-              try {
-                  request.onreadystatechange = function()
-              {
-                  if (this.readyState == 4 && this.status == 200)
-                  {
-                      var jsonObject = JSON.parse(request.responseText);
-                      var endpointmsg = jsonObject['msg'];
-                      console.log(endpointmsg);
-            
-                      if (endpointmsg === "done")
-                      {   
-                          // Build status into comments?
-                          // document.getElementById("commentStatus").innerHTML = successMessage;
-                      }
-            
-                      else if (endpointmsg !== "done")
-                      {
-                          // document.getElementById("commentStatus").innerHTML = "Comment was unable to be added";
-                      }
-                  }
-              };
-                  request.responseType="text";
-                  console.log(json);
-                  request.send(json);
-                  window.location.href = "Events.html";
-              }
-              catch(error)
-              {
-                  document.getElementById("commentStatus").innerHTML = error.message;
-                  document.getElementById("commentStatus").style.color = "red";
-              }
-            }
-        }
+        /*inputButton.type = "submit";
+        inputButton.value = userID;
+        inputButton.name = "userId";*/
+        submitCommentBtn = inputButton;
+        addComment(userID, eventId);
 
 
         form.appendChild(input);
         form.appendChild(inputButton);
+        //form.appendChild(hiddenInput);
     }
 
     commentBoxContent.appendChild(ex);
@@ -247,6 +215,8 @@ function createOtherUserCommentDiv(eventId){
 
 function createUserCommentCard(comment, studentId, rating, eventId, commentId){
 
+    //SIGNIFICANT CHANGES MUST BE MADE TO ALLOW USER TO EDIT THE COMMENT
+
     var card = document.createElement("div");
     card.className = "card";
     card.setAttribute("id", "card-" + commentId);
@@ -281,6 +251,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     editButton.innerHTML = "Edit";
     
     editCommentBtn = editButton;
+    editComment(commentId);
 
     var deleteButton = document.createElement("button");
     deleteButton.className = "button";
@@ -289,47 +260,14 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     deleteButton.innerHTML = "Delete";
     
     deleteCommentBtn = deleteButton;
-    deleteCommentBtn.onclick = function() {
-        var json = '{"CommentId" : "' + commentId + '", "mode" : ' + 2 + '}';
-        var successMessage = "Successfully deleted comment";
+    deleteComment(commentId);
 
-        var request = new XMLHttpRequest();
-
-        request.open("POST", "http://198.199.77.197/API/editComments.php", true);
-
-        request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-        try {
-            request.onreadystatechange = function()
-        {
-            if (this.readyState == 4 && this.status == 200)
-            {
-                var jsonObject = JSON.parse(request.responseText);
-                var endpointmsg = jsonObject['msg'];
-                console.log(endpointmsg);
-
-                if (endpointmsg === "done")
-                {
-                    //   document.getElementById("confStatus").innerHTML = successMessage;
-                }
-
-                else if (endpointmsg !== "done")
-                {
-                    //   document.getElementById("confStatus").innerHTML = "Comment was unable to be deleted";
-                }
-            }
-        };
-            request.responseType="text";
-            console.log(json);
-            request.send(json);
-            window.location.href = "Events.html";
-        }
-        catch(error)
-        {
-            document.getElementById("upstatus").innerHTML = error.message;
-            document.getElementById("upstatus").style.color = "red";
-        }
-    };
-
+    var submitEditButton = document.createElement("button");
+    submitEditButton.className = "button";
+    submitEditButton.setAttribute("id", "submitEditButton-" + commentId);
+    submitEditButton.setAttribute("data-id", commentId);
+    submitEditButton.innerHTML = "Submit";
+    submitEditButton.style.display = "none";
     
     var brk = document.createElement("br");
 
@@ -338,6 +276,7 @@ function createUserCommentCard(comment, studentId, rating, eventId, commentId){
     cardBody.appendChild(commentText);
     cardBody.appendChild(editButton);
     cardBody.appendChild(deleteButton);
+    cardBody.appendChild(submitEditButton);
     cardBody.appendChild(brk);
     /*cardBody.appendChild(social);
     cardBody.appendChild(like); append the buttons here!!!!!!!!!!!!!!!!
@@ -530,163 +469,160 @@ function showComments(eventId){
     }
 }
 
-function addCommentProto(userID, EventID)
+function addComment(userID, EventID)
 {
-    var commentContent = document.getElementById("userCommentInput-" + EventID);
+    submitCommentBtn.onclick = function(){
+        if(document.getElementById("userCommentInput-" + EventID) == null) return;
+        var commentContent = document.getElementById("userCommentInput-" + EventID).value;
 
-    if  (commentContent == undefined || commentContent == null) 
-        return;
-    var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
-    var successMessage = "Successfully edited comment ";
-  
-    var request = new XMLHttpRequest();
-  
-    request.open("POST", "http://198.199.77.197/API/editComments.php", true);
-    {
-      try {
-          request.onreadystatechange = function()
-      {
-          if (this.readyState == 4 && this.status == 200)
-          {
-              var jsonObject = JSON.parse(request.responseText);
-              var endpointmsg = jsonObject['msg'];
-              console.log(endpointmsg);
+        if(commentContent == null) return;
+        var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
+        var successMessage = "Successfully edited comment ";
     
-              if (endpointmsg === "done")
-              {   
-                  // Build status into comments?
-                  // document.getElementById("commentStatus").innerHTML = successMessage;
-              }
+        var request = new XMLHttpRequest();
     
-              else if (endpointmsg !== "done")
-              {
-                  // document.getElementById("commentStatus").innerHTML = "Comment was unable to be added";
-              }
-          }
-      };
-          request.responseType="text";
-          console.log(json);
-          request.send(json);
-          window.location.href = "Events.html";
-      }
-      catch(error)
-      {
-          document.getElementById("commentStatus").innerHTML = error.message;
-          document.getElementById("commentStatus").style.color = "red";
-      }
-    }
-}
-
-function editCommentProto(commentID)
-{
-    var commentContent = null;   ////////////////////FIX Matthew bc reasons
-    if(commentContent == null) return;
-  var json = '{"commentId" : "' + commentID + '", "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
-  var successMessage = "Successfully edited comment ";
-
-  var request = new XMLHttpRequest();
-
-  request.open("POST", "http://198.199.77.197/API/editComments.php", true);
-  {
-    try {
-        request.onreadystatechange = function()
-    {
-        if (this.readyState == 4 && this.status == 200)
+        request.open("POST", "http://198.199.77.197/API/editComments.php", true);
         {
-            var jsonObject = JSON.parse(request.responseText);
-            var endpointmsg = jsonObject['msg'];
-            console.log(endpointmsg);
-  
-            if (endpointmsg === "done")
-            {   
-                // Build status into comments?
-                // document.getElementById("confStatus").innerHTML = successMessage;
+            try {
+                request.onreadystatechange = function()
+                {   
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                        var jsonObject = JSON.parse(request.responseText);
+                        var endpointmsg = jsonObject['msg'];
+                        //console.log(endpointmsg);
+                
+                        if (endpointmsg === "done")
+                        {   
+                            // Build status into comments?
+                            // document.getElementById("commentStatus").innerHTML = successMessage;
+                        }
+                
+                        else if (endpointmsg !== "done")
+                        {
+                            // document.getElementById("commentStatus").innerHTML = "Comment was unable to be added";
+                        }
+                        window.location.href = "Events.html";
+                        return;
+                    }
+                };
+                //request.responseType="text";
+                //console.log(json);
+                request.send(json);
             }
-  
-            else if (endpointmsg !== "done")
+            catch(error)
             {
-                // document.getElementById("confStatus").innerHTML = "Comment was unable to be edited";
+                document.getElementById("commentStatus").innerHTML = error.message;
+                document.getElementById("commentStatus").style.color = "red";
             }
         }
-    };
-        request.responseType="text";
-        console.log(json);
-        request.send(json);
-        window.location.href = "Events.html";
     }
-    catch(error)
-    {
-        document.getElementById("commentStatus").innerHTML = error.message;
-        document.getElementById("commentStatus").style.color = "red";
-    }
-  }
 }
 
-function deleteCommentProto(commentID)
+function editComment(commentID)
+{
+    editCommentBtn.onclick = function(){
+        if(document.getElementById("comment-" + commentID) == null) return;
+        var editable = document.getElementById("comment-" + commentID);
+        editable.contentEditable = "true";
+        document.getElementById("submitEditButton-" + commentID).style.display = "block";
+        document.getElementById("editButton-" + commentID).style.display = "none";
+        editable.style.backgroundColor = "white";
+        editable.style.borderBottom = "solid black";
+        editable.style.outline = "none";
+        
+        editable.addEventListener('input', function() {
+            document.getElementById("submitEditButton-" + commentID).onclick = function(){    
+                var commentContent = document.getElementById("comment-" + commentID).innerHTML + "";
+               // console.log(commentContent + "," + commentID);
+                var json = '{"commentId" : ' + commentID + ', "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
+                var successMessage = "Successfully edited comment ";
+
+                var request = new XMLHttpRequest();
+
+                request.open("POST", "http://198.199.77.197/API/editComments.php", true);
+                {
+                    try {
+                        request.onreadystatechange = function()
+                    {
+                        if (this.readyState == 4 && this.status == 200)
+                        {
+                            var jsonObject = JSON.parse(request.responseText);
+                            var endpointmsg = jsonObject['msg'];
+                            //console.log(endpointmsg);
+                
+                            if (endpointmsg === "done")
+                            {   
+                                // Build status into comments?
+                                // document.getElementById("confStatus").innerHTML = successMessage;
+                            }
+                
+                            else if (endpointmsg !== "done")
+                            {
+                                // document.getElementById("confStatus").innerHTML = "Comment was unable to be edited";
+                            }
+                            
+                        window.location.href = "Events.html";
+                        }
+                    };
+                        request.responseType="text";
+                        //console.log(json);
+                        request.send(json);
+                    }
+                    catch(error)
+                    {
+                        document.getElementById("commentStatus").innerHTML = error.message;
+                        document.getElementById("commentStatus").style.color = "red";
+                    }
+                }
+            }
+        });
+        
+    }
+}
+
+function deleteComment(commentID)
 {
   // Use JQUERY to select comments based on comment ID
-  var json = '{"CommentID" : "' + commentID + '", "mode" : ' + 2 + '}';
-  var successMessage = "Successfully deleted comment";
+  deleteCommentBtn.onclick = function(){
+        var json = '{"commentId" : "' + commentID + '", "mode" : ' + 2 + '}';
+        var successMessage = "Successfully deleted comment";
 
-  var request = new XMLHttpRequest();
+        var request = new XMLHttpRequest();
 
-  request.open("POST", "http://198.199.77.197/API/editComments.php", true);
+        request.open("POST", "http://198.199.77.197/API/editComments.php", true);
 
-  request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-      request.onreadystatechange = function()
-  {
-      if (this.readyState == 4 && this.status == 200)
-      {
-          var jsonObject = JSON.parse(request.responseText);
-          var endpointmsg = jsonObject['msg'];
-          console.log(endpointmsg);
+        request.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+        try {
+            request.onreadystatechange = function()
+        {
+            if (this.readyState == 4 && this.status == 200)
+            {
+                var jsonObject = JSON.parse(request.responseText);
+                var endpointmsg = jsonObject['msg'];
+                //console.log(endpointmsg);
 
-          if (endpointmsg === "done")
-          {
-            //   document.getElementById("confStatus").innerHTML = successMessage;
-          }
+                if (endpointmsg === "done")
+                {
+                    //   document.getElementById("confStatus").innerHTML = successMessage;
+                }
 
-          else if (endpointmsg !== "done")
-          {
-            //   document.getElementById("confStatus").innerHTML = "Comment was unable to be deleted";
-          }
-      }
-  };
-      request.responseType="text";
-      console.log(json);
-      request.send(json);
-      window.location.href = "Events.html";
-  }
-  catch(error)
-  {
-      document.getElementById("upstatus").innerHTML = error.message;
-      document.getElementById("upstatus").style.color = "red";
-  }
+                else if (endpointmsg !== "done")
+                {
+                    //   document.getElementById("confStatus").innerHTML = "Comment was unable to be deleted";
+                }
+                
+            window.location.href = "Events.html";
+            }
+        };
+            request.responseType="text";
+            //console.log(json);
+            request.send(json);
+        }
+        catch(error)
+        {
+            document.getElementById("upstatus").innerHTML = error.message;
+            document.getElementById("upstatus").style.color = "red";
+        }
+    }
 }
-
-// function editCommentNow(commentID)
-// {
-//     $('#comment' + commentID).click(function(){
-//     var newComment = $(this).text();
-//     $(this).html('');
-//     $('<input></input>')
-//         .attr({
-//             'type': 'text',
-//             'value': 
-//         })
-//         .appendTo('#comment' + commentID);
-//     $('#txt_fullname').focus();
-//     });
-
-//   $(document).on('blur','#txt_fullname', function(){
-//       var name = $(this).val();
-//       $.ajax({
-//         type: 'post',
-//         url: 'change-name.xhr?name=' + name,
-//         success: function(){
-//           $('#fullname').text(name);
-//         }
-//       });
-//   });
-// }

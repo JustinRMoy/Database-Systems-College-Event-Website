@@ -3,6 +3,7 @@ let rsoURL = "http://198.199.77.197/API/createRSO.php";
 var userID = -1;
 var uniID = -1; // This needs a value to work
 var userLevel = '';
+var count = 5;
 
 function readRSOInput()
 {   
@@ -13,17 +14,18 @@ function readRSOInput()
     var members = [];
     
     // Change 4 to var depending on how we want this to be done
-    for (var i = 1; i < 5; i++)
+    for (var i = 1; i < count; i++)
     {
         members[i-1] = document.getElementById("inputMemberName" + i).value;
     }
 
     var membersJSON = JSON.stringify(members);
 
-    if (userLevel != "Student" || userLevel != "Admin")
+    if (userLevel != "Student" && userLevel != "Admin")
     {
         document.getElementById("logstatus").innerHTML = "You must be a student or admin to create an RSO";
         document.getElementById("logstatus").style.color = "red";
+        return;
     }
 		
     var jsonPayload = '{"rsoName" : "' + rsoName + '", "description" : "' + description + '", "students" : ' + membersJSON + ', "admin" : ' + userID + ', "uniID" : ' + uniID + '}';
@@ -48,6 +50,7 @@ function readRSOInput()
                     document.getElementById("inputRSOName").value = "";
                     document.getElementById("inputRSODescription").value = "";
                     document.getElementsByClassName("members").value = "";
+                    updateCookie();
                 }
 
                 else
@@ -57,7 +60,7 @@ function readRSOInput()
                 }
             }
 
-        }
+        };
 
         console.log(jsonPayload);
         request.send(jsonPayload);
@@ -98,7 +101,22 @@ function readRSOCookie()
 	}
 }
 
-var count = 5;
+function updateCookie()
+{
+    var data = document.cookie;
+	var splits = data.split(";");
+	for(var i = 0; i < splits.length; i++)
+	{
+		var thisOne = splits[i].trim();
+        var tokens = thisOne.split("=");
+        
+        if( tokens[0] == "userLevel")
+        {
+            tokens[1] = "Admin";
+        }
+	}
+}
+
 function addMember()
 {
     var memberList = document.getElementById("rsoMembers");

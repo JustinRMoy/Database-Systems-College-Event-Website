@@ -2,11 +2,7 @@
 
   require 'db_conn.php';
   
-  echo 'TEST 1'
-
   $inputFromJson = json_decode(file_get_contents('php://input'), true);
-
-  echo 'TEST 2'
 
   //$user_level = $inputFromJson['user_level'];
   $sql;
@@ -17,48 +13,31 @@
   //$Users = $result->fetch_assoc();
  
 
-  if ($inputFromJson['mode'] == 1)
-  {
-    //1 = create comment
-    $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
-    VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
+if($inputFromJson['mode'] == 1){//1 = create comment
 
-  }
+  $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
+  VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
 
-  else if ($inputFromJson['mode'] == 2)
-  {
-    //delete a comment
-    $sql = "DELETE FROM Comments 
-    WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+}elseif($inputFromJson['mode'] == 2){//delete a comment
+  $sql = "DELETE FROM Comments 
+  WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+}elseif($inputFromJson['mode'] == 3){//update a comment
+  $sql = "UPDATE Comments 
+  SET Comment='" . $inputFromJson['comment'] . "'
+  WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+}else{
+    echo "No mode selected";
+}
 
-    echo 'TEST 3, after QUERY'
-  }
-  
-  else if ($inputFromJson['mode'] == 3)
+  if($conn->query($sql) != TRUE )
   {
-    //update a comment
-    $sql = "UPDATE Comments 
-    SET Comment='" . $inputFromJson['comment'] . "'
-    WHERE CommentID='" . $inputFromJson['commentId'] . "'";
-  }
-  
-  else
-  {
-      echo "No mode selected";
-  }
-
-  echo 'TEST 4'
-
-  if ((mysqli_query($conn, $sql))
-  {
-     //sendEmail("mr.l.t@hotmail.com");
-     echo 'TEST 5'
-     returnInfo("done");
+    echo "SQL Error";
+    returnError( $conn->error );
   }
   else
   {
-    echo 'TEST 6'
-    returnInfo( "Unable to perform comment operation" );
+    //sendEmail("mr.l.t@hotmail.com");
+    returnInfo("done");
   }
   $conn->close();
     
