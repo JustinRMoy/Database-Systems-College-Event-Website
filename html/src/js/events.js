@@ -531,8 +531,8 @@ function editComment(commentID)
         editable.addEventListener('input', function() {
             document.getElementById("submitEditButton-" + commentID).onclick = function(){    
                 var commentContent = document.getElementById("comment-" + commentID).innerHTML;
-                console.log(commentContent);
-                var json = '{"commentId" : "' + commentID + '", "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
+                console.log(commentContent + "," + commentID);
+                var json = '{"commentId" : ' + commentID + ', "comment" : "' + commentContent + '", "mode" : ' + 3 + '}';
                 var successMessage = "Successfully edited comment ";
 
                 var request = new XMLHttpRequest();
