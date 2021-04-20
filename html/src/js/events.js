@@ -561,7 +561,7 @@ function deleteComment(commentID)
 {
   // Use JQUERY to select comments based on comment ID
   deleteCommentBtn.onclick = function(){
-        var json = '{"CommentID" : "' + commentID + '", "mode" : ' + 2 + '}';
+        var json = '{"commentId" : "' + commentID + '", "mode" : ' + 2 + '}';
         var successMessage = "Successfully deleted comment";
 
         var request = new XMLHttpRequest();
@@ -576,7 +576,7 @@ function deleteComment(commentID)
             {
                 var jsonObject = JSON.parse(request.responseText);
                 var endpointmsg = jsonObject['msg'];
-                console.log(endpointmsg);
+                //console.log(endpointmsg);
 
                 if (endpointmsg === "done")
                 {
@@ -590,7 +590,7 @@ function deleteComment(commentID)
             }
         };
             request.responseType="text";
-            console.log(json);
+            //console.log(json);
             request.send(json);
             window.location.href = "Events.html";
         }
