@@ -60,7 +60,7 @@ function readRSOInput()
                 }
             }
 
-        }
+        };
 
         console.log(jsonPayload);
         request.send(jsonPayload);
