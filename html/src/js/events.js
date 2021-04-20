@@ -502,13 +502,13 @@ function addComment(userID, EventID)
                         {
                             // document.getElementById("commentStatus").innerHTML = "Comment was unable to be added";
                         }
+                        window.location.href = "Events.html";
                         return;
                     }
                 };
                 //request.responseType="text";
                 //console.log(json);
                 request.send(json);
-                window.location.href = "Events.html";
             }
             catch(error)
             {
