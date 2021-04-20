@@ -11,37 +11,33 @@
   //$sql_select = "SELECT ID FROM University WHERE Name = 'University of Central Florida';";
   //$result = mysqli_query($conn, $sql_select);
   //$Users = $result->fetch_assoc();
+ 
 
-  echo $inputFromJson['comment'] . ", " . $inputFromJson['userId'] . ", " . $inputFromJson['eventId'];
-  if($inputFromJson['comment'] != null || $inputFromJson['comment'] != ""){
+if($inputFromJson['mode'] == 1){//1 = create comment
 
-    if($inputFromJson['mode'] == 1){//1 = create comment
+  $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
+  VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
 
-      $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
-      VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
+}elseif($inputFromJson['mode'] == 2){//delete a comment
+  $sql = "DELETE FROM Comments 
+  WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+}elseif($inputFromJson['mode'] == 3){//update a comment
+  $sql = "UPDATE Comments 
+  SET Comment='" . $inputFromJson['comment'] . "'
+  WHERE CommentID='" . $inputFromJson['commentId'] . "'";
+}else{
+    echo "No mode selected";
+}
 
-    }elseif($inputFromJson['mode'] == 2){//delete a comment
-      $sql = "DELETE FROM Comments 
-      WHERE CommentID='" . $inputFromJson['commentId'] . "'";
-    }elseif($inputFromJson['mode'] == 3){//update a comment
-      $sql = "UPDATE Comments 
-      SET Comment='" . $inputFromJson['comment'] . "'
-      WHERE CommentID='" . $inputFromJson['commentId'] . "'";
-    }else{
-      $sql = "INSERT INTO Comments (StudentID, EventID, Comment) 
-      VALUES ('". $inputFromJson['userId'] ."','". $inputFromJson['eventId'] ."','". $inputFromJson['comment'] ."')";
-    }
-
-      if($conn->query($sql) != TRUE )
-      {
-        echo "SQL Error";
-        returnError( $conn->error );
-      }
-      else
-      {
-        //sendEmail("mr.l.t@hotmail.com");
-        returnInfo("done");
-      }
+  if($conn->query($sql) != TRUE )
+  {
+    echo "SQL Error";
+    returnError( $conn->error );
+  }
+  else
+  {
+    //sendEmail("mr.l.t@hotmail.com");
+    returnInfo("done");
   }
   $conn->close();
     

@@ -159,25 +159,25 @@ function createCommentBoxContent(avgRating, eventId, name, userID){
         input.placeholder = "Enter Comment";
         input.setAttribute("id", "userCommentInput-" + eventId);
 
-        var hiddenInput = document.createElement("input");
+        /*var hiddenInput = document.createElement("input");
         hiddenInput.type = "hidden";
         hiddenInput.value = eventId;
         hiddenInput.name = "eventId";
-        hiddenInput.setAttribute("id", "hiddenInput-" + eventId);
+        hiddenInput.setAttribute("id", "hiddenInput-" + eventId);*/
 
         var inputButton = document.createElement("button");
         inputButton.setAttribute("id", "submitComment-" + eventId);
         inputButton.innerHTML = "Add Comment";
-        inputButton.type = "submit";
+        /*inputButton.type = "submit";
         inputButton.value = userID;
-        inputButton.name = "userId";
-        //submitCommentBtn = inputButton;
-        //submitCommentBtn.onclick = addComment(userID, eventId);
+        inputButton.name = "userId";*/
+        submitCommentBtn = inputButton;
+        addComment(userID, eventId);
 
 
         form.appendChild(input);
         form.appendChild(inputButton);
-        form.appendChild(hiddenInput);
+        //form.appendChild(hiddenInput);
     }
 
     commentBoxContent.appendChild(ex);
@@ -464,49 +464,51 @@ function showComments(eventId){
 
 function addComment(userID, EventID)
 {
-    if(document.getElementById("userCommentInput-" + EventID) == null) return;
-    var commentContent = document.getElementById("userCommentInput-" + EventID).value;
+    submitCommentBtn.onclick = function(){
+        if(document.getElementById("userCommentInput-" + EventID) == null) return;
+        var commentContent = document.getElementById("userCommentInput-" + EventID).value;
 
-    if(commentContent == null) return;
-    var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
-    var successMessage = "Successfully edited comment ";
-  
-    var request = new XMLHttpRequest();
-  
-    request.open("POST", "http://198.199.77.197/API/editComments.php", true);
-    {
-      try {
-          request.onreadystatechange = function()
-      {
-          if (this.readyState == 4 && this.status == 200)
-          {
-              var jsonObject = JSON.parse(request.responseText);
-              var endpointmsg = jsonObject['msg'];
-              //console.log(endpointmsg);
+        if(commentContent == null) return;
+        var json = '{"userId" : ' + userID + ', "eventId" : ' + EventID + ', "comment" : "' + commentContent + '", "mode" : ' + 1 + '}';
+        var successMessage = "Successfully edited comment ";
     
-              if (endpointmsg === "done")
-              {   
-                  // Build status into comments?
-                  // document.getElementById("commentStatus").innerHTML = successMessage;
-              }
+        var request = new XMLHttpRequest();
     
-              else if (endpointmsg !== "done")
-              {
-                  // document.getElementById("commentStatus").innerHTML = "Comment was unable to be added";
-              }
-              return;
-          }
-      };
-          //request.responseType="text";
-          //console.log(json);
-          request.send(json);
-          window.location.href = "Events.html";
-      }
-      catch(error)
-      {
-          document.getElementById("commentStatus").innerHTML = error.message;
-          document.getElementById("commentStatus").style.color = "red";
-      }
+        request.open("POST", "http://198.199.77.197/API/editComments.php", true);
+        {
+            try {
+                request.onreadystatechange = function()
+                {   
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                        var jsonObject = JSON.parse(request.responseText);
+                        var endpointmsg = jsonObject['msg'];
+                        //console.log(endpointmsg);
+                
+                        if (endpointmsg === "done")
+                        {   
+                            // Build status into comments?
+                            // document.getElementById("commentStatus").innerHTML = successMessage;
+                        }
+                
+                        else if (endpointmsg !== "done")
+                        {
+                            // document.getElementById("commentStatus").innerHTML = "Comment was unable to be added";
+                        }
+                        return;
+                    }
+                };
+                //request.responseType="text";
+                //console.log(json);
+                request.send(json);
+                window.location.href = "Events.html";
+            }
+            catch(error)
+            {
+                document.getElementById("commentStatus").innerHTML = error.message;
+                document.getElementById("commentStatus").style.color = "red";
+            }
+        }
     }
 }
 
